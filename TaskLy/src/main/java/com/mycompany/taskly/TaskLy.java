@@ -9,8 +9,7 @@ package com.mycompany.taskly;
  * @author wekisley
  */
 public class TaskLy {
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       System.out.println("Só começar!");
     }
 }
