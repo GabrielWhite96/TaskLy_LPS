@@ -4,12 +4,19 @@
 
 package com.mycompany.taskly;
 
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import model.Login;
+
 /**
  *
  * @author wekisley
  */
 public class TaskLy {
     public static void main(String[] args) {
-       System.out.println("Só começar!");
+        EntityManagerFactory factory = ConnectionDB.getFactory();
+        
+        factory.close();
     }
 }
