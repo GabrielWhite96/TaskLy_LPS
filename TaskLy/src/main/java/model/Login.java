@@ -4,6 +4,7 @@
  */
 package model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,9 +21,15 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(unique = true)
     private int userId;
+    @Column(unique = true)
     private String email;
     private String password;
+    
+    public Login(){
+        
+    }
 
     public Login(String email){
         this.email = email;

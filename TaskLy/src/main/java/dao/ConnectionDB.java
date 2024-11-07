@@ -19,7 +19,7 @@ public class ConnectionDB {
         try {
             factory = Persistence.createEntityManagerFactory("taskly-jpa");
         } catch (Exception e) {
-            throw new ExceptionInInitializerError("Initial EntityManagerFactory creation failed." + e);
+            throw new ExceptionInInitializerError("Falha ao criar conexão com o banco!" + e);
         }
     }
     
