@@ -9,14 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
 
 /**
  *
  * @author wekisley
  */
 @Entity
-@Data
 public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +28,20 @@ public class Login {
     public Login(){
         
     }
-
-    public Login(String email){
+    
+    public int validatePassword(String password){
+        if(this.password.equals(password)){
+            System.out.println(password + " = " + this.userId);
+            return this.userId;
+        }
+        return 0;
+    }
+    
+    public void setPassword(String password){
+        this.password = password;
+    }
+    
+    public void setEmail(String email){
         this.email = email;
     }
 }

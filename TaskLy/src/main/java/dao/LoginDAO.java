@@ -27,7 +27,7 @@ public class LoginDAO implements LoginDAOInterface {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar login!", e);
+            throw new Exception("Erro ao salvar login!");
         } finally {
             entityManager.close();
         }
@@ -40,7 +40,7 @@ public class LoginDAO implements LoginDAOInterface {
         try{
             login = entityManager.find(Login.class, id);
         } catch (Exception e) {
-            throw new Exception("Opa! Há algo de errado, tente mais tarde!", e);
+            throw new Exception("Opa! Há algo de errado, tente mais tarde!");
         } finally {
             entityManager.close();
         }
@@ -58,7 +58,7 @@ public class LoginDAO implements LoginDAOInterface {
             query.setParameter("email", email);
             login = query.getSingleResult();
         } catch (Exception e) {
-            throw new Exception("Opa! Há algo de errado, tente mais tarde!", e);
+            throw new Exception("Opa! Há algo de errado, tente mais tarde!");
         } finally {
             entityManager.close();
         }
@@ -74,7 +74,7 @@ public class LoginDAO implements LoginDAOInterface {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao atualizaro login!", e);
+            throw new Exception("Erro ao atualizaro login!");
         } finally {
             entityManager.close();
         }
@@ -92,7 +92,7 @@ public class LoginDAO implements LoginDAOInterface {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao deletar login!", e);
+            throw new Exception("Erro ao deletar login!");
         } finally {
             entityManager.close();
         }
@@ -106,7 +106,7 @@ public class LoginDAO implements LoginDAOInterface {
             TypedQuery<Login> query = entityManager.createQuery("SELECT login FROM Login login", Login.class);
             loginList = query.getResultList();
         } catch (Exception e) {
-            throw new Exception("Não foi possível obter os logins!", e);
+            throw new Exception("Não foi possível obter os logins!");
         } finally {
             entityManager.close();
         }
