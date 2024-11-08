@@ -1,6 +1,5 @@
 package dao;
 
-import dao.interfaces.LoginDAOInterface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -15,7 +14,7 @@ import model.Login;
  *
  * @author wekisley
  */
-public class LoginDAO implements LoginDAOInterface {
+public class LoginDAO implements DAOInterface<Login> {
     public LoginDAO(){ }
 
     @Override
