@@ -46,9 +46,6 @@ public class LoginDAO implements DAOInterface<Login> {
         return login;
     }
     
-    
-
-    @Override
     public Login getByEmail(String email) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         Login login = null;
