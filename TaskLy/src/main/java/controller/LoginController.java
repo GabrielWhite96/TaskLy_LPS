@@ -6,6 +6,7 @@ package controller;
 
 import dao.LoginDAO;
 import model.Login;
+import model.Person;
 
 /**
  *
@@ -18,11 +19,12 @@ public class LoginController {
         this.loginDAO = new LoginDAO();
     }
     
-    public int getUserAccount(String email, String password) throws Exception {
+    public Person getUserAccount(String email, String password) throws Exception {
         Login login = this.loginDAO.getByEmail(email);
-        if(login == null){
+        Person person = login.validatePassword(password);
+        if(login == null || person == null){
             throw new Exception("Não foi possível encontrar o usuário!");
         }
-        return login.validatePassword(password);
+        return person;
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Person;
 
 /**
  *
@@ -33,8 +34,8 @@ public class LoginView extends javax.swing.JFrame {
         });
     }
     
-    public void showMainPage(int userId){
-        MainPage mainScreen = new MainPage(userId);
+    public void showMainPage(Person user){
+        MainPage mainScreen = new MainPage(user);
         mainScreen.setVisible(true);
         this.dispose();
     }
@@ -171,8 +172,8 @@ public class LoginView extends javax.swing.JFrame {
         String email = this.emailField.getText();
         String password = new String(this.passwordField.getPassword());
         try {
-            int userId = this.loginController.getUserAccount(email, password);
-            this.showMainPage(userId);
+            Person user = this.loginController.getUserAccount(email, password);
+            this.showMainPage(user);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

@@ -5,6 +5,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import model.Person;
 
 /**
  *
@@ -19,7 +20,7 @@ public class MainPage extends javax.swing.JFrame {
         initComponents();
     }
 
-    public MainPage(int userId) {
+    public MainPage(Person user) {
         initComponents();
     }
 
