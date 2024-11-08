@@ -19,12 +19,7 @@ import model.Login;
 public class TaskLy {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = ConnectionDB.getFactory();
-        List<Login> login1 = null;
-        LoginDAO ld = new LoginDAO();
-        login1 = ld.getAll();
-        for(Login l: login1){
-            System.out.println("Here: " + l.getEmail());
-        }
+        
         factory.close();
     }
 }
