@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 /**
  *
@@ -19,8 +20,8 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
-    private int userId;
+    @OneToOne
+    private Person person;
     @Column(unique = true)
     private String email;
     private String password;
@@ -29,12 +30,11 @@ public class Login {
         
     }
     
-    public int validatePassword(String password){
+    public Person validatePassword(String password){
         if(this.password.equals(password)){
-            System.out.println(password + " = " + this.userId);
-            return this.userId;
+            return this.person;
         }
-        return 0;
+        return null;
     }
     
     public void setPassword(String password){
