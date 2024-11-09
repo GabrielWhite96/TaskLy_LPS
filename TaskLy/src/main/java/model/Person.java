@@ -28,4 +28,15 @@ public class Person {
     private String phoneNumber;
     private String jobTitle;
     private boolean gender;
+    
+    public Person(){}
+    
+    public Person(String name, Login login, String address, String phoneNumber, String jobTitle, String gender){
+        this.name = name;
+        this.login = login;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.jobTitle = jobTitle;
+        this.gender = gender.toLowerCase().startsWith("m");
+    }
 }

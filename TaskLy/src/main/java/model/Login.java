@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.Setter;
 
 /**
  *
@@ -23,11 +24,22 @@ public class Login {
     @OneToOne
     private Person person;
     @Column(unique = true)
+    @Setter
     private String email;
-    private String password = "1234567";
+    @Setter
+    private String password;
     
     public Login(){
         
+    }
+    
+    public Login(String email){
+        this.email = email;
+    }
+    
+    public Login(String email, String password){
+        this.email = email;
+        this.password = password;
     }
     
     public Person validatePassword(String password){
@@ -35,13 +47,5 @@ public class Login {
             return this.person;
         }
         return null;
-    }
-    
-    public void setPassword(String password){
-        this.password = password;
-    }
-    
-    public void setEmail(String email){
-        this.email = email;
     }
 }

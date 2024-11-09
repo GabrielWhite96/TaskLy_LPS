@@ -26,7 +26,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao salvar usuário!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
@@ -39,7 +39,7 @@ public class PersonDAO implements DAOInterface<Person> {
         try{
             person = entityManager.find(Person.class, id);
         } catch (Exception e) {
-            throw new Exception("Opa! Há algo de errado, tente mais tarde!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
@@ -54,7 +54,7 @@ public class PersonDAO implements DAOInterface<Person> {
             query.setParameter("email", email);
             person = query.getSingleResult();
         } catch (Exception e) {
-            throw new Exception("Opa! Há algo de errado, tente mais tarde!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
@@ -70,7 +70,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao atualizaro login!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
@@ -88,7 +88,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception("Erro ao deletar login!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
@@ -102,7 +102,7 @@ public class PersonDAO implements DAOInterface<Person> {
             TypedQuery<Person> query = entityManager.createQuery("SELECT login FROM Login login", Person.class);
             personList = query.getResultList();
         } catch (Exception e) {
-            throw new Exception("Não foi possível obter os logins!");
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
