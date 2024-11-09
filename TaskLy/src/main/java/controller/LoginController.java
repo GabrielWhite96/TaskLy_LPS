@@ -18,7 +18,7 @@ public class LoginController {
     public LoginController(){
         this.loginDAO = new LoginDAO();
     }
-    
+  
     public Login createLogin(String email, String password) throws Exception {
         Login login = new Login(email, password);
         try {
@@ -28,7 +28,7 @@ public class LoginController {
         }
         return login;
     }
-    
+  
     public Person getUserAccount(String email, String password) throws Exception {
         Login login = this.loginDAO.getByEmail(email);
         Person person = login.validatePassword(password);

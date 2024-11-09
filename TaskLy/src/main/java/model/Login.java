@@ -33,8 +33,11 @@ public class Login {
         
     }
     
-    public Login(String email){
-        this.email = email;
+    public Person validatePassword(String password){
+        if(this.password.equals(password)){
+            return this.person;
+        }
+        return null;
     }
     
     public Login(String email, String password){

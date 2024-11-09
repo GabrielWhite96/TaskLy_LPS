@@ -15,6 +15,7 @@ import lombok.Data;
  *
  * @author wekisley
  */
+
 @Entity
 @Data
 public class Person {
