@@ -24,7 +24,7 @@ public class Login {
     private Person person;
     @Column(unique = true)
     private String email;
-    private String password;
+    private String password = "1234567";
     
     public Login(){
         
