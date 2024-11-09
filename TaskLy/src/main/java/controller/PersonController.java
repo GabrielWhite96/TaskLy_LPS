@@ -34,7 +34,7 @@ public class PersonController {
         try {
             return this.personDAO.getAll();
         } catch (Exception e) {
-            throw new Exception("Não foi possível obter os usuários!", e);
+            throw new Exception("Não foi possível salvar o usuário!");
         }
     }
 }

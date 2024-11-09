@@ -17,6 +17,7 @@ import view.CreatePerson;
 import view.CreateProject;
 import view.LoginView;
 import view.TesteTable;
+import view.ProjectsMenu;
 
 /**
  *
@@ -30,7 +31,10 @@ public class TaskLy {
 //        project.setVisible(true);
         TesteTable table = new TesteTable();
         table.setVisible(true);
+//        CreateProject project = new CreateProject();
+//        project.setVisible(true);
 
+        
 //        LoginController loginController = new LoginController();
 //        Login login = loginController.createLogin("aaqaaaqqa", "123s4567");
 //        PersonController personController = new PersonController();
