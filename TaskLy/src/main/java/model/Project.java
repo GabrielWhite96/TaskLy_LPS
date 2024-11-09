@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
+import static utils.DateFunctions.getCurrentDate;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -33,7 +35,17 @@ public class Project {
     private String title;
     private String description;
     private String status;
-    private String created_at;
+    private String createdAt;
     
     public Project(){}
+    
+    public Project(String title, String description){
+        this.tasks = new ArrayList<>();
+        this.reports = new ArrayList<>();
+        this.messages = new ArrayList<>();
+        this.title = title;
+        this.description = "";
+        this.status = "Aguardando";
+        this.createdAt = getCurrentDate();
+    }
 }

@@ -16,5 +16,4 @@ public interface DAOInterface<T> {
     public List<T> getAll() throws Exception;
     public void save(T login) throws Exception;
     public void update(T login) throws Exception;
-    public T getByEmail(String email) throws Exception;
 }
