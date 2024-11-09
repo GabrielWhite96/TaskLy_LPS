@@ -42,7 +42,8 @@ public class Task {
     
     public Task(){}
     
-    public Task(String title, String description){
+    public Task(String title, String description, Project project){
+        this.project = project;
         this.reports = new ArrayList<>();
         this.messages = new ArrayList<>();
         this.title = title;

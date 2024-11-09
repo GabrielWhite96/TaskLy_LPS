@@ -5,6 +5,7 @@
 package controller;
 
 import dao.TaskDAO;
+import model.Project;
 import model.Task;
 
 /**
@@ -18,10 +19,10 @@ public class TaskController {
         this.taskDAO = new TaskDAO();
     }
     
-    public void createTask(String title, String description) throws Exception{
-        Task task = new Task(title, description);
+    public void createTask(String title, String description, Project project) throws Exception{
+        Task task = new Task(title, description, project);
         try {
-            task = taskDAO.save(task);
+            taskDAO.save(task);
         } catch (Exception e){
             throw new Exception("Não foi possível criar a tarefa!");
         }
