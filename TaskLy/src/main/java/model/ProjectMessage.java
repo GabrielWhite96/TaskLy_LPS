@@ -22,7 +22,6 @@ public class ProjectMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-//    @JoinColumn(name = "person_id")
     private Person person;
     @ManyToOne
     private Project project;
