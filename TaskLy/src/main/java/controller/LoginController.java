@@ -13,12 +13,22 @@ import model.Person;
  * @author wekisley
  */
 public class LoginController {
-    private LoginDAO loginDAO;
+    private final LoginDAO loginDAO;
     
     public LoginController(){
         this.loginDAO = new LoginDAO();
     }
-    
+  
+    public Login createLogin(String email, String password) throws Exception {
+        Login login = new Login(email, password);
+        try {
+            this.loginDAO.save(login);
+        } catch (Exception e){
+            throw new Exception("Não foi possível criar o login!");
+        }
+        return login;
+    }
+  
     public Person getUserAccount(String email, String password) throws Exception {
         Login login = this.loginDAO.getByEmail(email);
         Person person = login.validatePassword(password);
