@@ -5,6 +5,7 @@
 package controller;
 
 import dao.ProjectDAO;
+import java.util.List;
 import model.Project;
 
 /**
@@ -21,10 +22,18 @@ public class ProjectController {
     public Project createNewProject(String title, String description) throws Exception{
         Project project = new Project(title, description);
         try {
-            projectDAO.save(project);
+            this.projectDAO.save(project);
         } catch(Exception e) {
             throw new Exception("Não foi possível cria o projeto!", e);
         }
         return project;
+    }
+    
+    public List<Project> getAllProjects() throws Exception{
+        try {
+            return this.projectDAO.getAll();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível salvar o usuário!");
+        }
     }
 }

@@ -5,6 +5,7 @@
 package controller;
 
 import dao.PersonDAO;
+import java.util.List;
 import model.Login;
 import model.Person;
 
@@ -23,9 +24,17 @@ public class PersonController {
     public void createNewUser(String name, Login login, String address, String phoneNumber, String jobTitle, String gender) throws Exception {
         Person person = new Person(name, login, address, phoneNumber, jobTitle, gender);
         try {
-            personDAO.save(person);
+            this.personDAO.save(person);
         } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o usuário!", e);
+            throw new Exception("Não foi possível salvar o usuário!");
+        }
+    }
+    
+    public List<Person> getAllPersons() throws Exception{
+        try {
+            return this.personDAO.getAll();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível salvar o usuário!");
         }
     }
 }
