@@ -4,11 +4,16 @@
  */
 package model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -24,6 +29,12 @@ public class Person {
     private int id;
     @OneToOne(mappedBy="person")
     private Login login;
+    @ManyToOne
+    private Project project;
+    @ManyToMany
+    private List<Task> tasks;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<ProjectMessage> projectMessages;
     private String name;
     private String address;
     private String phoneNumber;

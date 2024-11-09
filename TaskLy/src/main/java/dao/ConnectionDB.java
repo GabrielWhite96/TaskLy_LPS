@@ -15,10 +15,8 @@ import jakarta.persistence.Persistence;
 public class ConnectionDB {
     private static EntityManagerFactory factory = null;
 
-    // Construtor privado para evitar instâncias
     private ConnectionDB() {}
 
-    // Método para criar e retornar o EntityManagerFactory usando verificação dupla
     public static EntityManagerFactory getFactory() {
         if (factory == null) {
             synchronized (ConnectionDB.class) {
@@ -32,12 +30,10 @@ public class ConnectionDB {
         return factory;
     }
 
-    // Método para obter o EntityManager
     public static EntityManager getEntityManager() {
-        return getFactory().createEntityManager(); // Usa getFactory para garantir que a factory foi inicializada
+        return getFactory().createEntityManager();
     }
 
-    // Método para fechar o EntityManagerFactory
     public static void closeFactory() {
         if (factory != null && factory.isOpen()) {
             factory.close();

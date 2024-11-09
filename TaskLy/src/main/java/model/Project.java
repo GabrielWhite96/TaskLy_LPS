@@ -1,0 +1,37 @@
+package model;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+/**
+ *
+ * @author wekisley
+ */
+@Entity
+public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    private List<ProjectReport> reports;
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    private List<Task> tasks;
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    private List<ProjectMessage> messages;
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    private List<Person> persons;
+    private String title;
+    private String description;
+    private String status;
+    private String created_at; 
+}
