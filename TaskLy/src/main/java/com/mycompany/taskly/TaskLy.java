@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Login;
 import view.CreatePerson;
+import view.CreateProject;
 import view.LoginView;
 
 /**
@@ -24,8 +25,8 @@ public class TaskLy {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = ConnectionDB.getFactory();
         
-        CreatePerson person = new CreatePerson();
-        person.setVisible(true);
+        CreateProject project = new CreateProject();
+        project.setVisible(true);
 
 //        LoginController loginController = new LoginController();
 //        Login login = loginController.createLogin("aaa", "1234567");
