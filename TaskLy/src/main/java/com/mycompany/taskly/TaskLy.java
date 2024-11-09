@@ -16,6 +16,7 @@ import model.Login;
 import view.CreatePerson;
 import view.CreateProject;
 import view.LoginView;
+import view.TesteTable;
 
 /**
  *
@@ -25,15 +26,17 @@ public class TaskLy {
     public static void main(String[] args) throws Exception {
         EntityManagerFactory factory = ConnectionDB.getFactory();
         
-        CreateProject project = new CreateProject();
-        project.setVisible(true);
+//        CreateProject project = new CreateProject();
+//        project.setVisible(true);
+        TesteTable table = new TesteTable();
+        table.setVisible(true);
 
 //        LoginController loginController = new LoginController();
-//        Login login = loginController.createLogin("aaa", "1234567");
+//        Login login = loginController.createLogin("aaqaaaqqa", "123s4567");
 //        PersonController personController = new PersonController();
-//        personController.createNewUser("Wekisley", login, "", "21212", "este", "M");
+//        personController.createNewUser("Wekisqqqley", login, "", "21q212", "esqte", "M");
 //        int id = loginController.getUserAccount("wekisleysouza.a@gmail.com", "kkjkjjj");
 //        System.out.println("Id: " + id);
-//        factory.close();
+        factory.close();
     }
 }
