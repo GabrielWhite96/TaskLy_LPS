@@ -99,7 +99,7 @@ public class PersonDAO implements DAOInterface<Person> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         List<Person> personList = null;
         try{
-            TypedQuery<Person> query = entityManager.createQuery("SELECT login FROM Login login", Person.class);
+            TypedQuery<Person> query = entityManager.createQuery("SELECT person FROM Person person", Person.class);
             personList = query.getResultList();
         } catch (Exception e) {
             throw new Exception(e);
