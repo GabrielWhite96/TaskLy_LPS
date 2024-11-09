@@ -12,8 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import static utils.DateFunctions.getCurrentDate;
 
 /**
  *
@@ -27,10 +29,25 @@ public class Task {
     private int id;
     @ManyToOne
     private Project project;
+    @OneToMany(mappedBy="tasj", cascade=CascadeType.ALL)
+    private List<TaskReport> reports;
+    @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
+    private List<TaskMessage> messages;
     @ManyToMany(mappedBy="tasks", cascade=CascadeType.ALL)
     private List<Person> users;
     private String title;
     private String description;
     private String status;
-    private String created_at; 
+    private String createdAt;
+    
+    public Task(){}
+    
+    public Task(String title, String description){
+        this.reports = new ArrayList<>();
+        this.messages = new ArrayList<>();
+        this.title = title;
+        this.description = "";
+        this.status = "Aguardando";
+        this.createdAt = getCurrentDate();
+    }
 }
