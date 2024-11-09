@@ -16,6 +16,8 @@ import model.Login;
 import view.CreatePerson;
 import view.CreateProject;
 import view.LoginView;
+import view.LoginView;
+import view.ProjectsMenu;
 
 /**
  *
@@ -28,6 +30,7 @@ public class TaskLy {
         CreateProject project = new CreateProject();
         project.setVisible(true);
 
+        
 //        LoginController loginController = new LoginController();
 //        Login login = loginController.createLogin("aaa", "1234567");
 //        PersonController personController = new PersonController();
