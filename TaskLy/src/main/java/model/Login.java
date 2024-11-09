@@ -44,11 +44,4 @@ public class Login {
         this.email = email;
         this.password = password;
     }
-    
-    public Person validatePassword(String password){
-        if(this.password.equals(password)){
-            return this.person;
-        }
-        return null;
-    }
 }
