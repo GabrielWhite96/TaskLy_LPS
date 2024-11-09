@@ -33,5 +33,7 @@ public class Project {
     private String title;
     private String description;
     private String status;
-    private String created_at; 
+    private String created_at;
+    
+    public Project(){}
 }
