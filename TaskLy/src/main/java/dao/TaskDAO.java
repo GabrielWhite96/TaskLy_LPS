@@ -7,22 +7,22 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import model.Person;
+import model.Task;
 
 /**
  *
  * @author wekisley
  */
-public class PersonDAO implements DAOInterface<Person> {
+public class TaskDAO implements DAOInterface<Task> {
     
-    public PersonDAO(){ }
+    public TaskDAO(){ }
 
     @Override
-    public void save(Person person) throws Exception {
+    public void save(Task task) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.persist(person);
+            entityManager.persist(task);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -33,40 +33,25 @@ public class PersonDAO implements DAOInterface<Person> {
     }
 
     @Override
-    public Person getById(int id) throws Exception {
+    public Task getById(int id) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        Person person = null;
+        Task task = null;
         try{
-            person = entityManager.find(Person.class, id);
+            task = entityManager.find(Task.class, id);
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
             entityManager.close();
         }
-        return person;
-    }
-    
-    public Person getByEmail(String email) throws Exception {
-        EntityManager entityManager = ConnectionDB.getEntityManager();
-        Person person = null;
-        try{
-            TypedQuery<Person> query = entityManager.createQuery("SELECT person Person Login person WHERE login.email = :email", Person.class);
-            query.setParameter("email", email);
-            person = query.getSingleResult();
-        } catch (Exception e) {
-            throw new Exception(e);
-        } finally {
-            entityManager.close();
-        }
-        return person;
+        return task;
     }
 
     @Override
-    public void update(Person person) throws Exception {
+    public void update(Task task) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.merge(person);
+            entityManager.merge(task);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -81,9 +66,9 @@ public class PersonDAO implements DAOInterface<Person> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Person person = entityManager.find(Person.class, id);
-            if (person != null) {
-                entityManager.remove(person);
+            Task task = entityManager.find(Task.class, id);
+            if (task != null) {
+                entityManager.remove(task);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
@@ -97,15 +82,17 @@ public class PersonDAO implements DAOInterface<Person> {
     @Override
     public List getAll() throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        List<Person> personList = null;
+        List<Task> taskList = null;
         try{
-            TypedQuery<Person> query = entityManager.createQuery("SELECT person FROM Person person", Person.class);
-            personList = query.getResultList();
+            TypedQuery<Task> query = entityManager.createQuery("SELECT task FROM Task task", Task.class);
+            taskList = query.getResultList();
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
             entityManager.close();
         }
-        return personList;
+        return taskList;
     }
+    
 }
+

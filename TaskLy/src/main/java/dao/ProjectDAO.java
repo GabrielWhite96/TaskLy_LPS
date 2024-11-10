@@ -84,7 +84,7 @@ public class ProjectDAO implements DAOInterface<Project> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         List<Project> projectList = null;
         try{
-            TypedQuery<Project> query = entityManager.createQuery("SELECT login FROM Login login", Project.class);
+            TypedQuery<Project> query = entityManager.createQuery("SELECT project FROM Project project", Project.class);
             projectList = query.getResultList();
         } catch (Exception e) {
             throw new Exception(e);
