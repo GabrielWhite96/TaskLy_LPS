@@ -17,6 +17,7 @@ controller\TaskController.class
 view\Project.class
 view\TesteTable$1.class
 view\MainPage$3.class
+view\ProjectsMenu$8.class
 view\CreateFeedback$2.class
 view\ProjectsMenu$2.class
 view\CreateTask.class
@@ -58,6 +59,7 @@ view\MainPage$1.class
 view\CreatePerson$6.class
 view\CreateProject$5.class
 view\CreateProject$3.class
+view\ProjectsMenu$7.class
 view\CreatePerson$3.class
 view\CreatePerson.class
 view\MainPage$4.class
@@ -69,3 +71,4 @@ view\CreateTask$2.class
 model\Login.class
 dao\ConnectionDB.class
 view\ProjectsMenu$4.class
+view\Project$6.class
