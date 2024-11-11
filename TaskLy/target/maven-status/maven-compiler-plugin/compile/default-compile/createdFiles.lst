@@ -17,7 +17,6 @@ controller\TaskController.class
 view\Project.class
 view\TesteTable$1.class
 view\MainPage$3.class
-view\ProjectsMenu$8.class
 view\CreateFeedback$2.class
 view\ProjectsMenu$2.class
 view\CreateTask.class
