@@ -7,22 +7,22 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import model.Project;
+import model.Task;
 
 /**
  *
  * @author wekisley
  */
-public class ProjectDAO implements DAOInterface<Project> {
+public class TaskDAO implements DAOInterface<Task> {
     
-    public ProjectDAO(){ }
+    public TaskDAO(){ }
 
     @Override
-    public void save(Project project) throws Exception {
+    public void save(Task task) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.persist(project);
+            entityManager.persist(task);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -33,25 +33,25 @@ public class ProjectDAO implements DAOInterface<Project> {
     }
 
     @Override
-    public Project getById(int id) throws Exception {
+    public Task getById(int id) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        Project project = null;
+        Task task = null;
         try{
-            project = entityManager.find(Project.class, id);
+            task = entityManager.find(Task.class, id);
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
             entityManager.close();
         }
-        return project;
+        return task;
     }
 
     @Override
-    public void update(Project project) throws Exception {
+    public void update(Task task) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.merge(project);
+            entityManager.merge(task);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -66,9 +66,9 @@ public class ProjectDAO implements DAOInterface<Project> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Project project = entityManager.find(Project.class, id);
-            if (project != null) {
-                entityManager.remove(project);
+            Task task = entityManager.find(Task.class, id);
+            if (task != null) {
+                entityManager.remove(task);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
@@ -82,16 +82,17 @@ public class ProjectDAO implements DAOInterface<Project> {
     @Override
     public List getAll() throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        List<Project> projectList = null;
+        List<Task> taskList = null;
         try{
-            TypedQuery<Project> query = entityManager.createQuery("SELECT project FROM Project project", Project.class);
-            projectList = query.getResultList();
+            TypedQuery<Task> query = entityManager.createQuery("SELECT task FROM Task task", Task.class);
+            taskList = query.getResultList();
         } catch (Exception e) {
             throw new Exception(e);
         } finally {
             entityManager.close();
         }
-        return projectList;
+        return taskList;
     }
     
 }
+
