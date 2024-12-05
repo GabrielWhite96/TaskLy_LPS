@@ -42,7 +42,10 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.dispose();
     }
     
-    private void showProjectScreen(){
+    private void showProjectScreen(Project project){
+        ProjectView projectView = new ProjectView(project);
+        projectView.setVisible(true);
+        this.dispose();
     }
     
     public void showCards() {
@@ -83,7 +86,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(gridJPanel, "Informações do projeto: " + title);
+                        ProjectsMenu.this.showProjectScreen(project);
                     }
                 });
                 
