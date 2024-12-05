@@ -46,7 +46,7 @@ public class Project {
         this.reports = new ArrayList<>();
         this.messages = new ArrayList<>();
         this.title = title;
-        this.description = "";
+        this.description = description;
         this.status = "Aguardando";
         this.createdAt = getCurrentDate();
     }

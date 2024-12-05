@@ -24,6 +24,14 @@ public class ProjectView extends javax.swing.JFrame {
     public ProjectView(Project project) {
         this.project = project;
         initComponents();
+        
+        this.setAtributes();
+    }
+    
+    private void setAtributes(){
+        this.projectTitleLabel.setText(this.project.getTitle());
+        this.descriptionJTP.setText(this.project.getDescription());
+        this.statusJL.setText(this.project.getStatus());
     }
 
     /**
@@ -48,11 +56,11 @@ public class ProjectView extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
+        projectTitleLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        descriptionJTP = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -60,7 +68,7 @@ public class ProjectView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        statusJL = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,9 +195,9 @@ public class ProjectView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Projeto TaskLy");
-        jLabel7.setToolTipText("");
+        projectTitleLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        projectTitleLabel.setText("Projeto TaskLy");
+        projectTitleLabel.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -212,9 +220,9 @@ public class ProjectView extends javax.swing.JFrame {
             }
         });
 
-        jTextPane1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextPane1.setBorder(null);
-        jScrollPane1.setViewportView(jTextPane1);
+        descriptionJTP.setBackground(new java.awt.Color(240, 240, 240));
+        descriptionJTP.setBorder(null);
+        jScrollPane1.setViewportView(descriptionJTP);
 
         jButton3.setBackground(new java.awt.Color(241, 243, 245));
         jButton3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -255,8 +263,8 @@ public class ProjectView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Status:");
 
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel6.setText("Em Andamento");
+        statusJL.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        statusJL.setText("Em Andamento");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -288,11 +296,11 @@ public class ProjectView extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)))
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(projectTitleLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(statusJL)
                         .addGap(183, 183, 183))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -302,9 +310,8 @@ public class ProjectView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(statusJL))
+                    .addComponent(projectTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -478,6 +485,7 @@ public class ProjectView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane descriptionJTP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -491,8 +499,6 @@ public class ProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -503,6 +509,7 @@ public class ProjectView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JLabel projectTitleLabel;
+    private javax.swing.JLabel statusJL;
     // End of variables declaration//GEN-END:variables
 }
