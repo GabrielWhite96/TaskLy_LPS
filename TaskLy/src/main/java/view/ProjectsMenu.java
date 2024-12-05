@@ -36,6 +36,15 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.showCards();
     }
     
+    private void showScreenCreateProject(){
+        CreateProject projectCreationScreen = new CreateProject();
+        projectCreationScreen.setVisible(true);
+        this.dispose();
+    }
+    
+    private void showProjectScreen(){
+    }
+    
     public void showCards() {
         try {
             // Obtém a lista de projetos
@@ -112,7 +121,6 @@ public class ProjectsMenu extends javax.swing.JFrame {
             Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -398,7 +406,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        this.showScreenCreateProject();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
