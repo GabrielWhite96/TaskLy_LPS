@@ -26,6 +26,7 @@ view/Chat$7.class
 view/ProjectView$3.class
 view/ProjectMembers$5.class
 controller/TaskController.class
+utils/MenuNavigation.class
 view/ProjectMembers$2.class
 view/ProjectMembers$4.class
 view/Chat$6.class
