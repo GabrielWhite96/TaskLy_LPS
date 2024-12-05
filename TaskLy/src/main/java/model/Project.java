@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 import static utils.DateFunctions.getCurrentDate;
 
 /*
@@ -20,6 +21,7 @@ import static utils.DateFunctions.getCurrentDate;
  * @author wekisley
  */
 @Entity
+@Data
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

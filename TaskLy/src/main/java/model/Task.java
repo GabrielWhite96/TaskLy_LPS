@@ -29,7 +29,7 @@ public class Task {
     private int id;
     @ManyToOne
     private Project project;
-    @OneToMany(mappedBy="tasj", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
     private List<TaskReport> reports;
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
     private List<TaskMessage> messages;
