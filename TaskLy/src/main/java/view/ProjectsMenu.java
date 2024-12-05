@@ -36,6 +36,12 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.showCards();
     }
     
+    private void showScreenCreateProject(){
+        CreateProject projectCreationScreen = new CreateProject();
+        projectCreationScreen.setVisible(true);
+        this.dispose();
+    }
+    
     public void showCards() {
         try {
             // Obtém a lista de projetos
@@ -398,7 +404,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        this.showScreenCreateProject();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
