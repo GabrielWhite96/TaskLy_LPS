@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
@@ -14,10 +15,12 @@ import javax.swing.JOptionPane;
  * @author Gabriel White
  */
 public class CreateProject extends javax.swing.JFrame {
-    ProjectController projectController;
+    private ProjectController projectController;
+    private PersonController personController;
     
     public CreateProject() {
         this.projectController = new ProjectController();
+        this.personController = new PersonController();
         
         initComponents();
         

@@ -42,6 +42,9 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void showProjectScreen(){
+    }
+    
     public void showCards() {
         try {
             // Obtém a lista de projetos
@@ -118,7 +121,6 @@ public class ProjectsMenu extends javax.swing.JFrame {
             Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
