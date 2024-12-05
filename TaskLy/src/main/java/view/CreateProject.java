@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
@@ -14,10 +15,12 @@ import javax.swing.JOptionPane;
  * @author Gabriel White
  */
 public class CreateProject extends javax.swing.JFrame {
-    ProjectController projectController;
+    private ProjectController projectController;
+    private PersonController personController;
     
     public CreateProject() {
         this.projectController = new ProjectController();
+        this.personController = new PersonController();
         
         initComponents();
         
@@ -150,7 +153,6 @@ public class CreateProject extends javax.swing.JFrame {
         });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -256,6 +258,11 @@ public class CreateProject extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jButton4.setText("Cancelar");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
@@ -418,6 +425,12 @@ public class CreateProject extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void showProjectsScreen(){
+        ProjectsMenu projectsScreen = new ProjectsMenu();
+        projectsScreen.setVisible(true);
+        this.dispose();
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -435,11 +448,16 @@ public class CreateProject extends javax.swing.JFrame {
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
+        this.showProjectsScreen();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.showProjectsScreen();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
