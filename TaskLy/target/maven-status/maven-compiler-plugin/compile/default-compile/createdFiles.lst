@@ -1,4 +1,5 @@
 view/Chat.class
+view/EditProject$8.class
 view/ProjectView$7.class
 view/ProjectView$1.class
 view/ProjectMembers$3.class
@@ -12,13 +13,16 @@ view/ProjectsMenu$9.class
 view/Chat$3.class
 view/ProjectsMenu$6.class
 view/CreateProject$7.class
+view/ProjectView$9.class
 view/EditProject$6.class
 view/ProjectView$2.class
 view/EditProject$2.class
 view/ProjectMembers$1.class
 view/Chat$2.class
+view/EditProject$7.class
 view/ProjectMembers.class
 view/EditProject$1.class
+view/ProjectView$8.class
 view/TesteTable$1.class
 view/EditProject$4.class
 view/Chat$1.class

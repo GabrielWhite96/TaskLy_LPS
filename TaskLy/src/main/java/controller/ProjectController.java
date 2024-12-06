@@ -19,14 +19,22 @@ public class ProjectController {
         this.projectDAO = new ProjectDAO();
     }
     
-    public Project createNewProject(String title, String description) throws Exception{
+    public Project createNewProject(String title, String description) throws Exception {
         Project project = new Project(title, description);
         try {
             this.projectDAO.save(project);
         } catch(Exception e) {
-            throw new Exception("Não foi possível cria o projeto!", e);
+            throw new Exception("Não foi possível criar o projeto!", e);
         }
         return project;
+    }
+    
+    public void updateProject(Project project) throws Exception {
+        try {
+            this.projectDAO.update(project);
+        } catch(Exception e) {
+            throw new Exception("Não foi possível atualizar o projeto!", e);
+        }
     }
     
     public List<Project> getAllProjects() throws Exception{
