@@ -4,6 +4,8 @@
  */
 package view;
 
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManagerFactory;
 import model.Project;
 import utils.MenuNavigation;
 
@@ -24,9 +26,18 @@ public class ProjectView extends javax.swing.JFrame {
     
     public ProjectView(Project project) {
         this.project = project;
+//        System.out.println(project.getTasks().size());
         initComponents();
         
         this.setAtributes();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
     }
     
     private void setAtributes(){

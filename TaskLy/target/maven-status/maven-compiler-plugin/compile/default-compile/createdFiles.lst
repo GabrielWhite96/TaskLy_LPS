@@ -1,4 +1,5 @@
 view/Chat.class
+view/ProjectView$7.class
 view/ProjectView$1.class
 view/ProjectMembers$3.class
 view/ProjectView$4.class
@@ -7,6 +8,7 @@ view/ProjectView.class
 view/TesteTable.class
 model/TaskReport.class
 view/EditProject$3.class
+view/ProjectsMenu$9.class
 view/Chat$3.class
 view/ProjectsMenu$6.class
 view/CreateProject$7.class
@@ -34,6 +36,7 @@ view/Chat$6.class
 view/ProjectsMenu$8.class
 view/EditProject.class
 view/ProjectView$6.class
+view/CreateTask$7.class
 view/TesteTable$2.class
 view/ProjectsMenu$7.class
 view/Chat$5.class

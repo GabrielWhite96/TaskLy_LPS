@@ -5,6 +5,8 @@
 package view;
 
 import controller.ProjectController;
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -34,6 +36,14 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.projectController = new ProjectController();
         initComponents();
         this.showCards();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
     }
     
     private void showScreenCreateProject(){

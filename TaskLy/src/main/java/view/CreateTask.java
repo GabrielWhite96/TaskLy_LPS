@@ -5,6 +5,8 @@
 package view;
 
 import controller.TaskController;
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManagerFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,6 +33,14 @@ public class CreateTask extends javax.swing.JFrame {
         this.taskControler = new TaskController();
         
         initComponents();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
     }
 
     /**
@@ -407,7 +417,10 @@ public class CreateTask extends javax.swing.JFrame {
         String title = this.titleJTF.getText();
         String description = this.descriptionJTF.getText();
         try {
-            this.taskControler.createTask(title, description, project);
+            this.taskControler.createTask(title, description, project);                                         
+            ProjectView projectView = new ProjectView(this.project);
+            projectView.setVisible(true);
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -418,7 +431,9 @@ public class CreateTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        MenuNavigation.goToProjectsMenu(this);
+        ProjectView projectView = new ProjectView(this.project);
+        projectView.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
