@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import utils.DateFunctions;
 
 /**
  *
@@ -24,4 +25,11 @@ public class TaskReport {
     private String title;
     private String description;
     private String date; 
+    
+    public TaskReport(Task task, String title, String description){
+        this.task = task;
+        this.title = title;
+        this.description = description;
+        this.date = DateFunctions.getCurrentDate();
+    }
 }

@@ -51,4 +51,9 @@ public class Task {
         this.status = "Aguardando";
         this.createdAt = getCurrentDate();
     }
+    
+    public void addReport(Task task, String title, String description){
+        TaskReport report = new TaskReport(task, title, description);
+        this.reports.add(report);
+    }
 }

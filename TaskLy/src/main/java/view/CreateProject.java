@@ -27,7 +27,8 @@ public class CreateProject extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                EntityManagerFactory factory = ConnectionDB.getFactory();         
+                System.out.print("Cagada!!");
                 factory.close();
             }
         });

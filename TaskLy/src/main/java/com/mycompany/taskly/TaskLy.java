@@ -49,9 +49,10 @@ public class TaskLy {
 //        person.setVisible(true);
 //        CreateProject project = new CreateProject();
 //        project.setVisible(true);
-//
+//        LoginView loginView = new LoginView();
+//        loginView.setVisible(true);
 //        LoginController loginController = new LoginController();
-//        Login login = loginController.createLogin("aaqaaaqqa", "123s4567");
+//        Login login = loginController.createLogin("555", "555");
 //        PersonController personController = new PersonController();
 //        personController.createNewUser("teste2", login, "", "21q212", "esqte", "M");
 //        factory.close();
