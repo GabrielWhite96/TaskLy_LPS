@@ -38,8 +38,8 @@ public class TaskLy {
 //        ProjectController project2 = new ProjectController();
 //        project2.createNewProject("Comprar galinha", "Ir na feira compra pao");
 
-        ProjectsMenu menu = new ProjectsMenu();
-        menu.setVisible(true);
+//        ProjectsMenu menu = new ProjectsMenu();
+//        menu.setVisible(true);
         
 //        CreateProject project = new CreateProject();
 //        project.setVisible(true);
@@ -49,12 +49,13 @@ public class TaskLy {
 //        person.setVisible(true);
 //        CreateProject project = new CreateProject();
 //        project.setVisible(true);
-//        LoginView loginView = new LoginView();
-//        loginView.setVisible(true);
+
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
 //        LoginController loginController = new LoginController();
-//        Login login = loginController.createLogin("555", "555");
+//        Login login = loginController.createLogin("55555abc", "55555abc");
 //        PersonController personController = new PersonController();
-//        personController.createNewUser("teste2", login, "", "21q212", "esqte", "M");
+//        personController.createNewUser("Wekisley", login, "", "21q212", "esqte", "M");
 //        factory.close();
     }
 }

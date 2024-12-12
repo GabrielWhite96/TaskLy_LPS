@@ -48,3 +48,4 @@ view/Chat$5.class
 view/TesteTable$3.class
 view/ProjectView$5.class
 dao/TaskDAO.class
+model/AppStateSingleton.class

@@ -412,7 +412,7 @@ public class ProjectView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Chat chat = new Chat();
+        Chat chat = new Chat(this.project);
         chat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed

@@ -4,16 +4,24 @@
  */
 package view;
 
+import model.Project;
+
 /**
  *
  * @author Gabriel White
  */
 public class Chat extends javax.swing.JFrame {
+    private Project project;
 
     /**
      * Creates new form CreateEmployee
      */
     public Chat() {
+        initComponents();
+    }
+    
+    public Chat(Project project) {
+        this.project = project;
         initComponents();
     }
 

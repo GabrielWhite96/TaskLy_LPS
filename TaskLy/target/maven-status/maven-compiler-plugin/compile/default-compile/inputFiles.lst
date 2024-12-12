@@ -9,6 +9,7 @@
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/PersonDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ProjectDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/TaskDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/AppStateSingleton.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Login.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Person.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Project.java
