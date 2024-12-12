@@ -41,8 +41,8 @@ public class TaskLy {
 //        ProjectsMenu menu = new ProjectsMenu();
 //        menu.setVisible(true);
         
-//        CreateProject project = new CreateProject();
-//        project.setVisible(true);
+        CreateProject project = new CreateProject();
+        project.setVisible(true);
 //        TesteTable table = new TesteTable();
 //        table.setVisible(true);
 //        CreatePerson person = new CreatePerson();
@@ -50,10 +50,9 @@ public class TaskLy {
 //        CreateProject project = new CreateProject();
 //        project.setVisible(true);
 
-        LoginView loginView = new LoginView();
-        loginView.setVisible(true);
+//        LoginView loginView = new LoginView();
+//        loginView.setVisible(true);
 //        LoginController loginController = new LoginController();
-//        Login login = loginController.createLogin("55555abc", "55555abc");
 //        PersonController personController = new PersonController();
 //        personController.createNewUser("Wekisley", login, "", "21q212", "esqte", "M");
 //        factory.close();

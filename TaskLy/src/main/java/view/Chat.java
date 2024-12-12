@@ -4,6 +4,7 @@
  */
 package view;
 
+import model.AppStateSingleton;
 import model.Project;
 
 /**
@@ -12,6 +13,7 @@ import model.Project;
  */
 public class Chat extends javax.swing.JFrame {
     private Project project;
+    private AppStateSingleton appState;
 
     /**
      * Creates new form CreateEmployee
@@ -22,7 +24,11 @@ public class Chat extends javax.swing.JFrame {
     
     public Chat(Project project) {
         this.project = project;
+        this.appState = AppStateSingleton.getInstance();
+        
         initComponents();
+    
+        this.messageTF.setText(this.appState.getUser().getName());
     }
 
     /**
@@ -53,7 +59,7 @@ public class Chat extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        messageTF = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,7 +81,6 @@ public class Chat extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(42, 62, 95));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(42, 62, 95));
         jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -230,9 +235,9 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        messageTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                messageTFActionPerformed(evt);
             }
         });
 
@@ -249,7 +254,7 @@ public class Chat extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jTextField1)
+                                        .addComponent(messageTF)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -282,7 +287,7 @@ public class Chat extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)))
+                        .addComponent(messageTF)))
                 .addGap(20, 20, 20))
         );
 
@@ -338,9 +343,9 @@ public class Chat extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_messageTFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,6 +465,6 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField messageTF;
     // End of variables declaration//GEN-END:variables
 }

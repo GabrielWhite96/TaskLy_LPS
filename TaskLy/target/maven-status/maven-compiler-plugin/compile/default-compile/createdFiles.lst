@@ -32,6 +32,7 @@ model/TaskMessage.class
 view/Chat$7.class
 view/ProjectView$3.class
 view/CreateTask$6.class
+utils/Roles.class
 view/ProjectMembers$5.class
 controller/TaskController.class
 utils/MenuNavigation.class

@@ -8,15 +8,28 @@ import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import model.Person;
+import utils.Roles;
 
 /**
  *
  * @author Gabriel White
  */
 public class CreateProject extends javax.swing.JFrame {
+    private List<JCheckBox> checkBoxesEmployees;
+    private List<JCheckBox> checkBoxesManagers;
+    
     private ProjectController projectController;
     private PersonController personController;
+    private List<Person> persons;
     
     public CreateProject() {
         this.projectController = new ProjectController();
@@ -24,11 +37,14 @@ public class CreateProject extends javax.swing.JFrame {
         
         initComponents();
         
+        this.initJPanelsEmployee();
+        this.initJPanelsManager();
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 EntityManagerFactory factory = ConnectionDB.getFactory();         
-                System.out.print("Cagada!!");
+                
                 factory.close();
             }
         });
@@ -68,10 +84,10 @@ public class CreateProject extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         descriptionField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
+        managersJP = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel9 = new javax.swing.JPanel();
+        employeesJP = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -288,34 +304,37 @@ public class CreateProject extends javax.swing.JFrame {
                 .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout managersJPLayout = new javax.swing.GroupLayout(managersJP);
+        managersJP.setLayout(managersJPLayout);
+        managersJPLayout.setHorizontalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 408, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        managersJPLayout.setVerticalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 235, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel7);
+        jScrollPane1.setViewportView(managersJP);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Gerentes");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        employeesJP.setAutoscrolls(true);
+        employeesJP.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout employeesJPLayout = new javax.swing.GroupLayout(employeesJP);
+        employeesJP.setLayout(employeesJPLayout);
+        employeesJPLayout.setHorizontalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 326, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        employeesJPLayout.setVerticalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel9);
+        jScrollPane2.setViewportView(employeesJP);
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Funcionários");
@@ -432,6 +451,55 @@ public class CreateProject extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void initJPanelsEmployee(){
+        this.checkBoxesEmployees = new ArrayList<>();
+        this.employeesJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.employeesJP.removeAll();
+        this.checkBoxesEmployees.clear();
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        
+        try {
+            persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+        
+        for (Person person : employees) {
+            JCheckBox checkBox = new JCheckBox(person.getName());
+            checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+            checkBoxesEmployees.add(checkBox);
+            this.employeesJP.add(checkBox);
+        }
+        
+        this.employeesJP.revalidate();
+        this.employeesJP.repaint();
+    }
+    
+    private void initJPanelsManager(){
+        this.checkBoxesEmployees = new ArrayList<>();
+        this.managersJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.managersJP.removeAll();
+        this.checkBoxesEmployees.clear();
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        
+        try {
+            persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+        
+        for (Person person : employees) {
+            JCheckBox checkBox = new JCheckBox(person.getName());
+            checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+            checkBoxesEmployees.add(checkBox);
+            this.managersJP.add(checkBox);
+        }
+        
+        this.managersJP.revalidate();
+        this.managersJP.repaint();
+    }
+    
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -500,6 +568,7 @@ public class CreateProject extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField descriptionField;
+    private javax.swing.JPanel employeesJP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -521,13 +590,12 @@ public class CreateProject extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPanel managersJP;
     private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }
