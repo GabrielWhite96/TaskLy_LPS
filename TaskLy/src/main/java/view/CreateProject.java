@@ -12,8 +12,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import model.Person;
@@ -30,10 +28,10 @@ public class CreateProject extends javax.swing.JFrame {
     private ProjectController projectController;
     private PersonController personController;
     private List<Person> persons;
+    private List<Person> selectedPersons;
     
     public CreateProject() {
-        this.projectController = new ProjectController();
-        this.personController = new PersonController();
+        this.initAtributes();
         
         initComponents();
         
@@ -78,8 +76,8 @@ public class CreateProject extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        confirmJB = new javax.swing.JButton();
+        cancelJB = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         descriptionField = new javax.swing.JTextField();
@@ -261,23 +259,23 @@ public class CreateProject extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton3.setBackground(new java.awt.Color(42, 62, 95));
-        jButton3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(241, 243, 245));
-        jButton3.setText("Confirmar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        confirmJB.setBackground(new java.awt.Color(42, 62, 95));
+        confirmJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmJB.setForeground(new java.awt.Color(241, 243, 245));
+        confirmJB.setText("Confirmar");
+        confirmJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                confirmJBActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(241, 243, 245));
-        jButton4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelJB.setBackground(new java.awt.Color(241, 243, 245));
+        cancelJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelJB.setText("Cancelar");
+        cancelJB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelJBActionPerformed(evt);
             }
         });
 
@@ -345,9 +343,9 @@ public class CreateProject extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(286, 286, 286))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -407,8 +405,8 @@ public class CreateProject extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
         );
@@ -451,18 +449,23 @@ public class CreateProject extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void initAtributes(){
+        this.selectedPersons = new ArrayList<>();
+        this.projectController = new ProjectController();
+        this.personController = new PersonController();
+        try {
+            persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
     private void initJPanelsEmployee(){
         this.checkBoxesEmployees = new ArrayList<>();
         this.employeesJP.setLayout(new GridLayout(0, 1, 10, 10));
         this.employeesJP.removeAll();
         this.checkBoxesEmployees.clear();
         List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
-        
-        try {
-            persons = this.personController.getAllPersons();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
         
         for (Person person : employees) {
             JCheckBox checkBox = new JCheckBox(person.getName());
@@ -476,22 +479,16 @@ public class CreateProject extends javax.swing.JFrame {
     }
     
     private void initJPanelsManager(){
-        this.checkBoxesEmployees = new ArrayList<>();
+        this.checkBoxesManagers = new ArrayList<>();
         this.managersJP.setLayout(new GridLayout(0, 1, 10, 10));
         this.managersJP.removeAll();
-        this.checkBoxesEmployees.clear();
-        List<Person> employees = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        this.checkBoxesManagers.clear();
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
         
-        try {
-            persons = this.personController.getAllPersons();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
-        
-        for (Person person : employees) {
+        for (Person person : managers) {
             JCheckBox checkBox = new JCheckBox(person.getName());
             checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
-            checkBoxesEmployees.add(checkBox);
+            checkBoxesManagers.add(checkBox);
             this.managersJP.add(checkBox);
         }
         
@@ -499,6 +496,23 @@ public class CreateProject extends javax.swing.JFrame {
         this.managersJP.repaint();
     }
     
+    private void pushSelectedEmployees() {
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        for (int i = 0; i < this.checkBoxesEmployees.size(); i++) {
+            if (this.checkBoxesEmployees.get(i).isSelected()) {
+                this.selectedPersons.add(employees.get(i));
+            }
+        }
+    }
+    
+    private void pushSelectedManagers() {
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        for (int i = 0; i < this.checkBoxesManagers.size(); i++) {
+            if (this.checkBoxesManagers.get(i).isSelected()) {
+                this.selectedPersons.add(managers.get(i));
+            }
+        }
+    }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -508,25 +522,27 @@ public class CreateProject extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
         String name = this.nameField.getText();
         String description = this.descriptionField.getText();
+        this.pushSelectedEmployees();
+        this.pushSelectedManagers();
         try {
-            this.projectController.createNewProject(name, description);
+            this.projectController.createNewProject(name, description, this.selectedPersons);
             JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
         this.showProjectsScreen();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_confirmJBActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelJBActionPerformed
         this.showProjectsScreen();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_cancelJBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,12 +583,12 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelJB;
+    private javax.swing.JButton confirmJB;
     private javax.swing.JTextField descriptionField;
     private javax.swing.JPanel employeesJP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

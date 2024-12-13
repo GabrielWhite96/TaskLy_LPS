@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Login;
 import model.Person;
+import model.Project;
 
 /**
  *
@@ -28,6 +29,26 @@ public class PersonController {
             this.personDAO.save(person);
         } catch (Exception e) {
             throw new Exception("Não foi possível salvar o usuário!");
+        }
+    }
+    
+    public void update(Person person) throws Exception{
+        try {
+            this.personDAO.update(person);
+        } catch (Exception e) {
+            throw new Exception("Não foi possível atualizar o usuário!");
+        }
+    }
+    
+    public void update(List<Person> persons) throws Exception{
+        Project project = persons.get(0).getProject();
+        try {
+            for(Person person: persons){
+                this.update(person);
+                project = person.getProject();
+            }
+        } catch (Exception e) {
+            throw new Exception("Não foi possível atualizar os usuários!");
         }
     }
     

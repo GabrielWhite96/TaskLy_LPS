@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import static utils.DateFunctions.getCurrentDate;
+import utils.Status;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -32,7 +33,7 @@ public class Project {
     private List<Task> tasks;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
     private List<ProjectMessage> messages;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE)
     private List<Person> persons;
     private String title;
     private String description;
@@ -45,9 +46,23 @@ public class Project {
         this.tasks = new ArrayList<>();
         this.reports = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.persons = new ArrayList<>();
         this.title = title;
         this.description = description;
-        this.status = "Aguardando";
+        this.status = Status.WAITING;
         this.createdAt = getCurrentDate();
+    }
+    
+    public void addPerson(Person person){
+        if(!this.persons.contains(person)){
+            this.persons.add(person);
+            person.setProject(this);
+        }
+    }
+    
+    public void addPersons(List<Person> persons){
+        for(Person person: persons){
+            this.addPerson(person);
+        } 
     }
 }

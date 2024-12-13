@@ -24,6 +24,7 @@ view/EditProject$7.class
 view/ProjectMembers.class
 view/EditProject$1.class
 view/ProjectView$8.class
+utils/Status.class
 view/TesteTable$1.class
 view/EditProject$4.class
 view/Chat$1.class
@@ -45,6 +46,7 @@ view/ProjectView$6.class
 view/CreateTask$7.class
 view/TesteTable$2.class
 view/ProjectsMenu$7.class
+utils/Tests.class
 view/Chat$5.class
 view/TesteTable$3.class
 view/ProjectView$5.class

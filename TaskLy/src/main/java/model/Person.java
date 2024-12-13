@@ -31,7 +31,8 @@ public class Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="login_id", referencedColumnName = "id")
     private Login login;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name="project_id", referencedColumnName = "id")
     private Project project;
     @ManyToMany
     private List<Task> tasks;

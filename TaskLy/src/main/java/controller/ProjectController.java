@@ -6,6 +6,7 @@ package controller;
 
 import dao.ProjectDAO;
 import java.util.List;
+import model.Person;
 import model.Project;
 
 /**
@@ -14,15 +15,28 @@ import model.Project;
 
 public class ProjectController {
     private ProjectDAO projectDAO;
+    private PersonController personController;
     
     public ProjectController(){
         this.projectDAO = new ProjectDAO();
+        this.personController = new PersonController();
     }
     
     public Project createNewProject(String title, String description) throws Exception {
         Project project = new Project(title, description);
         try {
             this.projectDAO.save(project);
+        } catch(Exception e) {
+            throw new Exception("Não foi possível criar o projeto!", e);
+        }
+        return project;
+    }
+    
+    public Project createNewProject(String title, String description, List<Person> persons) throws Exception {
+        Project project = new Project(title, description);
+        project.addPersons(persons);
+        try {
+            this.projectDAO.update(project);
         } catch(Exception e) {
             throw new Exception("Não foi possível criar o projeto!", e);
         }
