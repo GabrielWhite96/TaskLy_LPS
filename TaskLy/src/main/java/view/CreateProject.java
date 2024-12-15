@@ -468,10 +468,12 @@ public class CreateProject extends javax.swing.JFrame {
         List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
         
         for (Person person : employees) {
-            JCheckBox checkBox = new JCheckBox(person.getName());
-            checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
-            checkBoxesEmployees.add(checkBox);
-            this.employeesJP.add(checkBox);
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesEmployees.add(checkBox);
+                this.employeesJP.add(checkBox);
+            }
         }
         
         this.employeesJP.revalidate();
@@ -486,10 +488,12 @@ public class CreateProject extends javax.swing.JFrame {
         List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
         
         for (Person person : managers) {
-            JCheckBox checkBox = new JCheckBox(person.getName());
-            checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
-            checkBoxesManagers.add(checkBox);
-            this.managersJP.add(checkBox);
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesManagers.add(checkBox);
+                this.managersJP.add(checkBox);
+            }
         }
         
         this.managersJP.revalidate();
