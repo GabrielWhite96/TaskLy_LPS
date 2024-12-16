@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import dao.ProjectDAO;
@@ -51,7 +47,34 @@ public class ProjectController {
         }
     }
     
-    public List<Project> getAllProjects() throws Exception{
+    public void updateProject(Project project, List<Person> persons) throws Exception {
+        try {
+            personController.removePersonsOfProject(project);
+            project.clearPersons();
+            project.addPersons(persons);
+            this.projectDAO.update(project);
+        } catch(Exception e) {
+            throw new Exception(e);
+        }
+    }
+    
+    public Project find(int id) throws Exception{
+        try {
+            return this.projectDAO.getById(id);
+        } catch (Exception e) {
+            throw new Exception("Não foi possível encontrar o usuário!");
+        }
+    }
+    
+    public Project find(Project project) throws Exception{
+        try {
+            return this.projectDAO.getById(project.getId());
+        } catch (Exception e) {
+            throw new Exception("Não foi possível encontrar o usuário!");
+        }
+    }
+    
+    public List<Project> getAllProjects() throws Exception {
         try {
             return this.projectDAO.getAll();
         } catch (Exception e) {

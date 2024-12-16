@@ -54,4 +54,20 @@ public class Person {
         this.jobTitle = jobTitle;
         this.gender = gender.toLowerCase().startsWith("m");
     }
+    
+    public boolean equalsTo(Person person){
+        if(person == null){
+            return false;
+        }
+        return this.id == person.getId();
+    }
+    
+    public boolean isInList(List<Person> persons){
+        for(Person person: persons){
+            if(this.equalsTo(person)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

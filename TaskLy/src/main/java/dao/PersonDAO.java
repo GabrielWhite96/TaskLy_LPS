@@ -6,8 +6,10 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import model.Person;
+import model.Project;
 
 /**
  *
@@ -26,7 +28,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao salvar pessoa.", e);
         } finally {
             entityManager.close();
         }
@@ -39,22 +41,37 @@ public class PersonDAO implements DAOInterface<Person> {
         try{
             person = entityManager.find(Person.class, id);
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Erro ao obter pessoa.", e);
         } finally {
             entityManager.close();
         }
         return person;
     }
     
-    public Person getByEmail(String email) throws Exception {
+    public List<Person> getByProject(Project project) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        Person person = null;
+        List<Person> person = new ArrayList<>();;
+        try{
+            TypedQuery<Person> query = entityManager.createQuery("SELECT p FROM Person p WHERE p.project.id = :id", Person.class);
+            query.setParameter("id", project.getId());
+            person = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception("Erro ao obter pessoas.", e);
+        } finally {
+            entityManager.close();
+        }
+        return person;
+    }
+    
+    public List<Person> getByEmail(String email) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<Person> person = null;
         try{
             TypedQuery<Person> query = entityManager.createQuery("SELECT person Person Login person WHERE login.email = :email", Person.class);
             query.setParameter("email", email);
-            person = query.getSingleResult();
+            person = query.getResultList();
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Erro ao obter email de pessoa.", e);
         } finally {
             entityManager.close();
         }
@@ -70,7 +87,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao atualizar pessoa.", e);
         } finally {
             entityManager.close();
         }
@@ -88,7 +105,7 @@ public class PersonDAO implements DAOInterface<Person> {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao deletar pessoa.", e);
         } finally {
             entityManager.close();
         }
@@ -102,7 +119,7 @@ public class PersonDAO implements DAOInterface<Person> {
             TypedQuery<Person> query = entityManager.createQuery("SELECT person FROM Person person", Person.class);
             personList = query.getResultList();
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Erro ao obter todas pessoas.", e);
         } finally {
             entityManager.close();
         }

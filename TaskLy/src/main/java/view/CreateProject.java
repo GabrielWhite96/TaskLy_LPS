@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import model.Person;
+import utils.MenuNavigation;
 import utils.Roles;
 
 /**
@@ -302,6 +303,8 @@ public class CreateProject extends javax.swing.JFrame {
                 .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        managersJP.setAutoscrolls(true);
+
         javax.swing.GroupLayout managersJPLayout = new javax.swing.GroupLayout(managersJP);
         managersJP.setLayout(managersJPLayout);
         managersJPLayout.setHorizontalGroup(
@@ -442,12 +445,6 @@ public class CreateProject extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void showProjectsScreen(){
-        ProjectsMenu projectsScreen = new ProjectsMenu();
-        projectsScreen.setVisible(true);
-        this.dispose();
-    }
     
     private void initAtributes(){
         this.selectedPersons = new ArrayList<>();
@@ -537,7 +534,7 @@ public class CreateProject extends javax.swing.JFrame {
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
-        this.showProjectsScreen();
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_confirmJBActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -545,7 +542,7 @@ public class CreateProject extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void cancelJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelJBActionPerformed
-        this.showProjectsScreen();
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_cancelJBActionPerformed
 
     /**

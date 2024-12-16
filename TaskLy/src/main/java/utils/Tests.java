@@ -12,8 +12,10 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 import model.Login;
 import model.Person;
+import model.Project;
 import view.CreateProject;
 import view.LoginView;
+import view.ProjectsMenu;
 
 /**
  *
@@ -38,6 +40,17 @@ public class Tests {
         factory.close();
     }
     
+    public static void removePersonsOfProjects() throws Exception{
+        EntityManagerFactory factory = ConnectionDB.getFactory();
+        PersonController personController = new PersonController();
+        
+        Person p = personController.find(80);
+        p.setProject(null);
+        personController.update(p);
+            
+        factory.close();
+    }
+    
     public static void createProjectWithPersons() throws Exception{
         EntityManagerFactory factory = ConnectionDB.getFactory();
 
@@ -49,16 +62,17 @@ public class Tests {
         factory.close();
     }
     
+    public static void startInProjectsMenu(){
+        ProjectsMenu projectMenu = new ProjectsMenu();
+        projectMenu.setVisible(true);
+    }
+    
     public static void startInCreateProject(){
-        EntityManagerFactory factory = ConnectionDB.getFactory();
-        
         CreateProject projectCreation = new CreateProject();
         projectCreation.setVisible(true);
     }
     
     public static void startAplication(){
-        EntityManagerFactory factory = ConnectionDB.getFactory();
-        
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
     }

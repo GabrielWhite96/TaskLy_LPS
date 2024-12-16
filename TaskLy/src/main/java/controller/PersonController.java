@@ -41,14 +41,40 @@ public class PersonController {
     }
     
     public void update(List<Person> persons) throws Exception{
-        Project project = persons.get(0).getProject();
         try {
             for(Person person: persons){
                 this.update(person);
-                project = person.getProject();
             }
         } catch (Exception e) {
             throw new Exception("Não foi possível atualizar os usuários!");
+        }
+    }
+    
+    public void removePersonsOfProject(Project project) throws Exception{
+        try {
+            List<Person> persons = (List<Person>) personDAO.getByProject(project);
+            for(Person person: persons){
+                person.setProject(null);
+                this.update(person);
+            }
+        } catch(Exception e) {
+            throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+        }
+    }
+    
+    public Person find(int id) throws Exception{
+        try {
+            return personDAO.getById(id);
+        } catch (Exception e) {
+            throw new Exception("Não foi possível encontrar o usuário!");
+        }
+    }
+    
+    public Person find(Person person) throws Exception{
+        try {
+            return personDAO.getById(person.getId());
+        } catch (Exception e) {
+            throw new Exception("Não foi possível encontrar o usuário!");
         }
     }
     
