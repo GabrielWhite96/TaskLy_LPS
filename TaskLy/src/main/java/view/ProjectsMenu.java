@@ -6,6 +6,7 @@ package view;
 
 import controller.ProjectController;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -49,14 +52,19 @@ public class ProjectsMenu extends javax.swing.JFrame {
         try {
             // Obtém a lista de projetos
             List<Project> projects = this.projectController.getAllProjects();
-            this.gridJPanel.setLayout(new GridLayout(0, 1));
+
+            // Limpa os componentes existentes no painel
+            this.gridJPanel.removeAll();
+            this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
 
             for (Project project : projects) {
                 String title = project.getTitle();
                 JButton projectButton = new JButton(title);
 
                 // Estilos do botão
-                projectButton.setPreferredSize(new Dimension(300, 40));
+                projectButton.setPreferredSize(new Dimension(645, 40));
+                projectButton.setMaximumSize(new Dimension(645, 40)); // Mantém tamanho fixo
+                projectButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza no eixo horizontal
                 projectButton.setFont(new Font("Arial", Font.BOLD, 14));
                 projectButton.setBackground(Color.WHITE);
                 projectButton.setForeground(Color.DARK_GRAY);
@@ -114,13 +122,19 @@ public class ProjectsMenu extends javax.swing.JFrame {
                 });
                 // Alterar a largura da barra de rolagem
                 scrollPanel.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-                gridJPanel.add(projectButton);
+                              
+                this.gridJPanel.add(projectButton);
             }
+
+            // Atualiza a interface
+            this.gridJPanel.revalidate();
+            this.gridJPanel.repaint();
 
         } catch (Exception ex) {
             Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
