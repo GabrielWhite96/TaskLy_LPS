@@ -5,6 +5,8 @@
 package view;
 
 import controller.ProjectController;
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -37,6 +39,14 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.projectController = new ProjectController();
         initComponents();
         this.showCards();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
     }
     
     private void showScreenCreateProject(){
@@ -45,7 +55,10 @@ public class ProjectsMenu extends javax.swing.JFrame {
         this.dispose();
     }
     
-    private void showProjectScreen(){
+    private void showProjectScreen(Project project){
+        ProjectView projectView = new ProjectView(project);
+        projectView.setVisible(true);
+        this.dispose();
     }
     
     public void showCards() {
@@ -91,7 +104,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(gridJPanel, "Informações do projeto: " + title);
+                        ProjectsMenu.this.showProjectScreen(project);
                     }
                 });
                 

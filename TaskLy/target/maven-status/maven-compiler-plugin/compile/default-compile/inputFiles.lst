@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\com\mycompany\taskly\TaskLy.java
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\controller\LoginController.java
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\controller\PersonController.java
@@ -33,3 +34,38 @@ C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\view\Pro
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\view\ProjectView.java
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\view\Task.java
 C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\view\TesteTable.java
+=======
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/com/mycompany/taskly/TaskLy.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/LoginController.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/PersonController.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/ProjectController.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/TaskController.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ConnectionDB.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/DAOInterface.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/LoginDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/PersonDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ProjectDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/TaskDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Login.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Person.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Project.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/ProjectMessage.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/ProjectReport.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Task.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/TaskMessage.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/TaskReport.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/utils/DateFunctions.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/utils/MenuNavigation.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/Chat.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreateFeedback.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreatePerson.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreateProject.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreateTask.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/EditProject.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/LoginView.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/MainPage.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectMembers.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectView.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectsMenu.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/TesteTable.java
+>>>>>>> d39a0dd9f85e2e3ff5183ccfafa8271a7009d5ec

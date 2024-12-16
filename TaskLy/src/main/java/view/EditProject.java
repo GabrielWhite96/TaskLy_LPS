@@ -8,6 +8,7 @@ import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
+import model.Project;
 
 /**
  *
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class EditProject extends javax.swing.JFrame {
     ProjectController projectController;
+    private Project project;
     
     public EditProject() {
         this.projectController = new ProjectController();
@@ -28,6 +30,26 @@ public class EditProject extends javax.swing.JFrame {
                 factory.close();
             }
         });
+    }
+    
+    public EditProject(Project project) {
+        this.projectController = new ProjectController();
+        this.project = project;
+        initComponents();
+        this.setAtributes();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
+    }
+    
+    private void setAtributes(){
+        this.titleJTF.setText(this.project.getTitle());
+        this.descriptionJTF.setText(this.project.getDescription());
     }
 
     /**
@@ -54,7 +76,7 @@ public class EditProject extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
+        titleJTF = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -62,14 +84,14 @@ public class EditProject extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        descriptionField = new javax.swing.JTextField();
+        descriptionJTF = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel9 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        titleJL = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,7 +173,6 @@ public class EditProject extends javax.swing.JFrame {
         });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -206,7 +227,7 @@ public class EditProject extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setText("Nome:");
 
-        nameField.setBorder(null);
+        titleJTF.setBorder(null);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -216,7 +237,7 @@ public class EditProject extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -224,7 +245,7 @@ public class EditProject extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -257,11 +278,16 @@ public class EditProject extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jButton4.setText("Cancelar");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
 
-        descriptionField.setBorder(null);
+        descriptionJTF.setBorder(null);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -271,14 +297,14 @@ public class EditProject extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(descriptionField)
+                .addComponent(descriptionJTF)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(descriptionJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -313,8 +339,8 @@ public class EditProject extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Gerentes");
 
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel6.setText("Nome do Projeto");
+        titleJL.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        titleJL.setText("Nome do Projeto");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -332,7 +358,7 @@ public class EditProject extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
+                        .addComponent(titleJL)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -362,7 +388,7 @@ public class EditProject extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(titleJL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
@@ -431,11 +457,16 @@ public class EditProject extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String name = this.nameField.getText();
-        String description = this.descriptionField.getText();
+        String name = this.titleJTF.getText();
+        String description = this.descriptionJTF.getText();
+        this.project.setTitle(name);
+        this.project.setDescription(description);
         try {
-            this.projectController.createNewProject(name, description);
-            JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
+            this.projectController.updateProject(this.project);
+            JOptionPane.showMessageDialog(this, "Projeto atualizado com sucesso!");
+            ProjectView projectView = new ProjectView(this.project);
+            projectView.setVisible(true);
+            this.dispose();
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
@@ -444,6 +475,12 @@ public class EditProject extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ProjectView projectView = new ProjectView(this.project);
+        projectView.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -488,7 +525,7 @@ public class EditProject extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField descriptionField;
+    private javax.swing.JTextField descriptionJTF;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -502,7 +539,6 @@ public class EditProject extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -518,6 +554,7 @@ public class EditProject extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel titleJL;
+    private javax.swing.JTextField titleJTF;
     // End of variables declaration//GEN-END:variables
 }
