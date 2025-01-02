@@ -532,7 +532,7 @@ public class CreatePerson extends javax.swing.JFrame {
         String jobTitle = (String) this.roleCB.getSelectedItem();
         
         try{
-            Login login = loginController.createLogin(email, "1234567");
+            Login login = new Login(email, "1234567");
             this.personColtroller.createNewUser(name, login, address, phone, jobTitle, gender);
             this.nameField.setText("");
             this.phoneField.setText("");

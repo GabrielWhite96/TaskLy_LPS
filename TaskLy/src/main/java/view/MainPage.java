@@ -39,13 +39,13 @@ public class MainPage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        punchClokBtn = new javax.swing.JButton();
+        projectBtn = new javax.swing.JButton();
+        taskBtn = new javax.swing.JButton();
+        feedbackBtn = new javax.swing.JButton();
+        responseBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton8 = new javax.swing.JButton();
+        usersBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -71,66 +71,65 @@ public class MainPage extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setBackground(new java.awt.Color(42, 62, 95));
-        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(241, 243, 245));
-        jButton1.setText("Bater Ponto");
-        jButton1.setBorder(null);
-        jButton1.setMaximumSize(new java.awt.Dimension(76, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(76, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        punchClokBtn.setBackground(new java.awt.Color(42, 62, 95));
+        punchClokBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        punchClokBtn.setForeground(new java.awt.Color(241, 243, 245));
+        punchClokBtn.setText("Bater Ponto");
+        punchClokBtn.setBorder(null);
+        punchClokBtn.setMaximumSize(new java.awt.Dimension(76, 23));
+        punchClokBtn.setMinimumSize(new java.awt.Dimension(76, 23));
+        punchClokBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                punchClokBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(42, 62, 95));
-        jButton2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(241, 243, 245));
-        jButton2.setText("Projetos");
-        jButton2.setBorder(null);
-        jButton2.setMaximumSize(new java.awt.Dimension(56, 23));
-        jButton2.setMinimumSize(new java.awt.Dimension(56, 23));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        projectBtn.setBackground(new java.awt.Color(42, 62, 95));
+        projectBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        projectBtn.setForeground(new java.awt.Color(241, 243, 245));
+        projectBtn.setText("Projetos");
+        projectBtn.setBorder(null);
+        projectBtn.setMaximumSize(new java.awt.Dimension(56, 23));
+        projectBtn.setMinimumSize(new java.awt.Dimension(56, 23));
+        projectBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                projectBtnActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(42, 62, 95));
-        jButton5.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(241, 243, 245));
-        jButton5.setText("Tarefas");
-        jButton5.setBorder(null);
+        taskBtn.setBackground(new java.awt.Color(42, 62, 95));
+        taskBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        taskBtn.setForeground(new java.awt.Color(241, 243, 245));
+        taskBtn.setText("Tarefas");
+        taskBtn.setBorder(null);
 
-        jButton6.setBackground(new java.awt.Color(42, 62, 95));
-        jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(241, 243, 245));
-        jButton6.setText("Feedbacks");
-        jButton6.setBorder(null);
+        feedbackBtn.setBackground(new java.awt.Color(42, 62, 95));
+        feedbackBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        feedbackBtn.setForeground(new java.awt.Color(241, 243, 245));
+        feedbackBtn.setText("Feedbacks");
+        feedbackBtn.setBorder(null);
 
-        jButton7.setBackground(new java.awt.Color(42, 62, 95));
-        jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(241, 243, 245));
-        jButton7.setText("Relatórios");
-        jButton7.setBorder(null);
+        responseBtn.setBackground(new java.awt.Color(42, 62, 95));
+        responseBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        responseBtn.setForeground(new java.awt.Color(241, 243, 245));
+        responseBtn.setText("Relatórios");
+        responseBtn.setBorder(null);
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
 
-        jButton8.setBackground(new java.awt.Color(42, 62, 95));
-        jButton8.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(241, 243, 245));
-        jButton8.setText("Usuários");
-        jButton8.setBorder(null);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        usersBtn.setBackground(new java.awt.Color(42, 62, 95));
+        usersBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        usersBtn.setForeground(new java.awt.Color(241, 243, 245));
+        usersBtn.setText("Usuários");
+        usersBtn.setBorder(null);
+        usersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                usersBtnActionPerformed(evt);
             }
         });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -145,12 +144,12 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(feedbackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(taskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(projectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(punchClokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(responseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))
                     .addComponent(jSeparator2)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -168,17 +167,17 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(punchClokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(projectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(taskBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(feedbackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(responseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -244,17 +243,17 @@ public class MainPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void usersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_usersBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void projectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectBtnActionPerformed
         MenuNavigation.goToProjectsMenu(this);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_projectBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void punchClokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_punchClokBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_punchClokBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,12 +306,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton feedbackBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -321,5 +315,10 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton projectBtn;
+    private javax.swing.JButton punchClokBtn;
+    private javax.swing.JButton responseBtn;
+    private javax.swing.JButton taskBtn;
+    private javax.swing.JButton usersBtn;
     // End of variables declaration//GEN-END:variables
 }

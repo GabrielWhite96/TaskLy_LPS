@@ -8,27 +8,42 @@ import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import model.Person;
+import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
  * @author Gabriel White
  */
 public class CreateProject extends javax.swing.JFrame {
+    private List<JCheckBox> checkBoxesEmployees;
+    private List<JCheckBox> checkBoxesManagers;
+    
     private ProjectController projectController;
     private PersonController personController;
+    private List<Person> persons;
+    private List<Person> selectedPersons;
     
     public CreateProject() {
-        this.projectController = new ProjectController();
-        this.personController = new PersonController();
+        this.initAtributes();
         
         initComponents();
+        
+        this.initJPanelsEmployee();
+        this.initJPanelsManager();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 EntityManagerFactory factory = ConnectionDB.getFactory();         
-                System.out.print("Cagada!!");
+                
                 factory.close();
             }
         });
@@ -62,16 +77,16 @@ public class CreateProject extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        confirmJB = new javax.swing.JButton();
+        cancelJB = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         descriptionField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
+        managersJP = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel9 = new javax.swing.JPanel();
+        employeesJP = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -245,23 +260,23 @@ public class CreateProject extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton3.setBackground(new java.awt.Color(42, 62, 95));
-        jButton3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(241, 243, 245));
-        jButton3.setText("Confirmar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        confirmJB.setBackground(new java.awt.Color(42, 62, 95));
+        confirmJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmJB.setForeground(new java.awt.Color(241, 243, 245));
+        confirmJB.setText("Confirmar");
+        confirmJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                confirmJBActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(241, 243, 245));
-        jButton4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelJB.setBackground(new java.awt.Color(241, 243, 245));
+        cancelJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelJB.setText("Cancelar");
+        cancelJB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelJBActionPerformed(evt);
             }
         });
 
@@ -288,34 +303,39 @@ public class CreateProject extends javax.swing.JFrame {
                 .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        managersJP.setAutoscrolls(true);
+
+        javax.swing.GroupLayout managersJPLayout = new javax.swing.GroupLayout(managersJP);
+        managersJP.setLayout(managersJPLayout);
+        managersJPLayout.setHorizontalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 408, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        managersJPLayout.setVerticalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 235, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel7);
+        jScrollPane1.setViewportView(managersJP);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Gerentes");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        employeesJP.setAutoscrolls(true);
+        employeesJP.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout employeesJPLayout = new javax.swing.GroupLayout(employeesJP);
+        employeesJP.setLayout(employeesJPLayout);
+        employeesJPLayout.setHorizontalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 326, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        employeesJPLayout.setVerticalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel9);
+        jScrollPane2.setViewportView(employeesJP);
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Funcionários");
@@ -326,9 +346,9 @@ public class CreateProject extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(286, 286, 286))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -388,8 +408,8 @@ public class CreateProject extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
         );
@@ -425,11 +445,74 @@ public class CreateProject extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void showProjectsScreen(){
-        ProjectsMenu projectsScreen = new ProjectsMenu();
-        projectsScreen.setVisible(true);
-        this.dispose();
+    
+    private void initAtributes(){
+        this.selectedPersons = new ArrayList<>();
+        this.projectController = new ProjectController();
+        this.personController = new PersonController();
+        try {
+            persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
+    private void initJPanelsEmployee(){
+        this.checkBoxesEmployees = new ArrayList<>();
+        this.employeesJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.employeesJP.removeAll();
+        this.checkBoxesEmployees.clear();
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        
+        for (Person person : employees) {
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesEmployees.add(checkBox);
+                this.employeesJP.add(checkBox);
+            }
+        }
+        
+        this.employeesJP.revalidate();
+        this.employeesJP.repaint();
+    }
+    
+    private void initJPanelsManager(){
+        this.checkBoxesManagers = new ArrayList<>();
+        this.managersJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.managersJP.removeAll();
+        this.checkBoxesManagers.clear();
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        
+        for (Person person : managers) {
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesManagers.add(checkBox);
+                this.managersJP.add(checkBox);
+            }
+        }
+        
+        this.managersJP.revalidate();
+        this.managersJP.repaint();
+    }
+    
+    private void pushSelectedEmployees() {
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        for (int i = 0; i < this.checkBoxesEmployees.size(); i++) {
+            if (this.checkBoxesEmployees.get(i).isSelected()) {
+                this.selectedPersons.add(employees.get(i));
+            }
+        }
+    }
+    
+    private void pushSelectedManagers() {
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        for (int i = 0; i < this.checkBoxesManagers.size(); i++) {
+            if (this.checkBoxesManagers.get(i).isSelected()) {
+                this.selectedPersons.add(managers.get(i));
+            }
+        }
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -440,25 +523,27 @@ public class CreateProject extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
         String name = this.nameField.getText();
         String description = this.descriptionField.getText();
+        this.pushSelectedEmployees();
+        this.pushSelectedManagers();
         try {
-            this.projectController.createNewProject(name, description);
+            this.projectController.createNewProject(name, description, this.selectedPersons);
             JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
-        this.showProjectsScreen();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        MenuNavigation.goToProjectsMenu(this);
+    }//GEN-LAST:event_confirmJBActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.showProjectsScreen();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void cancelJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelJBActionPerformed
+        MenuNavigation.goToProjectsMenu(this);
+    }//GEN-LAST:event_cancelJBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -499,11 +584,12 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelJB;
+    private javax.swing.JButton confirmJB;
     private javax.swing.JTextField descriptionField;
+    private javax.swing.JPanel employeesJP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -521,13 +607,12 @@ public class CreateProject extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPanel managersJP;
     private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }

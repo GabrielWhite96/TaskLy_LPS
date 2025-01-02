@@ -7,8 +7,6 @@ package view;
 import controller.LoginController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Person;
 
@@ -55,7 +53,7 @@ public class LoginView extends javax.swing.JFrame {
         emailField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("loginFr"); // NOI18N
@@ -74,6 +72,7 @@ public class LoginView extends javax.swing.JFrame {
         emailField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         emailField.setForeground(new java.awt.Color(242, 242, 242));
         emailField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        emailField.setText("emailtesteE1@gmail.com");
         emailField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(62, 82, 115), 1, true));
         emailField.setCaretColor(new java.awt.Color(242, 242, 242));
 
@@ -86,6 +85,7 @@ public class LoginView extends javax.swing.JFrame {
         passwordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         passwordField.setForeground(new java.awt.Color(242, 242, 242));
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordField.setText("1234567");
         passwordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(62, 82, 115)));
         passwordField.setCaretColor(new java.awt.Color(242, 242, 242));
         passwordField.addActionListener(new java.awt.event.ActionListener() {
@@ -94,14 +94,14 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(62, 82, 115));
-        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(242, 242, 242));
-        jButton1.setText("Logar");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginBtn.setBackground(new java.awt.Color(62, 82, 115));
+        loginBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(242, 242, 242));
+        loginBtn.setText("Logar");
+        loginBtn.setBorder(null);
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginBtnActionPerformed(evt);
             }
         });
 
@@ -122,7 +122,7 @@ public class LoginView extends javax.swing.JFrame {
                         .addGap(0, 17, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(75, 75, 75))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +146,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
 
@@ -168,16 +168,17 @@ public class LoginView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String email = this.emailField.getText();
         String password = new String(this.passwordField.getPassword());
         try {
             Person user = this.loginController.getUserAccount(email, password);
+            JOptionPane.showMessageDialog(this, user.getName());
             this.showMainPage(user);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,11 +220,11 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 }

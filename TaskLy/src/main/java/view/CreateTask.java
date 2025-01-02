@@ -4,14 +4,19 @@
  */
 package view;
 
+import controller.PersonController;
 import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import model.Person;
 import model.Project;
-import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
@@ -19,6 +24,10 @@ import utils.MenuNavigation;
  */
 public class CreateTask extends javax.swing.JFrame {
     private Project project;
+    private List<JCheckBox> checkBoxesEmployees;
+    private List<Person> persons;
+    private List<Person> selectedPersons;
+    private PersonController personController;
     private TaskController taskControler;
 
     /**
@@ -29,10 +38,11 @@ public class CreateTask extends javax.swing.JFrame {
     }
     
     public CreateTask(Project project) {
-        this.project = project;
-        this.taskControler = new TaskController();
+        this.initAtributes();
         
         initComponents();
+        
+        this.initJPanelsEmployee();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -41,6 +51,50 @@ public class CreateTask extends javax.swing.JFrame {
                 factory.close();
             }
         });
+    }
+    
+    private void initAtributes(){
+        this.project = project;
+        this.checkBoxesEmployees = new ArrayList<>();
+        this.taskControler = new TaskController();
+        this.personController = new PersonController();
+        this.selectedPersons = new ArrayList<>();
+        
+        try {
+            persons = this.personController.getPersonsByProject(this.project);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
+    private void initJPanelsEmployee(){
+        this.employeeJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.employeeJP.removeAll();
+        this.checkBoxesEmployees.clear();
+        List<Person> employees = personController.getEmployeesByRole(this.persons, Roles.EMPLOYEE);
+        
+        for (Person person : employees) {
+            if(person.getProject() == null || person.getProject().equalsTo(this.project)){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBox.setSelected(this.project.equalsTo(person.getProject()));
+                checkBoxesEmployees.add(checkBox);
+                this.employeeJP.add(checkBox);
+            }
+        }
+        
+        this.employeeJP.revalidate();
+        this.employeeJP.repaint();
+    }
+    
+    
+    private void pushSelectedEmployees() {
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        for (int i = 0; i < this.checkBoxesEmployees.size(); i++) {
+            if (this.checkBoxesEmployees.get(i).isSelected()) {
+                this.selectedPersons.add(employees.get(i));
+            }
+        }
     }
 
     /**
@@ -71,13 +125,13 @@ public class CreateTask extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        confirmJB = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         descriptionJTF = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
+        employeeJP = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -253,13 +307,13 @@ public class CreateTask extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton3.setBackground(new java.awt.Color(42, 62, 95));
-        jButton3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(241, 243, 245));
-        jButton3.setText("Confirmar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        confirmJB.setBackground(new java.awt.Color(42, 62, 95));
+        confirmJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmJB.setForeground(new java.awt.Color(241, 243, 245));
+        confirmJB.setText("Confirmar");
+        confirmJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                confirmJBActionPerformed(evt);
             }
         });
 
@@ -296,18 +350,18 @@ public class CreateTask extends javax.swing.JFrame {
                 .addComponent(descriptionJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout employeeJPLayout = new javax.swing.GroupLayout(employeeJP);
+        employeeJP.setLayout(employeeJPLayout);
+        employeeJPLayout.setHorizontalGroup(
+            employeeJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 408, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        employeeJPLayout.setVerticalGroup(
+            employeeJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel7);
+        jScrollPane1.setViewportView(employeeJP);
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Funcionários");
@@ -320,7 +374,7 @@ public class CreateTask extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(286, 286, 286))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -369,7 +423,7 @@ public class CreateTask extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
         );
 
@@ -413,18 +467,19 @@ public class CreateTask extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
         String title = this.titleJTF.getText();
         String description = this.descriptionJTF.getText();
+        this.pushSelectedEmployees();
         try {
-            this.taskControler.createTask(title, description, project);                                         
+            this.taskControler.createTask(title, description, this.selectedPersons, this.project);                                         
             ProjectView projectView = new ProjectView(this.project);
             projectView.setVisible(true);
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_confirmJBActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -479,10 +534,11 @@ public class CreateTask extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmJB;
     private javax.swing.JTextField descriptionJTF;
+    private javax.swing.JPanel employeeJP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -500,7 +556,6 @@ public class CreateTask extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
