@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import model.Project;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -93,5 +94,4 @@ public class ProjectDAO implements DAOInterface<Project> {
         }
         return projectList;
     }
-    
 }

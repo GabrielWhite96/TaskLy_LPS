@@ -6,6 +6,10 @@ import model.Person;
 import model.Project;
 import model.ProjectMessage;
 
+/**
+ * @author wekisley
+ */
+
 public class ProjectController {
     private ProjectDAO projectDAO;
     private PersonController personController;
@@ -13,18 +17,6 @@ public class ProjectController {
     public ProjectController(){
         this.projectDAO = new ProjectDAO();
         this.personController = new PersonController();
-    }
-    
-    public void sendMessage(Person person, Project project, String message) throws Exception{
-//        ProjectMessage projectMessage = new ProjectMessage();
-//        projectMessage.setPerson(person);
-//        projectMessage.setProject(project);
-//        project.addMessage(projectMessage);
-//        try {
-//            this.projectDAO.update(project);
-//        } catch (Exception e) {
-//            throw new Exception("Não foi possível enviar mensagem!", e);
-//        }
     }
     
     public Project createNewProject(String title, String description) throws Exception {
@@ -63,6 +55,17 @@ public class ProjectController {
             project.addPersons(persons);
             this.projectDAO.update(project);
         } catch(Exception e) {
+            throw new Exception(e);
+        }
+    }
+    
+    public void sendMessage(Person person, Project project, String message) throws Exception {
+        try {
+            ProjectMessage projectMessage = new ProjectMessage(message, project, person);
+            project.addMessage(projectMessage);
+            System.out.println("Message: " + project.getMessages().get(0).getContent());
+            this.updateProject(project);
+        } catch (Exception e) {
             throw new Exception(e);
         }
     }
