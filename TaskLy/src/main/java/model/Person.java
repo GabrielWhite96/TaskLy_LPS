@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -34,7 +35,12 @@ public class Person {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="project_id", referencedColumnName = "id")
     private Project project;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(
+        name = "person_task", // Nome da tabela intermediária
+        joinColumns = @JoinColumn(name = "person_id"), // FK para 'Person'
+        inverseJoinColumns = @JoinColumn(name = "task_id") // FK para 'Task'
+    )
     private List<Task> tasks;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<ProjectMessage> projectMessages;

@@ -4,10 +4,7 @@ import dao.ProjectDAO;
 import java.util.List;
 import model.Person;
 import model.Project;
-
-/**
- * @author wekisley
- */
+import model.ProjectMessage;
 
 public class ProjectController {
     private ProjectDAO projectDAO;
@@ -16,6 +13,18 @@ public class ProjectController {
     public ProjectController(){
         this.projectDAO = new ProjectDAO();
         this.personController = new PersonController();
+    }
+    
+    public void sendMessage(Person person, Project project, String message) throws Exception{
+//        ProjectMessage projectMessage = new ProjectMessage();
+//        projectMessage.setPerson(person);
+//        projectMessage.setProject(project);
+//        project.addMessage(projectMessage);
+//        try {
+//            this.projectDAO.update(project);
+//        } catch (Exception e) {
+//            throw new Exception("Não foi possível enviar mensagem!", e);
+//        }
     }
     
     public Project createNewProject(String title, String description) throws Exception {

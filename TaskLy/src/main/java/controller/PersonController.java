@@ -62,6 +62,14 @@ public class PersonController {
         }
     }
     
+    public List<Person> getPersonsByProject(Project project) throws Exception{
+        try {
+            return (List<Person>) personDAO.getByProject(project);
+        } catch(Exception e) {
+            throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+        }
+    }
+    
     public Person find(int id) throws Exception{
         try {
             return personDAO.getById(id);

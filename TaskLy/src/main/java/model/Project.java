@@ -29,9 +29,9 @@ public class Project {
     private int id;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
     private List<ProjectReport> reports;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="project", cascade={ CascadeType.MERGE, CascadeType.REMOVE })
     private List<Task> tasks;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="project", cascade={ CascadeType.MERGE, CascadeType.REMOVE })
     private List<ProjectMessage> messages;
     @OneToMany(mappedBy="project", cascade=CascadeType.MERGE)
     private List<Person> persons;
@@ -60,6 +60,19 @@ public class Project {
         return this.id == project.getId();
     }
     
+    public void addTask(Task task){
+        if(!this.tasks.contains(task)){
+            this.tasks.add(task);
+            task.setProject(this);
+        }
+    }
+    
+    public void addTask(List<Task> tasks){
+        for(Task task: tasks){
+            this.addTask(task);
+        } 
+    }
+    
     public void addPerson(Person person){
         if(!this.persons.contains(person)){
             this.persons.add(person);
@@ -73,26 +86,14 @@ public class Project {
         } 
     }
     
+    public void addMessage(ProjectMessage message){
+        if(!this.messages.contains(message)){
+            this.messages.add(message);
+            message.setProject(this);
+        }
+    }
+    
     public void clearPersons(){
         this.persons = new ArrayList<>();
     }
-    
-//    private void removePersonsOfList(Person person, List<Person> persons){
-//        for(int i = 0; i < persons.size(); i++){
-//            if(person.equalsTo(persons.get(i))){
-//                persons.remove(i);
-//            }
-//        }
-//    }
-//    
-//    public List<Person> removePersons(List<Person> persons){
-//        List<Person> removedPersons = new ArrayList<>();
-//        for(Person person: this.persons){
-//            if(!person.isInList(persons)){
-//                removedPersons.add(person);
-//                this.removePersonsOfList(person, persons);
-//            }
-//        }
-//        return removedPersons;
-//    }
 }

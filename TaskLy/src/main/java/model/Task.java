@@ -29,12 +29,12 @@ public class Task {
     private int id;
     @ManyToOne
     private Project project;
-    @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="task", cascade={ CascadeType.ALL })
     private List<TaskReport> reports;
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
     private List<TaskMessage> messages;
-    @ManyToMany(mappedBy="tasks", cascade=CascadeType.ALL)
-    private List<Person> users;
+    @ManyToMany(mappedBy="tasks", cascade={ CascadeType.MERGE ,CascadeType.REFRESH })
+    private List<Person> persons;
     private String title;
     private String description;
     private String status;
@@ -50,6 +50,18 @@ public class Task {
         this.description = "";
         this.status = "Aguardando";
         this.createdAt = getCurrentDate();
+    }
+    
+    public void addPerson(Person person){
+        if(!this.persons.contains(person)){
+            this.persons.add(person);
+        }
+    }
+    
+    public void addPersons(List<Person> persons){
+        for(Person person: persons){
+            this.addPerson(person);
+        }
     }
     
     public void addReport(Task task, String title, String description){

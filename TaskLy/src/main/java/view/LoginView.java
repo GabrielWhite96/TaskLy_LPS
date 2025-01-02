@@ -7,8 +7,6 @@ package view;
 import controller.LoginController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Person;
 
@@ -74,7 +72,7 @@ public class LoginView extends javax.swing.JFrame {
         emailField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         emailField.setForeground(new java.awt.Color(242, 242, 242));
         emailField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        emailField.setText("55555abc");
+        emailField.setText("emailtesteE1@gmail.com");
         emailField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(62, 82, 115), 1, true));
         emailField.setCaretColor(new java.awt.Color(242, 242, 242));
 
@@ -87,7 +85,7 @@ public class LoginView extends javax.swing.JFrame {
         passwordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         passwordField.setForeground(new java.awt.Color(242, 242, 242));
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        passwordField.setText("55555abc");
+        passwordField.setText("1234567");
         passwordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(62, 82, 115)));
         passwordField.setCaretColor(new java.awt.Color(242, 242, 242));
         passwordField.addActionListener(new java.awt.event.ActionListener() {
