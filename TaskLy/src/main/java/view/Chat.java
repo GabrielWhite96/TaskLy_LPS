@@ -5,14 +5,11 @@
 package view;
 
 import controller.ProjectController;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import dao.ConnectionDB;
+import jakarta.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
 import model.AppStateSingleton;
 import model.Project;
-import model.ProjectMessage;
 
 /**
  *
@@ -37,23 +34,14 @@ public class Chat extends javax.swing.JFrame {
         
         initComponents();
         
-        this.initMessages();
-    }
-    
-    private void initMessages(){
-        this.chatJP.setLayout(new BoxLayout(this.chatJP, BoxLayout.Y_AXIS));        
-        List<ProjectMessage> messages = project.getMessages();
-        
-        // Iterar sobre as mensagens e adicioná-las ao painel.
-        for (ProjectMessage message : messages) {
-            JLabel messageLabel = new JLabel(message.getContent());
-            messageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Espaçamento.
-            this.chatJP.add(messageLabel);
-        }
-
-        // Atualizar a interface para exibir as mensagens.
-        this.chatJP.revalidate();
-        this.chatJP.repaint();
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();         
+                
+                factory.close();
+            }
+        });
     }
 
     /**
@@ -260,6 +248,7 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
+        messageTF.setText("Texto para teste");
         messageTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageTFActionPerformed(evt);
@@ -369,9 +358,9 @@ public class Chat extends javax.swing.JFrame {
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         String message = this.messageTF.getText();
         try {
-            this.projectController.sendMessage(this.appState.getUser(), this.project, message);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
+            this.projectController.sendMessage(appState.getUser(), this.project, message);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_sendBtnActionPerformed
 

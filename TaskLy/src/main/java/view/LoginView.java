@@ -7,6 +7,8 @@ package view;
 import controller.LoginController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Person;
 

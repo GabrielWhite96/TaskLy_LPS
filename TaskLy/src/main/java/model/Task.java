@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
@@ -27,13 +24,14 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
-    @OneToMany(mappedBy="task", cascade={ CascadeType.ALL })
-    private List<TaskReport> reports;
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
+    private List<TaskReport> reports;
+    @OneToMany(mappedBy="task", cascade={ CascadeType.REMOVE, CascadeType.REFRESH })
     private List<TaskMessage> messages;
-    @ManyToMany(mappedBy="tasks", cascade={ CascadeType.MERGE ,CascadeType.REFRESH })
+    @OneToMany(mappedBy="task", cascade={ CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     private List<Person> persons;
     private String title;
     private String description;
@@ -46,6 +44,7 @@ public class Task {
         this.project = project;
         this.reports = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.persons = new ArrayList<>();
         this.title = title;
         this.description = "";
         this.status = "Aguardando";
@@ -55,10 +54,11 @@ public class Task {
     public void addPerson(Person person){
         if(!this.persons.contains(person)){
             this.persons.add(person);
+            person.setTask(this);
         }
     }
     
-    public void addPersons(List<Person> persons){
+    public void addPerson(List<Person> persons){
         for(Person person: persons){
             this.addPerson(person);
         }
