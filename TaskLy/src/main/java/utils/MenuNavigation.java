@@ -5,6 +5,7 @@
 package utils;
 
 import view.ProjectsMenu;
+import view.TasksMenu;
 
 /**
  *
@@ -18,4 +19,9 @@ public class MenuNavigation {
         jFrame.dispose();
     }
     
+    public static void goToTasksMenu(javax.swing.JFrame jFrame){
+        TasksMenu tasksMenu = new TasksMenu();
+        tasksMenu.setVisible(true);
+        jFrame.dispose();
+    }
 }

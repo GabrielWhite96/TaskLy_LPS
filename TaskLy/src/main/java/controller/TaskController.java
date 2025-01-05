@@ -35,4 +35,13 @@ public class TaskController {
             throw new Exception("Não foi possível criar a tarefa!");
         }
     }
+    
+    public List<Task> getAllTasks() throws Exception{
+        try {
+            return this.taskDAO.getAll();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível obter todas as tarefas!");
+        }
+        
+    }
 }

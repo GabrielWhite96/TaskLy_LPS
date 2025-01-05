@@ -102,6 +102,11 @@ public class MainPage extends javax.swing.JFrame {
         taskBtn.setForeground(new java.awt.Color(241, 243, 245));
         taskBtn.setText("Tarefas");
         taskBtn.setBorder(null);
+        taskBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskBtnActionPerformed(evt);
+            }
+        });
 
         feedbackBtn.setBackground(new java.awt.Color(42, 62, 95));
         feedbackBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -254,6 +259,10 @@ public class MainPage extends javax.swing.JFrame {
     private void punchClokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_punchClokBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_punchClokBtnActionPerformed
+
+    private void taskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskBtnActionPerformed
+        MenuNavigation.goToTasksMenu(this);
+    }//GEN-LAST:event_taskBtnActionPerformed
 
     /**
      * @param args the command line arguments
