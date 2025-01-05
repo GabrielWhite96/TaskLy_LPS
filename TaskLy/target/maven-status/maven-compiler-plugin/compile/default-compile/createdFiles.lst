@@ -2,7 +2,7 @@ view/Chat.class
 view/Chat$8.class
 view/LoginView.class
 view/CreateFeedback$5.class
-view/TasksMenu$9.class
+view/PersonsMenu$6.class
 view/ProjectMembers$9.class
 view/CreateTask$5.class
 view/TasksMenu.class
@@ -19,6 +19,7 @@ view/ProjectsMenu$10.class
 dao/LoginDAO.class
 view/ProjectMembers$3.class
 view/TaskView$3.class
+view/PersonsMenu$3.class
 view/ProjectView$4.class
 view/EditProject$5.class
 view/ProjectView.class
@@ -35,6 +36,7 @@ view/ProjectsMenu$9.class
 model/Person.class
 view/ProjectsMenu$3.class
 view/ClockIn$1.class
+view/PersonsMenu.class
 view/Chat$3.class
 view/ProjectsMenu$6.class
 view/CreateProject$7.class
@@ -50,6 +52,7 @@ com/mycompany/taskly/TaskLy.class
 view/MainPage$3.class
 view/ClockIn.class
 view/TaskView$1.class
+view/PersonsMenu$5.class
 view/EditProject$2.class
 view/ProjectMembers$1.class
 controller/ProjectController.class
@@ -113,12 +116,15 @@ model/ProjectMessage.class
 view/CreatePerson.class
 model/ProjectReport.class
 controller/TaskController.class
+view/PersonsMenu$4.class
 view/CreatePerson$2.class
 view/CreateTask$3.class
 view/ProjectUsers$2.class
 utils/MenuNavigation.class
+view/PersonsMenu$7.class
 dao/DAOInterface.class
 view/ProjectMembers$2.class
+view/PersonsMenu$8.class
 view/ProjectMembers$4.class
 view/CreateProject$1.class
 view/LoginView$2.class
@@ -129,6 +135,7 @@ view/EditProject.class
 view/ProjectView$6.class
 view/ProjectMembers$10.class
 model/Login.class
+view/PersonsMenu$1.class
 view/TaskView$5.class
 view/MainPage.class
 view/ClockIn$7.class
@@ -136,6 +143,8 @@ dao/ConnectionDB.class
 view/CreateTask$7.class
 view/TesteTable$2.class
 view/TasksMenu$3.class
+view/PersonsMenu$2.class
+view/PersonsMenu$9.class
 view/ProjectsMenu$7.class
 view/LoginView$1.class
 view/CreateTask$1.class
@@ -144,6 +153,7 @@ view/MainPage$1.class
 utils/Tests.class
 view/Chat$5.class
 view/ClockIn$6.class
+view/PersonsMenu$10.class
 view/TasksMenu$4.class
 view/TesteTable$3.class
 model/Project.class
