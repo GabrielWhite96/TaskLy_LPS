@@ -7,9 +7,18 @@ package view;
 import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.List;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.AppStateSingleton;
 import model.Project;
+import model.ProjectMessage;
 
 /**
  *
@@ -33,6 +42,7 @@ public class Chat extends javax.swing.JFrame {
         this.appState = AppStateSingleton.getInstance();
         
         initComponents();
+        loadMessages();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -43,6 +53,105 @@ public class Chat extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void loadMessages() {
+        chatJP.removeAll(); // Limpa as mensagens existentes no painel
+        chatJP.setLayout(new BoxLayout(chatJP, BoxLayout.Y_AXIS)); // Layout vertical
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368)); 
+        
+
+        try {
+            List<ProjectMessage> messages = projectController.find(project.getId()).getMessages();
+
+            if (messages.isEmpty()) {
+                JLabel noMessagesLabel = new JLabel("Nenhuma mensagem encontrada.");
+                chatJP.add(noMessagesLabel);
+            } else {
+                for (ProjectMessage message : messages) {
+                    JLabel messageLabel = new JLabel(formatMessage(message));
+                    chatJP.add(messageLabel);
+                    chatJP.add(Box.createVerticalStrut(10)); // Adiciona um espaço entre as mensagens
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar mensagens: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        // Personaliza a barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        // Alterar a largura da barra de rolagem
+        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+        // Alterar a altura da barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
+
+        chatJP.revalidate();  // Atualiza o layout do painel
+        chatJP.repaint();     // Repaint o painel para refletir as mudanças
+    }
+
+
+
+    private String formatMessage(ProjectMessage message) {
+    String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
+    // Formatação: nome em negrito e em cima, mensagem abaixo em normal
+    String formattedMessage = "<html>"
+                              + "<div style='font-size:9px; color:#555555;margin-left: 4px;'>" + personName + "</div>"
+                              + "<div style='font-size:10px; color:#111111; margin-left: 8px;'>" + message.getContent() + "</div>"
+                              + "</html>";
+    return formattedMessage;
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
