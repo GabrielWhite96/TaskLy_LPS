@@ -25,7 +25,7 @@ public class Project {
     private List<Task> tasks;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<ProjectMessage> messages;
-    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE)
+    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Person> persons;
     private String title;
     private String description;
@@ -59,6 +59,15 @@ public class Project {
             return false;
         }
         return this.id == project.getId();
+    }
+    
+    public boolean hasPerson(Person person){
+        for(Person ps: this.persons){
+            if(ps.getId() == person.getId()){
+                return true;
+            }
+        }
+        return false;
     }
     
     public void addPerson(Person person){

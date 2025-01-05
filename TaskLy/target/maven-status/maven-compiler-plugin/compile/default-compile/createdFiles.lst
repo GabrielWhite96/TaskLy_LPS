@@ -1,7 +1,9 @@
 view/Chat.class
+view/Chat$8.class
 view/LoginView.class
 view/CreateFeedback$5.class
 view/TasksMenu$9.class
+view/ProjectMembers$9.class
 view/CreateTask$5.class
 view/TasksMenu.class
 view/ProjectView$7.class
@@ -48,7 +50,9 @@ view/TaskView$1.class
 view/EditProject$2.class
 view/ProjectMembers$1.class
 controller/ProjectController.class
+view/ProjectMembers$8.class
 view/ProjectUsers.class
+view/ProjectView$10.class
 view/ClockIn$10.class
 view/ProjectUsers$3.class
 view/CreateTask.class
@@ -70,6 +74,7 @@ view/EditProject$1.class
 view/ProjectView$8.class
 view/TasksMenu$7.class
 utils/Status.class
+view/ProjectMembers$7.class
 view/TesteTable$1.class
 view/ClockIn$8.class
 view/CreateProject$6.class
