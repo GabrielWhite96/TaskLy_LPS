@@ -178,7 +178,7 @@ public class CreateFeedback extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Titulo:");
 
         jTextField1.setBorder(null);
 
@@ -234,6 +234,8 @@ public class CreateFeedback extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
+
+        jScrollPane1.setBorder(null);
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
