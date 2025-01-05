@@ -24,6 +24,7 @@
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/utils/Status.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/utils/Tests.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/Chat.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ClockIn.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreateFeedback.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreatePerson.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/CreateProject.java
@@ -32,6 +33,8 @@
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/LoginView.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/MainPage.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectMembers.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectUsers.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectView.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/ProjectsMenu.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/Task.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/view/TesteTable.java
