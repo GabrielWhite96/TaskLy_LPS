@@ -8,12 +8,14 @@ view/CreateTask$5.class
 view/TasksMenu.class
 view/ProjectView$7.class
 view/ProjectUsers$1.class
+view/TaskView$6.class
 view/ProjectMembers$6.class
 dao/PersonDAO.class
 view/ProjectView$1.class
 view/CreateTask$2.class
 view/TaskView.class
 view/CreateFeedback$2.class
+view/ProjectsMenu$10.class
 dao/LoginDAO.class
 view/ProjectMembers$3.class
 view/TaskView$3.class
@@ -21,6 +23,7 @@ view/ProjectView$4.class
 view/EditProject$5.class
 view/ProjectView.class
 controller/PersonController.class
+view/TaskView$9.class
 view/TesteTable.class
 view/ClockIn$4.class
 view/CreatePerson$6.class
@@ -55,6 +58,7 @@ view/ProjectUsers.class
 view/ProjectView$10.class
 view/ClockIn$10.class
 view/ProjectUsers$3.class
+view/TaskView$8.class
 view/CreateTask.class
 view/CreatePerson$3.class
 view/MainPage$4.class
@@ -70,6 +74,7 @@ view/CreateFeedback$4.class
 view/EditProject$7.class
 view/ProjectMembers.class
 view/LoginView$4.class
+view/TaskView$7.class
 view/EditProject$1.class
 view/ProjectView$8.class
 view/TasksMenu$7.class
@@ -122,6 +127,7 @@ view/Chat$6.class
 view/ProjectsMenu$8.class
 view/EditProject.class
 view/ProjectView$6.class
+view/ProjectMembers$10.class
 model/Login.class
 view/TaskView$5.class
 view/MainPage.class

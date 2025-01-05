@@ -229,6 +229,11 @@ public class ProjectMembers extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(241, 243, 245));
         jButton5.setText("Tarefas");
         jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(42, 62, 95));
         jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -434,6 +439,10 @@ public class ProjectMembers extends javax.swing.JFrame {
         projectView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MenuNavigation.goToTasksMenu(this);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

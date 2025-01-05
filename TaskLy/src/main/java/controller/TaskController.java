@@ -26,7 +26,7 @@ public class TaskController {
         }
     }
     
-    public void createTask(String title, String description, Project project, List<Person> persons) throws Exception{
+    public void createTask(String title, String description, Project project, List<Person> persons) throws Exception {
         Task task = new Task(title, description, project);
         task.addPerson(persons);
         try {
