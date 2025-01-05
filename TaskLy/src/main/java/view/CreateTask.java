@@ -5,7 +5,6 @@
 package view;
 
 import controller.PersonController;
-import controller.ProjectController;
 import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,13 +12,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import model.Person;
 import model.Project;
-import utils.MenuNavigation;
 import utils.Roles;
 
 /**
