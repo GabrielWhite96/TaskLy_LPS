@@ -5,6 +5,7 @@
 package controller;
 
 import dao.ProjectReportDAO;
+import java.util.List;
 import model.AppStateSingleton;
 import model.Person;
 import model.Project;
@@ -26,12 +27,18 @@ public class ProjectReportController {
     public void createReport(Project project, String title, String description) throws Exception {
         Person user = this.appState.getUser();
         ProjectReport report = new ProjectReport(project, user, title, description);
-//        user.addProjectReport(report);
-//        project.addReport(report);
         try {
             this.projectReportDAO.save(report);
         } catch (Exception e) {
             throw new Exception("Não foi possível enviar o relatório!", e);
+        }
+    }
+    
+    public List<ProjectReport> getAllProjectReports() throws Exception{
+        try {
+            return this.projectReportDAO.getAll();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível obter os relatórios!", e);
         }
     }
 }

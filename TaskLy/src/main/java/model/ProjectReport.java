@@ -34,6 +34,8 @@ public class ProjectReport {
     private String description;
     private String date;
     
+    public ProjectReport(){}
+    
     public ProjectReport(Project project, Person person, String title, String description){
         this.person = person;
         this.project = project;

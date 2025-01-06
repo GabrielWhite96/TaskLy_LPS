@@ -119,6 +119,11 @@ public class MainPage extends javax.swing.JFrame {
         responseBtn.setForeground(new java.awt.Color(241, 243, 245));
         responseBtn.setText("Relatórios");
         responseBtn.setBorder(null);
+        responseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                responseBtnActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
@@ -263,6 +268,10 @@ public class MainPage extends javax.swing.JFrame {
     private void taskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskBtnActionPerformed
         MenuNavigation.goToTasksMenu(this);
     }//GEN-LAST:event_taskBtnActionPerformed
+
+    private void responseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responseBtnActionPerformed
+        MenuNavigation.goToReportProjectsMenu(this);
+    }//GEN-LAST:event_responseBtnActionPerformed
 
     /**
      * @param args the command line arguments
