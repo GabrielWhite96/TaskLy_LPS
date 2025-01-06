@@ -39,6 +39,7 @@ view/Chat$3.class
 view/ProjectsMenu$6.class
 view/CreateProject$7.class
 view/ProjectView$9.class
+view/CreateReportProject$7.class
 utils/DateFunctions.class
 view/ClockIn$3.class
 dao/ProjectDAO.class

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 import utils.DateFunctions;
 
 /**
@@ -16,6 +17,7 @@ import utils.DateFunctions;
  * @author wekisley
  */
 @Entity
+@Data
 public class ProjectReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
