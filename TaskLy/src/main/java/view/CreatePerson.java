@@ -109,6 +109,11 @@ public class CreatePerson extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(241, 243, 245));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jSeparator3.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
@@ -168,6 +173,11 @@ public class CreatePerson extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -586,6 +596,14 @@ public class CreatePerson extends javax.swing.JFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MenuNavigation.goToReportTasksMenu(this);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        MenuNavigation.goToReportProjectsMenu(this);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

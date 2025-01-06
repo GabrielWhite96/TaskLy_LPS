@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Project;
 import model.ProjectMessage;
+import utils.MenuNavigation;
 
 /**
  *
@@ -265,18 +266,33 @@ public class ChatProject extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(241, 243, 245));
         jButton5.setText("Tarefas");
         jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(42, 62, 95));
         jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(42, 62, 95));
         jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jButton7.setForeground(new java.awt.Color(241, 243, 245));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
@@ -483,7 +499,7 @@ public class ChatProject extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -491,7 +507,7 @@ public class ChatProject extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -515,6 +531,18 @@ public class ChatProject extends javax.swing.JFrame {
     private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_messageTFActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MenuNavigation.goToTasksMenu(this);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MenuNavigation.goToReportTasksMenu(this);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        MenuNavigation.goToReportProjectsMenu(this);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
