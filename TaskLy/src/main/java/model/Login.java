@@ -26,6 +26,7 @@ public class Login {
     private Person person;
     @Column(unique = true)
     @Setter
+    @Getter
     private String email;
     @Setter
     private String password;

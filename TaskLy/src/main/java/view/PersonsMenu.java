@@ -23,7 +23,6 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Person;
-import model.Project;
 import utils.MenuNavigation;
 
 /**
@@ -96,7 +95,9 @@ public class PersonsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        
+                        UserView userView = new UserView(person);
+                        userView.setVisible(true);
+                        PersonsMenu.this.dispose();
                     }
                 });
                 

@@ -9,7 +9,7 @@ package utils;
  * @author wekisley
  */
 public class Roles {
-    public static final String EMPLOYEE = "employee";
-    public static final String MANAGER = "manager";
-    public static final String ADMIN = "admin";
+    public static final String EMPLOYEE = "Empregado";
+    public static final String MANAGER = "Gerente";
+    public static final String ADMIN = "Administrador";
 }
