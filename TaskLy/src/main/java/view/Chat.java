@@ -5,6 +5,7 @@
 package view;
 
 import controller.ProjectController;
+import controller.ProjectMessageController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -16,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.AppStateSingleton;
 import model.Project;
 import model.ProjectMessage;
 
@@ -27,11 +27,7 @@ import model.ProjectMessage;
 public class Chat extends javax.swing.JFrame {
     private Project project;
     private ProjectController projectController;
-    private AppStateSingleton appState;
-
-    /**
-     * Creates new form CreateEmployee
-     */
+    private ProjectMessageController projectMessageController;
     public Chat() {
         initComponents();
     }
@@ -39,7 +35,7 @@ public class Chat extends javax.swing.JFrame {
     public Chat(Project project) {
         this.project = project;
         this.projectController = new ProjectController();
-        this.appState = AppStateSingleton.getInstance();
+        this.projectMessageController = new ProjectMessageController();
         
         initComponents();
         loadMessages();
@@ -467,7 +463,7 @@ public class Chat extends javax.swing.JFrame {
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         String message = this.messageTF.getText();
         try {
-            this.projectController.sendMessage(appState.getUser(), this.project, message);
+            this.projectMessageController.createMessage(this.project, message);
             loadMessages();
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
