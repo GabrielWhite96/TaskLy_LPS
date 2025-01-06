@@ -325,9 +325,6 @@
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Gabriel White\Documents\GitHub\TaskLy_LPS\TaskLy\src\main\java\assets\Logo_Full_W_64x.png"/>
-                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -373,8 +370,9 @@
                                                   <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <Component id="cancelBtn" min="-2" pref="127" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="confirmBtn" min="-2" pref="127" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>

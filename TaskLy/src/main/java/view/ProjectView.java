@@ -9,6 +9,7 @@ import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Project;
@@ -161,6 +162,16 @@ public class ProjectView extends javax.swing.JFrame {
     private void setAtributes(){
         this.projectTitleLabel.setText(this.project.getTitle());
         this.statusJL.setText(this.project.getStatus());
+        this.descriptionTA.setText(this.project.getDescription());
+        
+        
+        this.descriptionTA.setEditable(false);
+
+        this.descriptionTA.setOpaque(true);
+        this.descriptionTA.setForeground(Color.BLACK);
+        this.descriptionTA.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.descriptionTA.setLineWrap(true);
+        this.descriptionTA.setWrapStyleWord(true);
     }
 
     
@@ -195,7 +206,7 @@ public class ProjectView extends javax.swing.JFrame {
         statusJL = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        descriptionJTP = new javax.swing.JPanel();
+        descriptionTA = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -282,7 +293,6 @@ public class ProjectView extends javax.swing.JFrame {
         });
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -421,18 +431,9 @@ public class ProjectView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout descriptionJTPLayout = new javax.swing.GroupLayout(descriptionJTP);
-        descriptionJTP.setLayout(descriptionJTPLayout);
-        descriptionJTPLayout.setHorizontalGroup(
-            descriptionJTPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
-        );
-        descriptionJTPLayout.setVerticalGroup(
-            descriptionJTPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jScrollPane3.setViewportView(descriptionJTP);
+        descriptionTA.setColumns(20);
+        descriptionTA.setRows(5);
+        jScrollPane3.setViewportView(descriptionTA);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -683,7 +684,7 @@ public class ProjectView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel descriptionJTP;
+    private javax.swing.JTextArea descriptionTA;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
