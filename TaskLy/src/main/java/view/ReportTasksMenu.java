@@ -4,8 +4,8 @@
  */
 package view;
 
-import controller.ProjectReportController;
-import controller.TaskController;
+import controller.ProjectController;
+import controller.TaskReportController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -13,30 +13,33 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.ProjectReport;
-import model.Task;
+import model.Project;
+import model.TaskReport;
 import utils.MenuNavigation;
 
 /**
  *
  * @author Gabriel White
  */
-public class ReportProjectsMenu extends javax.swing.JFrame {
-    ProjectReportController projectReportController;
+public class ReportTasksMenu extends javax.swing.JFrame {
+    TaskReportController taskReportController;
     /**
      * Creates new form CreateEmployee
      */
-    public ReportProjectsMenu() {
-        this.projectReportController = new ProjectReportController();
+    public ReportTasksMenu() {
+        this.taskReportController = new TaskReportController();
         initComponents();
         this.showCards();
         
@@ -49,23 +52,29 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         });
     }
     
-    private void showTaskScreen(Task task){
-        TaskView projectView = new TaskView(task);
-        projectView.setVisible(true);
+    private void showScreenCreateProject(){
+        CreateProject projectCreationScreen = new CreateProject();
+        projectCreationScreen.setVisible(true);
         this.dispose();
+    }
+    
+    private void showReportTasksScreen(TaskReport report){
+//        TaskView projectView = new TaskView(report);
+//        projectView.setVisible(true);
+//        this.dispose();
     }
     
     public void showCards() {
         try {
             // Obtém a lista de projetos
-            List<ProjectReport> projectReports = this.projectReportController.getAllProjectReports();
+            List<TaskReport> reports = this.taskReportController.getAllTaskReports();
 
             // Limpa os componentes existentes no painel
             this.gridJPanel.removeAll();
             this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
 
-            for (ProjectReport projectReport : projectReports) {
-                String title = projectReport.getTitle();
+            for (TaskReport report : reports) {
+                String title = report.getTitle();
                 JButton projectButton = new JButton(title);
 
                 // Estilos do botão
@@ -98,7 +107,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-//                        ReportProjectsMenu.this.showTaskScreen(task);
+                        ReportTasksMenu.this.showReportTasksScreen(report);
                     }
                 });
                 
@@ -233,11 +242,6 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
 
         jButton7.setBackground(new java.awt.Color(42, 62, 95));
         jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -313,7 +317,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         jSeparator1.setAutoscrolls(true);
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Menu de Relatórios");
+        jLabel7.setText("Menu de Feedbacks");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -337,7 +341,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         );
         gridJPanelLayout.setVerticalGroup(
             gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
         );
 
         scrollPanel.setViewportView(gridJPanel);
@@ -376,7 +380,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
                         .addGap(365, 365, 365))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -413,7 +417,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        MenuNavigation.goToProjectsMenu(this);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -424,17 +428,13 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         MenuNavigation.goToTasksMenu(this);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        MenuNavigation.goToReportTasksMenu(this);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        MenuNavigation.goToReportProjectsMenu(this);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,46 +453,14 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportTasksMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportTasksMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportTasksMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportTasksMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -529,7 +497,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReportProjectsMenu().setVisible(true);
+                new ReportTasksMenu().setVisible(true);
             }
         });
     }

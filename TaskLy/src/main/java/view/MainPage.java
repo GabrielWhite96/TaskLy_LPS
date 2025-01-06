@@ -113,6 +113,11 @@ public class MainPage extends javax.swing.JFrame {
         feedbackBtn.setForeground(new java.awt.Color(241, 243, 245));
         feedbackBtn.setText("Feedbacks");
         feedbackBtn.setBorder(null);
+        feedbackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                feedbackBtnActionPerformed(evt);
+            }
+        });
 
         responseBtn.setBackground(new java.awt.Color(42, 62, 95));
         responseBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -272,6 +277,10 @@ public class MainPage extends javax.swing.JFrame {
     private void responseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responseBtnActionPerformed
         MenuNavigation.goToReportProjectsMenu(this);
     }//GEN-LAST:event_responseBtnActionPerformed
+
+    private void feedbackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feedbackBtnActionPerformed
+        MenuNavigation.goToReportTasksMenu(this);
+    }//GEN-LAST:event_feedbackBtnActionPerformed
 
     /**
      * @param args the command line arguments

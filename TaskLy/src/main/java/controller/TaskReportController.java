@@ -8,7 +8,6 @@ import dao.TaskReportDAO;
 import java.util.List;
 import model.AppStateSingleton;
 import model.Person;
-import model.ProjectReport;
 import model.Task;
 import model.TaskReport;
 
@@ -35,7 +34,7 @@ public class TaskReportController {
         }
     }
     
-    public List<ProjectReport> getAllProjectReports() throws Exception{
+    public List<TaskReport> getAllTaskReports() throws Exception{
         try {
             return this.taskReportDAO.getAll();
         } catch (Exception e) {

@@ -7,6 +7,7 @@ package utils;
 import view.PersonsMenu;
 import view.ProjectsMenu;
 import view.ReportProjectsMenu;
+import view.ReportTasksMenu;
 import view.TasksMenu;
 
 /**
@@ -35,6 +36,12 @@ public class MenuNavigation {
     
     public static void goToReportProjectsMenu(javax.swing.JFrame jFrame){
         ReportProjectsMenu reportProjectsMenu = new ReportProjectsMenu();
+        reportProjectsMenu.setVisible(true);
+        jFrame.dispose();
+    }
+    
+    public static void goToReportTasksMenu(javax.swing.JFrame jFrame){
+        ReportTasksMenu reportProjectsMenu = new ReportTasksMenu();
         reportProjectsMenu.setVisible(true);
         jFrame.dispose();
     }

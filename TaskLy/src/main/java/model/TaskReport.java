@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 import utils.DateFunctions;
 
 /**
@@ -18,6 +19,7 @@ import utils.DateFunctions;
  * @author wekisley
  */
 @Entity
+@Data
 public class TaskReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,9 @@ public class TaskReport {
     private Person person;
     private String title;
     private String description;
-    private String date; 
+    private String date;
+    
+    public TaskReport(){}
     
     public TaskReport(Task task, Person person, String title, String description){
         this.person = person;
