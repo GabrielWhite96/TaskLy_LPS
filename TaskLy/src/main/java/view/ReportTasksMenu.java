@@ -59,9 +59,9 @@ public class ReportTasksMenu extends javax.swing.JFrame {
     }
     
     private void showReportTasksScreen(TaskReport report){
-//        TaskView projectView = new TaskView(report);
-//        projectView.setVisible(true);
-//        this.dispose();
+        FeedbackView feedbackView = new FeedbackView(report);
+        feedbackView.setVisible(true);
+        this.dispose();
     }
     
     public void showCards() {
