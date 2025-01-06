@@ -47,13 +47,21 @@ public class TaskController {
     }
     
     public void updateTask(Task task, List<Person> persons) throws Exception {
-        System.out.println("Pers: " + persons.size());
         try {
             personController.removePersonsOfTask(task);
             task.clearPersons();
             task.addPerson(persons);
+            taskDAO.update(task);
         } catch (Exception e){
-            throw new Exception("Não foi possível atuallzar a tarefa!");
+            throw new Exception("Não foi possível atualizar a tarefa!");
+        }
+    }
+    
+    public Task getTask(Task task) throws Exception{
+        try {
+            return this.taskDAO.getById(task.getId());
+        } catch (Exception e) {
+            throw new Exception("Não foi possível obter a tarefa!");
         }
     }
     

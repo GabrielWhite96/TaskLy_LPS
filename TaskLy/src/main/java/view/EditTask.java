@@ -531,7 +531,8 @@ public class EditTask extends javax.swing.JFrame {
     
     private void pushSelectedPersons() {
         List<Person> persons = personController.getEmployeesByRole(this.persons, Roles.EMPLOYEE);
-        if(persons.size() < 1){
+        
+        if(persons.size() > 0){
             for (int i = 0; i < this.checkBoxesPersons.size(); i++) {
                 if (this.checkBoxesPersons.get(i).isSelected()) {
                     this.selectedPersons.add(persons.get(i));
@@ -541,9 +542,14 @@ public class EditTask extends javax.swing.JFrame {
     }
     
     private void showTaskView(){
-        TaskView taskView = new TaskView(this.task);
-        taskView.setVisible(true);
-        this.dispose();
+        try {
+            Task taskUpdated = this.taskController.getTask(this.task);
+            TaskView taskView = new TaskView(taskUpdated);
+            taskView.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -562,7 +568,7 @@ public class EditTask extends javax.swing.JFrame {
         this.pushSelectedPersons();
         try {
             this.taskController.updateTask(this.task, this.selectedPersons);
-            JOptionPane.showMessageDialog(this, "Taarefa atualizada com sucesso!");
+            JOptionPane.showMessageDialog(this, "Tarefa atualizada com sucesso!");
             this.showTaskView();
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
