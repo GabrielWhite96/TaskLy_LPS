@@ -4,14 +4,11 @@
  */
 package view;
 
-import controller.PersonController;
-import controller.TaskController;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,14 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Person;
-import model.Project;
 import model.Task;
 import utils.MenuNavigation;
-import utils.Roles;
 
 /**
  *
@@ -59,6 +54,14 @@ public class TaskView extends javax.swing.JFrame {
         this.titleJL.setText(this.task.getTitle());
         this.descriptionTA.setText(this.task.getDescription());
         
+        this.descriptionTA.setEditable(false);
+
+        this.descriptionTA.setOpaque(true);
+        this.descriptionTA.setForeground(Color.BLACK);
+        this.descriptionTA.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.descriptionTA.setLineWrap(true);
+        this.descriptionTA.setWrapStyleWord(true);
+        
         this.checkBoxesEmployees = new ArrayList<>();
     }
     
@@ -66,10 +69,17 @@ public class TaskView extends javax.swing.JFrame {
         try {
             // Obtém a lista de projetos
             List<Person> persons = this.task.getPersons();
-
+            
             // Limpa os componentes existentes no painel
             this.gridJPanel.removeAll();
             this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
+            
+            if(persons.size() == 0){
+                JLabel label = new JLabel("Sem funcionários na tarefa.");
+                label.setForeground(Color.red);
+                label.setFont(new Font("Arial", Font.PLAIN, 12));
+                this.gridJPanel.add(label);
+            }
 
             for (Person person : persons) {
                 String title = person.getName();
