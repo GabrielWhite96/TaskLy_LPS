@@ -215,6 +215,9 @@
                   <Border info="null"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
@@ -303,18 +306,20 @@
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jButton4" min="-2" pref="127" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jButton3" min="-2" pref="127" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jButton11" min="-2" pref="130" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jButton9" min="-2" pref="127" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jButton10" min="-2" pref="127" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane2" alignment="0" pref="671" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -364,10 +369,15 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jButton9" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="jButton10" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton4" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jButton3" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jButton10" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="jButton9" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="jButton11" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
@@ -548,6 +558,27 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Em Andamento"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton11">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f5" green="f3" red="f1" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Trebuchet MS" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Enviar Relat&#xf3;rio"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder>
+                      <Color PropertyName="color" blue="5f" green="3e" red="2a" type="rgb"/>
+                    </LineBorder>
+                  </Border>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

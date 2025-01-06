@@ -26,7 +26,7 @@ public class TaskController {
         }
     }
     
-    public void createTask(String title, String description, Project project, List<Person> persons) throws Exception{
+    public void createTask(String title, String description, Project project, List<Person> persons) throws Exception {
         Task task = new Task(title, description, project);
         task.addPerson(persons);
         try {
@@ -34,5 +34,14 @@ public class TaskController {
         } catch (Exception e){
             throw new Exception("Não foi possível criar a tarefa!");
         }
+    }
+    
+    public List<Task> getAllTasks() throws Exception{
+        try {
+            return this.taskDAO.getAll();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível obter todas as tarefas!");
+        }
+        
     }
 }

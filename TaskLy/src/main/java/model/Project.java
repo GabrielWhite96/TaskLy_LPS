@@ -19,13 +19,13 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<ProjectReport> reports;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<Task> tasks;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<ProjectMessage> messages;
-    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE)
+    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Person> persons;
     private String title;
     private String description;
@@ -61,6 +61,15 @@ public class Project {
         return this.id == project.getId();
     }
     
+    public boolean hasPerson(Person person){
+        for(Person ps: this.persons){
+            if(ps.getId() == person.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void addPerson(Person person){
         if(!this.persons.contains(person)){
             this.persons.add(person);
@@ -72,6 +81,12 @@ public class Project {
         if(!this.messages.contains(message)){
             this.messages.add(message);
             message.setProject(this);
+        }
+    }
+    
+    public void addReport(ProjectReport report){
+        if(!this.reports.contains(report)){
+            this.reports.add(report);
         }
     }
     

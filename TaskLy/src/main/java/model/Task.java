@@ -31,7 +31,7 @@ public class Task {
     private List<TaskReport> reports;
     @OneToMany(mappedBy="task", cascade={ CascadeType.REMOVE, CascadeType.REFRESH })
     private List<TaskMessage> messages;
-    @OneToMany(mappedBy="task", cascade={ CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @OneToMany(mappedBy="task", cascade={ CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     private List<Person> persons;
     private String title;
     private String description;
@@ -46,7 +46,7 @@ public class Task {
         this.messages = new ArrayList<>();
         this.persons = new ArrayList<>();
         this.title = title;
-        this.description = "";
+        this.description = description;
         this.status = "Aguardando";
         this.createdAt = getCurrentDate();
     }

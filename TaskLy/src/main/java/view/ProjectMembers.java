@@ -4,8 +4,24 @@
  */
 package view;
 
+import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import model.Person;
 import model.Project;
 import utils.MenuNavigation;
 
@@ -15,6 +31,7 @@ import utils.MenuNavigation;
  */
 public class ProjectMembers extends javax.swing.JFrame {
     private Project project;
+    private ProjectController projectController;
 
     /**
      * Creates new form CreateEmployee
@@ -25,9 +42,12 @@ public class ProjectMembers extends javax.swing.JFrame {
     
     public ProjectMembers(Project project) {
         this.project = project;
+        this.projectController = new ProjectController();
+        
         initComponents();
         
         this.setAtributes();
+        this.showCards();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -40,6 +60,93 @@ public class ProjectMembers extends javax.swing.JFrame {
     
     private void setAtributes(){
         this.titleJL.setText("Participantes de " + this.project.getTitle());
+    }
+    
+    public void showCards() {
+        try {
+            // Obtém a lista de projetos
+            List<Person> persons = this.project.getPersons();
+
+            // Limpa os componentes existentes no painel
+            this.gridJPanel.removeAll();
+            this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
+
+            for (Person person : persons) {
+                String title = person.getName();
+                JButton projectButton = new JButton(title);
+
+                // Estilos do botão
+                projectButton.setPreferredSize(new Dimension(645, 40));
+                projectButton.setMaximumSize(new Dimension(645, 40)); // Mantém tamanho fixo
+                projectButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza no eixo horizontal
+                projectButton.setFont(new Font("Arial", Font.BOLD, 14));
+                projectButton.setBackground(Color.WHITE);
+                projectButton.setForeground(Color.DARK_GRAY);
+                projectButton.setFocusPainted(false);
+                projectButton.setBorder(new LineBorder(new Color(220, 220, 220)));
+                projectButton.setContentAreaFilled(false);
+                projectButton.setOpaque(true);
+
+                // Efeito de hover: altera a cor de fundo e o cursor ao passar o mouse
+                projectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        projectButton.setBackground(new Color(230, 230, 230));
+                        projectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+
+                    @Override
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        projectButton.setBackground(Color.WHITE);
+                        projectButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                });
+
+                // Ação do botão ao clicar
+                projectButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+//                        ProjectsMenu.this.showProjectScreen(project);
+                    }
+                });
+                
+                scrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+                    @Override
+                    protected void configureScrollBarColors() {
+                        this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                        this.trackColor = new Color(230, 230, 230); // Cor do fundo
+                    }
+
+                    @Override
+                    protected JButton createDecreaseButton(int orientation) {
+                        return createZeroButton();
+                    }
+
+                    @Override
+                    protected JButton createIncreaseButton(int orientation) {
+                        return createZeroButton();
+                    }
+
+                    private JButton createZeroButton() {
+                        JButton button = new JButton();
+                        button.setPreferredSize(new Dimension(0, 0));
+                        button.setMinimumSize(new Dimension(0, 0));
+                        button.setMaximumSize(new Dimension(0, 0));
+                        return button;
+                    }
+                });
+                // Alterar a largura da barra de rolagem
+                scrollPanel.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+                              
+                this.gridJPanel.add(projectButton);
+            }
+
+            // Atualiza a interface
+            this.gridJPanel.revalidate();
+            this.gridJPanel.repaint();
+
+        } catch (Exception ex) {
+            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -66,8 +173,8 @@ public class ProjectMembers extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         titleJL = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
+        scrollPanel = new javax.swing.JScrollPane();
+        gridJPanel = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -122,6 +229,11 @@ public class ProjectMembers extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(241, 243, 245));
         jButton5.setText("Tarefas");
         jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(42, 62, 95));
         jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -210,18 +322,18 @@ public class ProjectMembers extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout gridJPanelLayout = new javax.swing.GroupLayout(gridJPanel);
+        gridJPanel.setLayout(gridJPanelLayout);
+        gridJPanelLayout.setHorizontalGroup(
+            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 667, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gridJPanelLayout.setVerticalGroup(
+            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 368, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel7);
+        scrollPanel.setViewportView(gridJPanel);
 
         jButton10.setBackground(new java.awt.Color(42, 62, 95));
         jButton10.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -249,7 +361,7 @@ public class ProjectMembers extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2))
+                                    .addComponent(scrollPanel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
@@ -273,7 +385,7 @@ public class ProjectMembers extends javax.swing.JFrame {
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
@@ -327,6 +439,10 @@ public class ProjectMembers extends javax.swing.JFrame {
         projectView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MenuNavigation.goToTasksMenu(this);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,6 +607,7 @@ public class ProjectMembers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel gridJPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -504,10 +621,9 @@ public class ProjectMembers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JLabel titleJL;
     // End of variables declaration//GEN-END:variables
 }

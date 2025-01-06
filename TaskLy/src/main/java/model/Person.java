@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 
@@ -39,6 +40,8 @@ public class Person {
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
     @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    private List<ProjectReport> projectReports;
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
     private List<ProjectMessage> projectMessages;
     private String name;
     private String address;
@@ -49,12 +52,20 @@ public class Person {
     public Person(){}
     
     public Person(String name, Login login, String address, String phoneNumber, String jobTitle, String gender){
+        this.projectReports = new ArrayList<>();
+        this.projectMessages = new ArrayList<>();
         this.name = name;
         this.login = login;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.jobTitle = jobTitle;
         this.gender = gender.toLowerCase().startsWith("m");
+    }
+    
+    public void addProjectReport(ProjectReport report){
+        if(!this.projectReports.contains(report)){
+            this.projectReports.add(report);
+        }
     }
     
     public boolean equalsTo(Person person){
