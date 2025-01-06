@@ -4,6 +4,7 @@
  */
 package utils;
 
+import view.ClockInView;
 import view.PersonsMenu;
 import view.ProjectsMenu;
 import view.ReportProjectsMenu;
@@ -15,6 +16,12 @@ import view.TasksMenu;
  * @author wekisley
  */
 public class MenuNavigation {
+    
+    public static void goToClockIn(javax.swing.JFrame jFrame){
+        ClockInView clockInView = new ClockInView();
+        clockInView.setVisible(true);
+        jFrame.dispose();
+    }
     
     public static void goToProjectsMenu(javax.swing.JFrame jFrame){
         ProjectsMenu projectsMenu = new ProjectsMenu();

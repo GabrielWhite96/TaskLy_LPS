@@ -310,7 +310,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_projectBtnActionPerformed
 
     private void punchClokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_punchClokBtnActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToClockIn(this);
     }//GEN-LAST:event_punchClokBtnActionPerformed
 
     private void taskBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskBtnActionPerformed
