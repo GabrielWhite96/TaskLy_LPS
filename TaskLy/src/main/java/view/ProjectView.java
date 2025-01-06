@@ -160,7 +160,6 @@ public class ProjectView extends javax.swing.JFrame {
     
     private void setAtributes(){
         this.projectTitleLabel.setText(this.project.getTitle());
-        this.descriptionJTP.setText(this.project.getDescription());
         this.statusJL.setText(this.project.getStatus());
     }
 
