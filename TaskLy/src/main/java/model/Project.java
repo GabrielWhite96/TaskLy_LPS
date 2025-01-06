@@ -19,7 +19,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<ProjectReport> reports;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<Task> tasks;
