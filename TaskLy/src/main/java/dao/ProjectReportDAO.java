@@ -7,9 +7,7 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import model.Project;
 import model.ProjectReport;
-import org.hibernate.Hibernate;
 
 /**
  *
@@ -68,7 +66,7 @@ public class ProjectReportDAO implements DAOInterface<ProjectReport> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Project report = entityManager.find(Project.class, id);
+            ProjectReport report = entityManager.find(ProjectReport.class, id);
             if (report != null) {
                 entityManager.remove(report);
             }

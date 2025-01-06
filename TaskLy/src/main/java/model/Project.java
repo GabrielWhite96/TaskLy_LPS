@@ -84,6 +84,12 @@ public class Project {
         }
     }
     
+    public void addReport(ProjectReport report){
+        if(!this.reports.contains(report)){
+            this.reports.add(report);
+        }
+    }
+    
     public void addPersons(List<Person> persons){
         for(Person person: persons){
             this.addPerson(person);

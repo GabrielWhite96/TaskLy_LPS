@@ -2,12 +2,14 @@
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/LoginController.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/PersonController.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/ProjectController.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/ProjectReportController.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/controller/TaskController.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ConnectionDB.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/DAOInterface.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/LoginDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/PersonDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ProjectDAO.java
+/home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/ProjectReportDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/dao/TaskDAO.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/AppStateSingleton.java
 /home/wekisley/Documents/TaskLy_LPS/TaskLy/src/main/java/model/Login.java
