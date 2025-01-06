@@ -42,6 +42,8 @@ public class Person {
     @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
     private List<ProjectReport> projectReports;
     @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    private List<TaskReport> taskReports;
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
     private List<ProjectMessage> projectMessages;
     private String name;
     private String address;
@@ -52,6 +54,7 @@ public class Person {
     public Person(){}
     
     public Person(String name, Login login, String address, String phoneNumber, String jobTitle, String gender){
+        this.taskReports = new ArrayList<>();
         this.projectReports = new ArrayList<>();
         this.projectMessages = new ArrayList<>();
         this.name = name;
@@ -65,6 +68,12 @@ public class Person {
     public void addProjectReport(ProjectReport report){
         if(!this.projectReports.contains(report)){
             this.projectReports.add(report);
+        }
+    }
+    
+    public void addTaskReport(TaskReport report){
+        if(!this.taskReports.contains(report)){
+            this.taskReports.add(report);
         }
     }
     

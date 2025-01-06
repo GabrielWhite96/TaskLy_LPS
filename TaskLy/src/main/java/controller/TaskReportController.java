@@ -27,7 +27,7 @@ public class TaskReportController {
     
     public void createReport(Task task, String title, String description) throws Exception {
         Person user = this.appState.getUser();
-        TaskReport report = new TaskReport(task, title, description);
+        TaskReport report = new TaskReport(task, user, title, description);
         try {
             this.taskReportDAO.save(report);
         } catch (Exception e) {

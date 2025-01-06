@@ -27,7 +27,7 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
-    @OneToMany(mappedBy="task", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<TaskReport> reports;
     @OneToMany(mappedBy="task", cascade={ CascadeType.REMOVE, CascadeType.REFRESH })
     private List<TaskMessage> messages;
@@ -62,10 +62,5 @@ public class Task {
         for(Person person: persons){
             this.addPerson(person);
         }
-    }
-    
-    public void addReport(Task task, String title, String description){
-        TaskReport report = new TaskReport(task, title, description);
-        this.reports.add(report);
     }
 }

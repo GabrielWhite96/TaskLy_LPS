@@ -223,7 +223,7 @@ public class CreateReportProject extends javax.swing.JFrame {
         );
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Registrar Feedback");
+        jLabel7.setText("Registrar Relatório");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
