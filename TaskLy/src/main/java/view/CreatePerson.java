@@ -409,6 +409,11 @@ public class CreatePerson extends javax.swing.JFrame {
         cancelBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         cancelBtn.setText("Cancelar");
         cancelBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -568,6 +573,10 @@ public class CreatePerson extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         MenuNavigation.goToTasksMenu(this);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        MenuNavigation.goToPersonsMenu(this);
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     /**
      * @param args the command line arguments
