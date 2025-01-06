@@ -468,9 +468,11 @@ public class Chat extends javax.swing.JFrame {
         String message = this.messageTF.getText();
         try {
             this.projectController.sendMessage(appState.getUser(), this.project, message);
+            loadMessages();
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        
     }//GEN-LAST:event_sendBtnActionPerformed
 
     private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
