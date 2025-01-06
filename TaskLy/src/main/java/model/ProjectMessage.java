@@ -24,7 +24,7 @@ public class ProjectMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
     private Person person;
     @ManyToOne(fetch = FetchType.LAZY)
