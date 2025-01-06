@@ -47,7 +47,7 @@ public class ReportView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel6 = new javax.swing.JPanel();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -190,7 +190,7 @@ public class ReportView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("FeedBack Projeto - tau");
+        jLabel7.setText("Relatório Projeto - tau");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -222,18 +222,9 @@ public class ReportView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(jPanel6);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Autor:");
@@ -473,9 +464,9 @@ public class ReportView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
