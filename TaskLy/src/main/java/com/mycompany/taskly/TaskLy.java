@@ -6,7 +6,7 @@ public class TaskLy {
     public static void main(String[] args) throws Exception {
         
         
-//        Tests.createPersonsWithLogin(10, 10);
+//        Tests.createPersonsWithLogin(30, 15);
         
 //        Tests.createProjectWithPersons();
 //        Tests.startInCreateProject();

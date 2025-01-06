@@ -63,4 +63,15 @@ public class Task {
             this.addPerson(person);
         }
     }
+    
+    public boolean equalsTo(Task task){
+        if(task == null){
+            return false;
+        }
+        return this.id == task.getId();
+    }
+    
+    public void clearPersons(){
+        this.persons = new ArrayList<>();
+    }
 }

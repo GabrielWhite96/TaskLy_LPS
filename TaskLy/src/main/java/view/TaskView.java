@@ -284,7 +284,6 @@ public class TaskView extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -371,6 +370,11 @@ public class TaskView extends javax.swing.JFrame {
         editBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         editBtn.setText("Editar");
         editBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
@@ -546,6 +550,12 @@ public class TaskView extends javax.swing.JFrame {
         reportView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editBtn1ActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        EditTask editTaskView = new EditTask(this.task);
+        editTaskView.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editBtnActionPerformed
 
     /**
      * @param args the command line arguments

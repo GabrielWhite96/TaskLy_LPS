@@ -22,6 +22,7 @@ import model.Person;
 import model.Project;
 import utils.MenuNavigation;
 import utils.Roles;
+import utils.Status;
 
 /**
  *
@@ -220,7 +221,7 @@ public class EditProject extends javax.swing.JFrame {
         employeesJP = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        statusCB = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -304,7 +305,6 @@ public class EditProject extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -480,8 +480,8 @@ public class EditProject extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Funcionários");
 
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel6.setText("Status:");
+        jLabel6.setFont(new java.awt.Font("TeXGyreHeros", 0, 14)); // NOI18N
+        jLabel6.setText("Status");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -508,10 +508,10 @@ public class EditProject extends javax.swing.JFrame {
                                         .addGap(373, 373, 373)
                                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel6)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(statusCB, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(8, 8, 8)))
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -540,13 +540,13 @@ public class EditProject extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(statusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -620,6 +620,10 @@ public class EditProject extends javax.swing.JFrame {
         this.titleJL.setText("Editar " + this.project.getTitle());
         this.nameField.setText(this.project.getTitle());
         this.descriptionField.setText(this.project.getDescription());
+        
+        this.statusCB.addItem(Status.COMPLETED);
+        this.statusCB.addItem(Status.PROGRESSING);
+        this.statusCB.addItem(Status.WAITING);
     }
     
     private void initJPanelsEmployee(){
@@ -691,8 +695,10 @@ public class EditProject extends javax.swing.JFrame {
     private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
         String name = this.nameField.getText();
         String description = this.descriptionField.getText();
+        String status = this.statusCB.getItemAt(this.statusCB.getSelectedIndex());
         this.project.setTitle(name);
         this.project.setDescription(description);
+        this.project.setStatus(status);
         this.pushSelectedEmployees();
         this.pushSelectedManagers();
         try {
@@ -799,6 +805,7 @@ public class EditProject extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel managersJP;
     private javax.swing.JTextField nameField;
+    private javax.swing.JComboBox<String> statusCB;
     private javax.swing.JLabel titleJL;
     // End of variables declaration//GEN-END:variables
 }

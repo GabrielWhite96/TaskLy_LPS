@@ -10,6 +10,7 @@ import java.util.List;
 import model.Login;
 import model.Person;
 import model.Project;
+import model.Task;
 
 /**
  *
@@ -53,6 +54,18 @@ public class PersonController {
     public void removePersonsOfProject(Project project) throws Exception{
         try {
             List<Person> persons = (List<Person>) personDAO.getByProject(project);
+            for(Person person: persons){
+                person.setProject(null);
+                this.update(person);
+            }
+        } catch(Exception e) {
+            throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+        }
+    }
+    
+    public void removePersonsOfTask(Task task) throws Exception{
+        try {
+            List<Person> persons = (List<Person>) personDAO.getByTask(task);
             for(Person person: persons){
                 person.setProject(null);
                 this.update(person);

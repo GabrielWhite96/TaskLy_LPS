@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Person;
 import model.Project;
+import model.Task;
 
 /**
  *
@@ -54,6 +55,21 @@ public class PersonDAO implements DAOInterface<Person> {
         try{
             TypedQuery<Person> query = entityManager.createQuery("SELECT p FROM Person p WHERE p.project.id = :id", Person.class);
             query.setParameter("id", project.getId());
+            person = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception("Erro ao obter pessoas.", e);
+        } finally {
+            entityManager.close();
+        }
+        return person;
+    }
+    
+    public List<Person> getByTask(Task task) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<Person> person = new ArrayList<>();;
+        try{
+            TypedQuery<Person> query = entityManager.createQuery("SELECT p FROM Person p WHERE p.task.id = :id", Person.class);
+            query.setParameter("id", task.getId());
             person = query.getResultList();
         } catch (Exception e) {
             throw new Exception("Erro ao obter pessoas.", e);

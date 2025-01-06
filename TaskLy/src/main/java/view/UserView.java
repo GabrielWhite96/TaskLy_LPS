@@ -4,12 +4,9 @@
  */
 package view;
 
-import controller.LoginController;
-import controller.PersonController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import javax.swing.JOptionPane;
-import model.Login;
+import model.Person;
 import utils.MenuNavigation;
 
 /**
@@ -17,13 +14,28 @@ import utils.MenuNavigation;
  * @author Gabriel White
  */
 public class UserView extends javax.swing.JFrame {
-
-    PersonController personColtroller;
-    
     public UserView() {
-        this.personColtroller = new PersonController();
         
         initComponents();
+                
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                factory.close();
+            }
+        });
+    }
+    
+    public UserView(Person person) {
+        initComponents();
+        
+        this.nameJL.setText(person.getName());
+        this.phoneJL.setText(person.getPhoneNumber());
+        this.emailJL.setText(person.getLogin().getEmail());
+        this.genderJL.setText(person.getGender() ? "Masculino" : "Feminino");
+        this.roleJL.setText(person.getJobTitle());
+        this.addressJL.setText(person.getAddress());
                 
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -59,21 +71,20 @@ public class UserView extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        roleJL = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        nameJL = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        genderJL = new javax.swing.JLabel();
+        emailJL = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        phoneJL = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        confirmBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
+        addressJL = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,7 +176,6 @@ public class UserView extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -236,7 +246,7 @@ public class UserView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setText("Nome:");
 
-        jLabel14.setText("jLabel14");
+        roleJL.setText("jLabel14");
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Telefone:");
@@ -244,14 +254,14 @@ public class UserView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("Email: ");
 
-        jLabel10.setText("jLabel10");
+        nameJL.setText("jLabel10");
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel6.setText("Gênero:");
 
-        jLabel13.setText("jLabel13");
+        genderJL.setText("jLabel13");
 
-        jLabel12.setText("jLabel12");
+        emailJL.setText("jLabel12");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Cargo:");
@@ -259,25 +269,15 @@ public class UserView extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel8.setText("Endereço:");
 
-        jLabel11.setText("jLabel11");
+        phoneJL.setText("jLabel11");
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel7.setText("Usuário");
         jLabel7.setToolTipText("");
 
-        confirmBtn.setBackground(new java.awt.Color(42, 62, 95));
-        confirmBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        confirmBtn.setForeground(new java.awt.Color(241, 243, 245));
-        confirmBtn.setText("Confirmar");
-        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmBtnActionPerformed(evt);
-            }
-        });
-
         cancelBtn.setBackground(new java.awt.Color(241, 243, 245));
         cancelBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        cancelBtn.setText("Cancelar");
+        cancelBtn.setText("Voltar");
         cancelBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,7 +285,7 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("jLabel15");
+        addressJL.setText("jLabel15");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -295,14 +295,7 @@ public class UserView extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(120, 120, 120)))
+                        .addComponent(jSeparator1)
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,30 +306,34 @@ public class UserView extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel12))
+                                        .addComponent(emailJL))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel10))
+                                        .addComponent(nameJL))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel11)))
+                                        .addComponent(phoneJL)))
                                 .addGap(230, 230, 230)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel15))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel14))
+                                        .addComponent(roleJL))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel13)))))
+                                        .addComponent(genderJL))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(addressJL)))))
                         .addContainerGap(353, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(313, 313, 313))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,25 +346,23 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel13))
+                    .addComponent(nameJL)
+                    .addComponent(genderJL))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel14))
+                    .addComponent(phoneJL)
+                    .addComponent(roleJL))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel15))
+                    .addComponent(emailJL)
+                    .addComponent(addressJL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -401,38 +396,7 @@ public class UserView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goToPreviousPage(){
-        
-    }
     
-    private void goToNextPage(){
-        
-    }
-    
-    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-//        LoginController loginController = new LoginController();
-//        
-//        String name = this.nameField.getText();
-//        String phone = this.phoneField.getText();
-//        String email = this.emailField.getText();
-//        String address = this.addressField.getText();
-//        String gender = (String) this.genderCB.getSelectedItem();
-//        String jobTitle = (String) this.roleCB.getSelectedItem();
-//        
-//        try{
-//            Login login = new Login(email, "1234567");
-//            this.personColtroller.createNewUser(name, login, address, phone, jobTitle, gender);
-//            this.nameField.setText("");
-//            this.phoneField.setText("");
-//            this.emailField.setText("");
-//            this.addressField.setText("");
-//            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!");
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, e.getMessage());
-//        }
-    }//GEN-LAST:event_confirmBtnActionPerformed
-
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_cancelBtnActionPerformed
@@ -492,8 +456,10 @@ public class UserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addressJL;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JButton confirmBtn;
+    private javax.swing.JLabel emailJL;
+    private javax.swing.JLabel genderJL;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
@@ -501,12 +467,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -523,5 +483,8 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel nameJL;
+    private javax.swing.JLabel phoneJL;
+    private javax.swing.JLabel roleJL;
     // End of variables declaration//GEN-END:variables
 }
