@@ -196,7 +196,7 @@ public class ProjectView extends javax.swing.JFrame {
         statusJL = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jPanel6 = new javax.swing.JPanel();
+        descriptionJTP = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -422,18 +422,18 @@ public class ProjectView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout descriptionJTPLayout = new javax.swing.GroupLayout(descriptionJTP);
+        descriptionJTP.setLayout(descriptionJTPLayout);
+        descriptionJTPLayout.setHorizontalGroup(
+            descriptionJTPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 659, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        descriptionJTPLayout.setVerticalGroup(
+            descriptionJTPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jScrollPane3.setViewportView(jPanel6);
+        jScrollPane3.setViewportView(descriptionJTP);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -684,6 +684,7 @@ public class ProjectView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel descriptionJTP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -704,7 +705,6 @@ public class ProjectView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
