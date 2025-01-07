@@ -28,6 +28,7 @@ public class ClockIn {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="person_id", referencedColumnName = "id")
     private Person person;
+    private String description;
     private String dateStart;
     private String startHour;
     private String endHour;
@@ -35,7 +36,7 @@ public class ClockIn {
 
     public ClockIn() {}
 
-    public ClockIn(Person person) {
+    public ClockIn(Person person, String description) {
         this.person = person;
         this.startHour = "XX:XX";
         this.endHour = "XX:XX";

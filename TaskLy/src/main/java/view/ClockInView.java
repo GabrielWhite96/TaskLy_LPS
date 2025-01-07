@@ -6,6 +6,8 @@ package view;
 
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.ClockInWorkSingleton;
 
 /**
@@ -460,7 +462,11 @@ public class ClockInView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.clockIn.start();
+        try {
+            this.clockIn.start();
+        } catch (Exception ex) {
+            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.updateComponents();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -469,7 +475,11 @@ public class ClockInView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.clockIn.stop();
+        try {
+            this.clockIn.stop();
+        } catch (Exception ex) {
+            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.updateComponents();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -479,7 +489,11 @@ public class ClockInView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        this.clockIn.stopPause();
+        try {
+            this.clockIn.stopPause();
+        } catch (Exception ex) {
+            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.updateComponents();
     }//GEN-LAST:event_jButton10ActionPerformed
 
