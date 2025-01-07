@@ -11,14 +11,18 @@ import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Project;
 import model.ProjectMessage;
+import utils.MenuNavigation;
 
 /**
  *
@@ -51,101 +55,131 @@ public class ChatProject extends javax.swing.JFrame {
     }
     
     private void loadMessages() {
-        chatJP.removeAll(); // Limpa as mensagens existentes no painel
-        chatJP.setLayout(new BoxLayout(chatJP, BoxLayout.Y_AXIS)); // Layout vertical
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368)); 
-        
+        clearChatPanel();
+        configureChatPanelLayout();
+        configureScrollPane();
 
         try {
-            List<ProjectMessage> messages = projectController.find(project.getId()).getMessages();
-
-            if (messages.isEmpty()) {
-                JLabel noMessagesLabel = new JLabel("Nenhuma mensagem encontrada.");
-                chatJP.add(noMessagesLabel);
-            } else {
-                for (ProjectMessage message : messages) {
-                    JLabel messageLabel = new JLabel(formatMessage(message));
-                    chatJP.add(messageLabel);
-                    chatJP.add(Box.createVerticalStrut(10)); // Adiciona um espaço entre as mensagens
-                }
-            }
+            List<ProjectMessage> messages = fetchMessages();
+            displayMessages(messages);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar mensagens: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            showErrorDialog("Erro ao carregar mensagens: " + e.getMessage());
         }
-        
-        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                this.trackColor = new Color(230, 230, 230); // Cor do fundo
-            }
 
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                button.setMinimumSize(new Dimension(0, 0));
-                button.setMaximumSize(new Dimension(0, 0));
-                return button;
-            }
-        });
-        
-        // Personaliza a barra de rolagem horizontal
-        jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                this.trackColor = new Color(230, 230, 230); // Cor do fundo
-            }
-
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                button.setMinimumSize(new Dimension(0, 0));
-                button.setMaximumSize(new Dimension(0, 0));
-                return button;
-            }
-        });
-        // Alterar a largura da barra de rolagem
-        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-        // Alterar a altura da barra de rolagem horizontal
-        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
-
-        chatJP.revalidate();  // Atualiza o layout do painel
-        chatJP.repaint();     // Repaint o painel para refletir as mudanças
+        autoScrollToBottom();
+        refreshChatPanel();
     }
 
+    private void clearChatPanel() {
+        chatJP.removeAll();
+    }
 
+    private void configureChatPanelLayout() {
+        chatJP.setLayout(new BoxLayout(chatJP, BoxLayout.Y_AXIS));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368));
+    }
+
+    private List<ProjectMessage> fetchMessages() throws Exception {
+        return projectController.find(project.getId()).getMessages();
+    }
+
+    private void displayMessages(List<ProjectMessage> messages) {
+        if (messages.isEmpty()) {
+            addNoMessagesLabel();
+        } else {
+            for (ProjectMessage message : messages) {
+                addMessageToPanel(message);
+            }
+        }
+    }
+
+    private void addNoMessagesLabel() {
+        JLabel noMessagesLabel = new JLabel("Nenhuma mensagem encontrada.");
+        chatJP.add(noMessagesLabel);
+    }
+
+    private void addMessageToPanel(ProjectMessage message) {
+        JLabel messageLabel = createMessageLabel(message);
+        chatJP.add(messageLabel);
+        chatJP.add(Box.createVerticalStrut(10)); // Espaço entre mensagens
+    }
+
+    private JLabel createMessageLabel(ProjectMessage message) {
+        JLabel messageLabel = new JLabel(formatMessage(message));
+        messageLabel.setOpaque(true);
+        messageLabel.setBackground(new Color(240, 240, 240));
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return messageLabel;
+    }
+
+    private void configureScrollPane() {
+        configureVerticalScrollBar();
+        configureHorizontalScrollBar();
+    }
+
+    private void configureVerticalScrollBar() {
+        jScrollPane2.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+    }
+
+    private void configureHorizontalScrollBar() {
+        jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
+    }
+
+    private void autoScrollToBottom() {
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = jScrollPane2.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        });
+    }
+
+    private void refreshChatPanel() {
+        chatJP.revalidate();
+        chatJP.repaint();
+    }
+
+    private void showErrorDialog(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
 
     private String formatMessage(ProjectMessage message) {
-    String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
-    // Formatação: nome em negrito e em cima, mensagem abaixo em normal
-    String formattedMessage = "<html>"
-                              + "<div style='font-size:9px; color:#555555;margin-left: 4px;'>" + personName + "</div>"
-                              + "<div style='font-size:10px; color:#111111; margin-left: 8px;'>" + message.getContent() + "</div>"
-                              + "</html>";
-    return formattedMessage;
-}
+        String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
+        return String.format(
+            "<html>"
+            + "<div style='font-size:9px; color:#555555;margin-left: 4px;'>%s</div>"
+            + "<div style='font-size:10px; color:#111111; margin-left: 8px; width: 400px; word-wrap: break-word;'>%s</div>"
+            + "</html>",
+            personName, message.getContent()
+        );
+    }
+
+    // Custom ScrollBar UI class
+    private static class CustomScrollBarUI extends BasicScrollBarUI {
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(210, 210, 210);
+            this.trackColor = new Color(230, 230, 230);
+        }
+
+        @Override
+        protected JButton createDecreaseButton(int orientation) {
+            return createZeroButton();
+        }
+
+        @Override
+        protected JButton createIncreaseButton(int orientation) {
+            return createZeroButton();
+        }
+
+        private JButton createZeroButton() {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(0, 0));
+            button.setMinimumSize(new Dimension(0, 0));
+            button.setMaximumSize(new Dimension(0, 0));
+            return button;
+        }
+    }
 
 
 
@@ -232,18 +266,33 @@ public class ChatProject extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(241, 243, 245));
         jButton5.setText("Tarefas");
         jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(42, 62, 95));
         jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(42, 62, 95));
         jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jButton7.setForeground(new java.awt.Color(241, 243, 245));
         jButton7.setText("Relatórios");
         jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
@@ -361,7 +410,6 @@ public class ChatProject extends javax.swing.JFrame {
             }
         });
 
-        messageTF.setText("Texto para teste");
         messageTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageTFActionPerformed(evt);
@@ -451,7 +499,7 @@ public class ChatProject extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -459,7 +507,7 @@ public class ChatProject extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -473,6 +521,7 @@ public class ChatProject extends javax.swing.JFrame {
         try {
             this.projectMessageController.createMessage(this.project, message);
             loadMessages();
+            this.messageTF.setText("");
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -482,6 +531,18 @@ public class ChatProject extends javax.swing.JFrame {
     private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_messageTFActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MenuNavigation.goToTasksMenu(this);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MenuNavigation.goToReportTasksMenu(this);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        MenuNavigation.goToReportProjectsMenu(this);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

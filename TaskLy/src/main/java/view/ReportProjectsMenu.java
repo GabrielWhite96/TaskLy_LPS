@@ -49,9 +49,9 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
         });
     }
     
-    private void showTaskScreen(Task task){
-        TaskView projectView = new TaskView(task);
-        projectView.setVisible(true);
+    private void showReportScreen(ProjectReport projectReport){
+        ReportView reportView = new ReportView(projectReport);
+        reportView.setVisible(true);
         this.dispose();
     }
     
@@ -98,7 +98,7 @@ public class ReportProjectsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-//                        ReportProjectsMenu.this.showTaskScreen(task);
+                        ReportProjectsMenu.this.showReportScreen(projectReport);
                     }
                 });
                 

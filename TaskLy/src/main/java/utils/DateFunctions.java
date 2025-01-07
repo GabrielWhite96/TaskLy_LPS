@@ -5,6 +5,7 @@
 package utils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -16,5 +17,11 @@ public class DateFunctions {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return currentDate.format(format);
+    }
+    
+    public static String getCurrentHour(){
+        LocalTime now = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return now.format(formatter);
     }
 }
