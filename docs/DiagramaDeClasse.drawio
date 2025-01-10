@@ -727,13 +727,12 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-72" target="v8i-zWixzlQxeptMi9Gk-2">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="690" y="182" />
-              <mxPoint x="690" y="182" />
+              <mxPoint x="-740" y="310" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-72" value="TaskMessage" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="736" y="96" width="160" height="164" as="geometry" />
+          <mxGeometry x="-827" y="335" width="160" height="164" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-73" value="- id: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-72">
           <mxGeometry y="26" width="160" height="26" as="geometry" />
@@ -762,7 +761,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="-260" y="-45" />
-              <mxPoint x="-260" y="300" />
+              <mxPoint x="-260" y="290" />
             </Array>
           </mxGeometry>
         </mxCell>
