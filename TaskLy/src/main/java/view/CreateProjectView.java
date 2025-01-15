@@ -5,7 +5,7 @@
 package view;
 
 import controller.PersonController;
-import controller.TaskController;
+import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -19,145 +19,41 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Person;
-import model.Project;
+import utils.MenuNavigation;
 import utils.Roles;
 
 /**
  *
  * @author Gabriel White
  */
-public class CreateTask extends javax.swing.JFrame {
-    private Project project;
-    private TaskController taskControler;
-    private PersonController personController;
+public class CreateProjectView extends javax.swing.JFrame {
     private List<JCheckBox> checkBoxesEmployees;
+    private List<JCheckBox> checkBoxesManagers;
     private List<Person> selectedPersons;
-    private List<Person> persons;
-
-    /**
-     * Creates new form CreateEmployee
-     */
-    private CreateTask() {
-        initComponents();
-    }
     
-    public CreateTask(Project project) {
-        this.project = project;
+    private ProjectController projectController;
+    private PersonController personController;
+    private List<Person> persons;
+    
+    public CreateProjectView() {
         this.initAtributes();
         
         initComponents();
         
         this.initJPanelsEmployee();
-        this.configScroolStyle();
+        this.initJPanelsManager();
+        this.styleScroll();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                EntityManagerFactory factory = ConnectionDB.getFactory();         
+                
                 factory.close();
             }
         });
     }
-    
-    private void configScroolStyle(){
-         jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                this.trackColor = new Color(230, 230, 230); // Cor do fundo
-            }
 
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                button.setMinimumSize(new Dimension(0, 0));
-                button.setMaximumSize(new Dimension(0, 0));
-                return button;
-            }
-        });
-        
-        // Personaliza a barra de rolagem horizontal
-        jScrollPane1.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                this.trackColor = new Color(230, 230, 230); // Cor do fundo
-            }
-
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                button.setMinimumSize(new Dimension(0, 0));
-                button.setMaximumSize(new Dimension(0, 0));
-                return button;
-            }
-        });
-        // Alterar a largura da barra de rolagem
-        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-        // Alterar a altura da barra de rolagem horizontal
-        jScrollPane1.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
-    } 
-
-    private void initAtributes(){
-        this.taskControler = new TaskController();
-        this.checkBoxesEmployees = new ArrayList<>();
-        this.selectedPersons = new ArrayList<>();
-        this.personController = new PersonController();
-        try {
-            this.persons = this.personController.getAllPersons();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
-    }
-    
-    private void initJPanelsEmployee(){
-        this.JPanel1.setLayout(new GridLayout(0, 1, 10, 10));
-        this.JPanel1.removeAll();
-        this.checkBoxesEmployees.clear();
-        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
-        
-        for (Person person : employees) {
-            if(person.getProject() != null && person.getProject().equalsTo(this.project)){
-                JCheckBox checkBox = new JCheckBox(person.getName());
-                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
-                checkBoxesEmployees.add(checkBox);
-                this.JPanel1.add(checkBox);
-            }
-        }
-        
-        this.JPanel1.revalidate();
-        this.JPanel1.repaint();
-    }
-    
-    private void pushSelectedEmployees() {
-        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
-        for (int i = 0; i < this.checkBoxesEmployees.size(); i++) {
-            if (this.checkBoxesEmployees.get(i).isSelected()) {
-                this.selectedPersons.add(employees.get(i));
-            }
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,18 +79,21 @@ public class CreateTask extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        titleJTF = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        confirmJB = new javax.swing.JButton();
+        cancelJB = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        descriptionJTF = new javax.swing.JTextField();
+        descriptionField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JPanel1 = new javax.swing.JPanel();
+        managersJP = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        employeesJP = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -286,9 +185,6 @@ public class CreateTask extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -299,13 +195,14 @@ public class CreateTask extends javax.swing.JFrame {
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))
-                    .addComponent(jSeparator2)))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jSeparator2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(32, 32, 32))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,7 +235,7 @@ public class CreateTask extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setText("Nome:");
 
-        titleJTF.setBorder(null);
+        nameField.setBorder(null);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -347,8 +244,8 @@ public class CreateTask extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -356,12 +253,12 @@ public class CreateTask extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Cadastro Tarefa");
+        jLabel7.setText("Cadastro Projeto");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -375,30 +272,30 @@ public class CreateTask extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButton3.setBackground(new java.awt.Color(42, 62, 95));
-        jButton3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(241, 243, 245));
-        jButton3.setText("Confirmar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        confirmJB.setBackground(new java.awt.Color(42, 62, 95));
+        confirmJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmJB.setForeground(new java.awt.Color(241, 243, 245));
+        confirmJB.setText("Confirmar");
+        confirmJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                confirmJBActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(241, 243, 245));
-        jButton4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelJB.setBackground(new java.awt.Color(241, 243, 245));
+        cancelJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelJB.setText("Cancelar");
+        cancelJB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelJBActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Descrição:");
 
-        descriptionJTF.setBorder(null);
+        descriptionField.setBorder(null);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -408,31 +305,52 @@ public class CreateTask extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(descriptionJTF)
+                .addComponent(descriptionField)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(descriptionJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout JPanel1Layout = new javax.swing.GroupLayout(JPanel1);
-        JPanel1.setLayout(JPanel1Layout);
-        JPanel1Layout.setHorizontalGroup(
-            JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        managersJP.setAutoscrolls(true);
+
+        javax.swing.GroupLayout managersJPLayout = new javax.swing.GroupLayout(managersJP);
+        managersJP.setLayout(managersJPLayout);
+        managersJPLayout.setHorizontalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 408, Short.MAX_VALUE)
         );
-        JPanel1Layout.setVerticalGroup(
-            JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        managersJPLayout.setVerticalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 235, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(managersJP);
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setText("Gerentes");
+
+        employeesJP.setAutoscrolls(true);
+        employeesJP.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout employeesJPLayout = new javax.swing.GroupLayout(employeesJP);
+        employeesJP.setLayout(employeesJPLayout);
+        employeesJPLayout.setHorizontalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 326, Short.MAX_VALUE)
+        );
+        employeesJPLayout.setVerticalGroup(
+            employeesJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(JPanel1);
+        jScrollPane2.setViewportView(employeesJP);
 
-        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel2.setText("Funcionários");
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel5.setText("Funcionários");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -440,32 +358,40 @@ public class CreateTask extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(286, 286, 286))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(373, 373, 373)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
-                        .addGap(56, 56, 56))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(56, 56, 56))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel2)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel5)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,14 +410,19 @@ public class CreateTask extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
         );
 
@@ -526,7 +457,191 @@ public class CreateTask extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void styleScroll(){
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
 
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        // Personaliza a barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        // Alterar a largura da barra de rolagem
+        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+        // Alterar a altura da barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
+        
+        jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        // Personaliza a barra de rolagem horizontal
+        jScrollPane1.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        // Alterar a largura da barra de rolagem
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+        // Alterar a altura da barra de rolagem horizontal
+        jScrollPane1.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
+    }
+        
+    private void initAtributes(){
+        this.selectedPersons = new ArrayList<>();
+        this.projectController = new ProjectController();
+        this.personController = new PersonController();
+        try {
+            persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
+    private void initJPanelsEmployee(){
+        this.checkBoxesEmployees = new ArrayList<>();
+        this.employeesJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.employeesJP.removeAll();
+        this.checkBoxesEmployees.clear();
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        
+        for (Person person : employees) {
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesEmployees.add(checkBox);
+                this.employeesJP.add(checkBox);
+            }
+        }
+        
+        this.employeesJP.revalidate();
+        this.employeesJP.repaint();
+    }
+    
+    private void initJPanelsManager(){
+        this.checkBoxesManagers = new ArrayList<>();
+        this.managersJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.managersJP.removeAll();
+        this.checkBoxesManagers.clear();
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        
+        for (Person person : managers) {
+            if(person.getProject() == null){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBoxesManagers.add(checkBox);
+                this.managersJP.add(checkBox);
+            }
+        }
+        
+        this.managersJP.revalidate();
+        this.managersJP.repaint();
+    }
+    
+    private void pushSelectedEmployees() {
+        List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
+        for (int i = 0; i < this.checkBoxesEmployees.size(); i++) {
+            if (this.checkBoxesEmployees.get(i).isSelected()) {
+                this.selectedPersons.add(employees.get(i));
+            }
+        }
+    }
+    
+    private void pushSelectedManagers() {
+        List<Person> managers = personController.getEmployeesByRole(persons, Roles.MANAGER);
+        for (int i = 0; i < this.checkBoxesManagers.size(); i++) {
+            if (this.checkBoxesManagers.get(i).isSelected()) {
+                this.selectedPersons.add(managers.get(i));
+            }
+        }
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -534,30 +649,28 @@ public class CreateTask extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String title = this.titleJTF.getText();
-        String description = this.descriptionJTF.getText();
+
+    private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
+        String name = this.nameField.getText();
+        String description = this.descriptionField.getText();
         this.pushSelectedEmployees();
+        this.pushSelectedManagers();
         try {
-            this.taskControler.createTask(title, description, project, this.selectedPersons);                                         
-            ProjectView projectView = new ProjectView(this.project);
-            projectView.setVisible(true);
-            this.dispose();
-        } catch (Exception e) {
+            this.projectController.createNewProject(name, description, this.selectedPersons);
+            JOptionPane.showMessageDialog(this, "Projeto criado com sucesso!");
+        } catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+        MenuNavigation.goToProjectsMenu(this);
+    }//GEN-LAST:event_confirmJBActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ProjectView projectView = new ProjectView(this.project);
-        projectView.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void cancelJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelJBActionPerformed
+        MenuNavigation.goToProjectsMenu(this);
+    }//GEN-LAST:event_cancelJBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -576,13 +689,13 @@ public class CreateTask extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -596,18 +709,18 @@ public class CreateTask extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateTask().setVisible(true);
+                new CreateProjectView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel JPanel1;
-    private javax.swing.JTextField descriptionJTF;
+    private javax.swing.JButton cancelJB;
+    private javax.swing.JButton confirmJB;
+    private javax.swing.JTextField descriptionField;
+    private javax.swing.JPanel employeesJP;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -617,6 +730,7 @@ public class CreateTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -627,8 +741,10 @@ public class CreateTask extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField titleJTF;
+    private javax.swing.JPanel managersJP;
+    private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }

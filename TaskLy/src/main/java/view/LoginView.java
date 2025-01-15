@@ -35,7 +35,7 @@ public class LoginView extends javax.swing.JFrame {
     }
     
     public void showMainPage(Person user){
-        MainPage mainScreen = new MainPage(user);
+        MainPageView mainScreen = new MainPageView(user);
         mainScreen.setVisible(true);
         this.dispose();
     }

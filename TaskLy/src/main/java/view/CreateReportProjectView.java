@@ -4,143 +4,29 @@
  */
 package view;
 
-import controller.PersonController;
-import controller.ProjectController;
-import dao.ConnectionDB;
-import jakarta.persistence.EntityManagerFactory;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.Person;
+import controller.ProjectReportController;
+import javax.swing.JOptionPane;
+import model.Project;
 import utils.MenuNavigation;
 
 /**
  *
  * @author Gabriel White
  */
-public class PersonsMenu extends javax.swing.JFrame {
-    PersonController personController;
+public class CreateReportProjectView extends javax.swing.JFrame {
+    private Project project;
+    private ProjectReportController projectReportController;
     
-    public PersonsMenu() {
-        this.personController = new PersonController();
+    public CreateReportProjectView() {
         initComponents();
-        this.showCards();
+    }
+    
+    public CreateReportProjectView(Project project) {
+        this.project = project;
+        this.projectReportController = new ProjectReportController();
         
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                EntityManagerFactory factory = ConnectionDB.getFactory();                
-                factory.close();
-            }
-        });
+        initComponents();
     }
-    
-    private void showScreenCreatePerson(){
-        CreatePerson personCreationScreen = new CreatePerson();
-        personCreationScreen.setVisible(true);
-        this.dispose();
-    }
-    
-    public void showCards() {
-        try {
-            // Obtém a lista de projetos
-            List<Person> persons = this.personController.getAllPersons();
-
-            // Limpa os componentes existentes no painel
-            this.gridJPanel.removeAll();
-            this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
-
-            for (Person person : persons) {
-                String title = person.getName();
-                JButton projectButton = new JButton(title);
-
-                // Estilos do botão
-                projectButton.setPreferredSize(new Dimension(645, 40));
-                projectButton.setMaximumSize(new Dimension(645, 40)); // Mantém tamanho fixo
-                projectButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza no eixo horizontal
-                projectButton.setFont(new Font("Arial", Font.BOLD, 14));
-                projectButton.setBackground(Color.WHITE);
-                projectButton.setForeground(Color.DARK_GRAY);
-                projectButton.setFocusPainted(false);
-                projectButton.setBorder(new LineBorder(new Color(220, 220, 220)));
-                projectButton.setContentAreaFilled(false);
-                projectButton.setOpaque(true);
-
-                // Efeito de hover: altera a cor de fundo e o cursor ao passar o mouse
-                projectButton.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
-                        projectButton.setBackground(new Color(230, 230, 230));
-                        projectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    }
-
-                    @Override
-                    public void mouseExited(java.awt.event.MouseEvent evt) {
-                        projectButton.setBackground(Color.WHITE);
-                        projectButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    }
-                });
-
-                // Ação do botão ao clicar
-                projectButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        UserView userView = new UserView(person);
-                        userView.setVisible(true);
-                        PersonsMenu.this.dispose();
-                    }
-                });
-                
-                scrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
-                    @Override
-                    protected void configureScrollBarColors() {
-                        this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                        this.trackColor = new Color(230, 230, 230); // Cor do fundo
-                    }
-
-                    @Override
-                    protected JButton createDecreaseButton(int orientation) {
-                        return createZeroButton();
-                    }
-
-                    @Override
-                    protected JButton createIncreaseButton(int orientation) {
-                        return createZeroButton();
-                    }
-
-                    private JButton createZeroButton() {
-                        JButton button = new JButton();
-                        button.setPreferredSize(new Dimension(0, 0));
-                        button.setMinimumSize(new Dimension(0, 0));
-                        button.setMaximumSize(new Dimension(0, 0));
-                        return button;
-                    }
-                });
-                // Alterar a largura da barra de rolagem
-                scrollPanel.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-                              
-                this.gridJPanel.add(projectButton);
-            }
-
-            // Atualiza a interface
-            this.gridJPanel.revalidate();
-            this.gridJPanel.repaint();
-
-        } catch (Exception ex) {
-            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,12 +50,18 @@ public class PersonsMenu extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        titleJTF = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        scrollPanel = new javax.swing.JScrollPane();
-        gridJPanel = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
+        confirmBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descriptionJTA = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,11 +126,6 @@ public class PersonsMenu extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
 
         jButton7.setBackground(new java.awt.Color(42, 62, 95));
         jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -266,7 +153,6 @@ public class PersonsMenu extends javax.swing.JFrame {
         });
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -279,7 +165,7 @@ public class PersonsMenu extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
-                        .addGap(29, 29, 29))
+                        .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -318,10 +204,33 @@ public class PersonsMenu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        jSeparator1.setAutoscrolls(true);
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setText("Titulo:");
+
+        titleJTF.setBorder(null);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titleJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Menu de Usuários");
+        jLabel7.setText("Registrar Relatório");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -335,30 +244,50 @@ public class PersonsMenu extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        scrollPanel.setBorder(null);
-
-        javax.swing.GroupLayout gridJPanelLayout = new javax.swing.GroupLayout(gridJPanel);
-        gridJPanel.setLayout(gridJPanelLayout);
-        gridJPanelLayout.setHorizontalGroup(
-            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 661, Short.MAX_VALUE)
-        );
-        gridJPanelLayout.setVerticalGroup(
-            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
-        );
-
-        scrollPanel.setViewportView(gridJPanel);
-
-        jButton9.setBackground(new java.awt.Color(241, 243, 245));
-        jButton9.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton9.setText("Add Pessoa");
-        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(42, 62, 95), 1, true));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        confirmBtn.setBackground(new java.awt.Color(42, 62, 95));
+        confirmBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmBtn.setForeground(new java.awt.Color(241, 243, 245));
+        confirmBtn.setText("Confirmar");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
+
+        cancelBtn.setBackground(new java.awt.Color(241, 243, 245));
+        cancelBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelBtn.setText("Cancelar");
+        cancelBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel4.setText("Descrição:");
+
+        jScrollPane1.setBorder(null);
+
+        descriptionJTA.setColumns(20);
+        descriptionJTA.setLineWrap(true);
+        descriptionJTA.setRows(5);
+        descriptionJTA.setBorder(null);
+        jScrollPane1.setViewportView(descriptionJTA);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -368,19 +297,25 @@ public class PersonsMenu extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-                                .addGap(122, 122, 122)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(373, 373, 373)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
-                        .addGap(56, 56, 56))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(56, 56, 56))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(286, 286, 286))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,17 +324,21 @@ public class PersonsMenu extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(19, 19, 19)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(338, 338, 338))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(365, 365, 365))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(27, 27, 27))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -435,32 +374,38 @@ public class PersonsMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        String title = this.titleJTF.getText();
+        String description = this.descriptionJTA.getText();
+        try {
+            this.projectReportController.createReport(this.project, title, description);
+            JOptionPane.showMessageDialog(this, "Relatório enviado!!");
+            ProjectView projectView = new ProjectView(this.project);
+            projectView.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        this.showScreenCreatePerson();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        MenuNavigation.goToPersonsMenu(this);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         MenuNavigation.goToTasksMenu(this);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        MenuNavigation.goToReportProjectsMenu(this);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        MenuNavigation.goToReportTasksMenu(this);
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,13 +424,13 @@ public class PersonsMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateReportProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateReportProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateReportProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateReportProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -523,30 +468,36 @@ public class PersonsMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PersonsMenu().setVisible(true);
+                new CreateReportProjectView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel gridJPanel;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton confirmBtn;
+    private javax.swing.JTextArea descriptionJTA;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JScrollPane scrollPanel;
+    private javax.swing.JTextField titleJTF;
     // End of variables declaration//GEN-END:variables
 }

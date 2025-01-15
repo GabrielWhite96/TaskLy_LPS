@@ -155,7 +155,7 @@ public class TaskView extends javax.swing.JFrame {
             this.gridJPanel.repaint();
 
         } catch (Exception ex) {
-            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteTableView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -546,13 +546,13 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void editBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn1ActionPerformed
-        CreateReportTask reportView = new CreateReportTask(this.task);
+        CreateReportTaskView reportView = new CreateReportTaskView(this.task);
         reportView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editBtn1ActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        EditTask editTaskView = new EditTask(this.task);
+        EditTaskView editTaskView = new EditTaskView(this.task);
         editTaskView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editBtnActionPerformed

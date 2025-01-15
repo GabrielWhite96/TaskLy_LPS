@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.ProjectController;
+import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -12,7 +12,6 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,20 +21,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.Project;
+import model.Task;
 import utils.MenuNavigation;
 
 /**
  *
  * @author Gabriel White
  */
-public class ProjectsMenu extends javax.swing.JFrame {
-    ProjectController projectController;
+public class TasksMenuView extends javax.swing.JFrame {
+    TaskController taskController;
     /**
      * Creates new form CreateEmployee
      */
-    public ProjectsMenu() {
-        this.projectController = new ProjectController();
+    public TasksMenuView() {
+        this.taskController = new TaskController();
         initComponents();
         this.showCards();
         
@@ -48,14 +47,8 @@ public class ProjectsMenu extends javax.swing.JFrame {
         });
     }
     
-    private void showScreenCreateProject(){
-        CreateProject projectCreationScreen = new CreateProject();
-        projectCreationScreen.setVisible(true);
-        this.dispose();
-    }
-    
-    private void showProjectScreen(Project project){
-        ProjectView projectView = new ProjectView(project);
+    private void showTaskScreen(Task task){
+        TaskView projectView = new TaskView(task);
         projectView.setVisible(true);
         this.dispose();
     }
@@ -63,14 +56,14 @@ public class ProjectsMenu extends javax.swing.JFrame {
     public void showCards() {
         try {
             // Obtém a lista de projetos
-            List<Project> projects = this.projectController.getAllProjects();
+            List<Task> tasks = this.taskController.getAllTasks();
 
             // Limpa os componentes existentes no painel
             this.gridJPanel.removeAll();
             this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
 
-            for (Project project : projects) {
-                String title = project.getTitle();
+            for (Task task : tasks) {
+                String title = task.getTitle();
                 JButton projectButton = new JButton(title);
 
                 // Estilos do botão
@@ -103,7 +96,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        ProjectsMenu.this.showProjectScreen(project);
+                        TasksMenuView.this.showTaskScreen(task);
                     }
                 });
                 
@@ -143,7 +136,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
             this.gridJPanel.repaint();
 
         } catch (Exception ex) {
-            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteTableView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -168,14 +161,13 @@ public class ProjectsMenu extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jButton8 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         scrollPanel = new javax.swing.JScrollPane();
         gridJPanel = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -240,6 +232,11 @@ public class ProjectsMenu extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(241, 243, 245));
         jButton6.setText("Feedbacks");
         jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(42, 62, 95));
         jButton7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -266,8 +263,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -279,8 +275,8 @@ public class ProjectsMenu extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addGap(32, 32, 32))
+                        .addComponent(jLabel16)
+                        .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -297,10 +293,10 @@ public class ProjectsMenu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel10)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,7 +318,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
         jSeparator1.setAutoscrolls(true);
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Menu de Projetos");
+        jLabel7.setText("Menu de Tarefas");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -346,20 +342,10 @@ public class ProjectsMenu extends javax.swing.JFrame {
         );
         gridJPanelLayout.setVerticalGroup(
             gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
+            .addGap(0, 390, Short.MAX_VALUE)
         );
 
         scrollPanel.setViewportView(gridJPanel);
-
-        jButton9.setBackground(new java.awt.Color(241, 243, 245));
-        jButton9.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton9.setText("Add Projeto");
-        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(42, 62, 95), 1, true));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -378,9 +364,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)))
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                        .addComponent(jLabel7)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -394,13 +378,11 @@ public class ProjectsMenu extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(338, 338, 338))
+                        .addGap(365, 365, 365))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(27, 27, 27))
+                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -436,7 +418,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -447,17 +429,17 @@ public class ProjectsMenu extends javax.swing.JFrame {
         MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        this.showScreenCreateProject();
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        MenuNavigation.goToTasksMenu(this);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         MenuNavigation.goToReportProjectsMenu(this);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MenuNavigation.goToReportTasksMenu(this);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,14 +458,62 @@ public class ProjectsMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TasksMenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TasksMenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TasksMenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProjectsMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TasksMenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -504,7 +534,7 @@ public class ProjectsMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProjectsMenu().setVisible(true);
+                new TasksMenuView().setVisible(true);
             }
         });
     }
@@ -517,9 +547,8 @@ public class ProjectsMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

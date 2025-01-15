@@ -24,14 +24,14 @@ import model.Person;
  *
  * @author wekisley
  */
-public class TesteTable extends javax.swing.JFrame {
+public class TesteTableView extends javax.swing.JFrame {
     
     PersonController personColtroller;
 
     /**
      * Creates new form TesteTable
      */
-    public TesteTable() {
+    public TesteTableView() {
         this.personColtroller = new PersonController();
         initComponents();
         this.teste();
@@ -74,7 +74,7 @@ public class TesteTable extends javax.swing.JFrame {
             
             
         } catch (Exception ex) {
-            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteTableView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -135,20 +135,21 @@ public class TesteTable extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TesteTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesteTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TesteTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesteTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TesteTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesteTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TesteTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesteTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TesteTable().setVisible(true);
+                new TesteTableView().setVisible(true);
             }
         });
     }

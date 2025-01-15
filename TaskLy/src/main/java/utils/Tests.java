@@ -13,9 +13,9 @@ import java.util.List;
 import model.Login;
 import model.Person;
 import model.Project;
-import view.CreateProject;
+import view.CreateProjectView;
 import view.LoginView;
-import view.ProjectsMenu;
+import view.ProjectsMenuView;
 
 /**
  *
@@ -63,12 +63,12 @@ public class Tests {
     }
     
     public static void startInProjectsMenu(){
-        ProjectsMenu projectMenu = new ProjectsMenu();
+        ProjectsMenuView projectMenu = new ProjectsMenuView();
         projectMenu.setVisible(true);
     }
     
     public static void startInCreateProject(){
-        CreateProject projectCreation = new CreateProject();
+        CreateProjectView projectCreation = new CreateProjectView();
         projectCreation.setVisible(true);
     }
     

@@ -5,149 +5,149 @@
 package view;
 
 import controller.ProjectController;
+import controller.ProjectMessageController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.border.LineBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.Person;
 import model.Project;
-import utils.MenuNavigation;
+import model.ProjectMessage;
 
 /**
  *
  * @author Gabriel White
  */
-public class ProjectMembers extends javax.swing.JFrame {
+public class ChatProjectView extends javax.swing.JFrame {
     private Project project;
     private ProjectController projectController;
-
-    /**
-     * Creates new form CreateEmployee
-     */
-    public ProjectMembers() {
+    private ProjectMessageController projectMessageController;
+    public ChatProjectView() {
         initComponents();
     }
     
-    public ProjectMembers(Project project) {
+    public ChatProjectView(Project project) {
         this.project = project;
         this.projectController = new ProjectController();
+        this.projectMessageController = new ProjectMessageController();
         
         initComponents();
-        
-        this.setAtributes();
-        this.showCards();
+        loadMessages();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                EntityManagerFactory factory = ConnectionDB.getFactory();                
+                EntityManagerFactory factory = ConnectionDB.getFactory();         
+                
                 factory.close();
             }
         });
     }
     
-    private void setAtributes(){
-        this.titleJL.setText("Participantes de " + this.project.getTitle());
-    }
-    
-    public void showCards() {
+    private void loadMessages() {
+        chatJP.removeAll(); // Limpa as mensagens existentes no painel
+        chatJP.setLayout(new BoxLayout(chatJP, BoxLayout.Y_AXIS)); // Layout vertical
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368)); 
+        
+
         try {
-            // Obtém a lista de projetos
-            List<Person> persons = this.project.getPersons();
+            List<ProjectMessage> messages = projectController.find(project.getId()).getMessages();
 
-            // Limpa os componentes existentes no painel
-            this.gridJPanel.removeAll();
-            this.gridJPanel.setLayout(new BoxLayout(this.gridJPanel, BoxLayout.Y_AXIS));
-
-            for (Person person : persons) {
-                String title = person.getName();
-                JButton projectButton = new JButton(title);
-
-                // Estilos do botão
-                projectButton.setPreferredSize(new Dimension(645, 40));
-                projectButton.setMaximumSize(new Dimension(645, 40)); // Mantém tamanho fixo
-                projectButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza no eixo horizontal
-                projectButton.setFont(new Font("Arial", Font.BOLD, 14));
-                projectButton.setBackground(Color.WHITE);
-                projectButton.setForeground(Color.DARK_GRAY);
-                projectButton.setFocusPainted(false);
-                projectButton.setBorder(new LineBorder(new Color(220, 220, 220)));
-                projectButton.setContentAreaFilled(false);
-                projectButton.setOpaque(true);
-
-                // Efeito de hover: altera a cor de fundo e o cursor ao passar o mouse
-                projectButton.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
-                        projectButton.setBackground(new Color(230, 230, 230));
-                        projectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    }
-
-                    @Override
-                    public void mouseExited(java.awt.event.MouseEvent evt) {
-                        projectButton.setBackground(Color.WHITE);
-                        projectButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    }
-                });
-
-                // Ação do botão ao clicar
-                projectButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-//                        ProjectsMenu.this.showProjectScreen(project);
-                    }
-                });
-                
-                scrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
-                    @Override
-                    protected void configureScrollBarColors() {
-                        this.thumbColor = new Color(210, 210, 210); // Cor da barra
-                        this.trackColor = new Color(230, 230, 230); // Cor do fundo
-                    }
-
-                    @Override
-                    protected JButton createDecreaseButton(int orientation) {
-                        return createZeroButton();
-                    }
-
-                    @Override
-                    protected JButton createIncreaseButton(int orientation) {
-                        return createZeroButton();
-                    }
-
-                    private JButton createZeroButton() {
-                        JButton button = new JButton();
-                        button.setPreferredSize(new Dimension(0, 0));
-                        button.setMinimumSize(new Dimension(0, 0));
-                        button.setMaximumSize(new Dimension(0, 0));
-                        return button;
-                    }
-                });
-                // Alterar a largura da barra de rolagem
-                scrollPanel.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-                              
-                this.gridJPanel.add(projectButton);
+            if (messages.isEmpty()) {
+                JLabel noMessagesLabel = new JLabel("Nenhuma mensagem encontrada.");
+                chatJP.add(noMessagesLabel);
+            } else {
+                for (ProjectMessage message : messages) {
+                    JLabel messageLabel = new JLabel(formatMessage(message));
+                    chatJP.add(messageLabel);
+                    chatJP.add(Box.createVerticalStrut(10)); // Adiciona um espaço entre as mensagens
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar mensagens: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
             }
 
-            // Atualiza a interface
-            this.gridJPanel.revalidate();
-            this.gridJPanel.repaint();
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
 
-        } catch (Exception ex) {
-            Logger.getLogger(TesteTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        // Personaliza a barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        // Alterar a largura da barra de rolagem
+        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+        // Alterar a altura da barra de rolagem horizontal
+        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
+
+        chatJP.revalidate();  // Atualiza o layout do painel
+        chatJP.repaint();     // Repaint o painel para refletir as mudanças
     }
+
+
+
+    private String formatMessage(ProjectMessage message) {
+    String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
+    // Formatação: nome em negrito e em cima, mensagem abaixo em normal
+    String formattedMessage = "<html>"
+                              + "<div style='font-size:9px; color:#555555;margin-left: 4px;'>" + personName + "</div>"
+                              + "<div style='font-size:10px; color:#111111; margin-left: 8px;'>" + message.getContent() + "</div>"
+                              + "</html>";
+    return formattedMessage;
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,11 +172,13 @@ public class ProjectMembers extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        titleJL = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        scrollPanel = new javax.swing.JScrollPane();
-        gridJPanel = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        chatJP = new javax.swing.JPanel();
+        sendBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        messageTF = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,11 +232,6 @@ public class ProjectMembers extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(241, 243, 245));
         jButton5.setText("Tarefas");
         jButton5.setBorder(null);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         jButton6.setBackground(new java.awt.Color(42, 62, 95));
         jButton6.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -263,7 +260,6 @@ public class ProjectMembers extends javax.swing.JFrame {
         });
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -276,7 +272,7 @@ public class ProjectMembers extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
-                        .addGap(33, 33, 33))
+                        .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -315,9 +311,9 @@ public class ProjectMembers extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        titleJL.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        titleJL.setText("Member - Projeto TaskLy");
-        titleJL.setToolTipText("");
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        jLabel7.setText("Chat - Projeto TaskLy");
+        jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -330,27 +326,44 @@ public class ProjectMembers extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout gridJPanelLayout = new javax.swing.GroupLayout(gridJPanel);
-        gridJPanel.setLayout(gridJPanelLayout);
-        gridJPanelLayout.setHorizontalGroup(
-            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout chatJPLayout = new javax.swing.GroupLayout(chatJP);
+        chatJP.setLayout(chatJPLayout);
+        chatJPLayout.setHorizontalGroup(
+            chatJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 667, Short.MAX_VALUE)
         );
-        gridJPanelLayout.setVerticalGroup(
-            gridJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        chatJPLayout.setVerticalGroup(
+            chatJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 368, Short.MAX_VALUE)
         );
 
-        scrollPanel.setViewportView(gridJPanel);
+        jScrollPane2.setViewportView(chatJP);
 
-        jButton10.setBackground(new java.awt.Color(42, 62, 95));
-        jButton10.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(241, 243, 245));
-        jButton10.setText("Voltar");
-        jButton10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 62, 95)));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        sendBtn.setBackground(new java.awt.Color(241, 243, 245));
+        sendBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        sendBtn.setText("Enviar");
+        sendBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 62, 95)));
+        sendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                sendBtnActionPerformed(evt);
+            }
+        });
+
+        cancelBtn.setBackground(new java.awt.Color(42, 62, 95));
+        cancelBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelBtn.setForeground(new java.awt.Color(241, 243, 245));
+        cancelBtn.setText("Voltar");
+        cancelBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 62, 95)));
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
+
+        messageTF.setText("Texto para teste");
+        messageTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                messageTFActionPerformed(evt);
             }
         });
 
@@ -367,22 +380,25 @@ public class ProjectMembers extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(scrollPanel))
+                                        .addComponent(messageTF)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(titleJL)
+                        .addComponent(jLabel7)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(titleJL, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,11 +406,14 @@ public class ProjectMembers extends javax.swing.JFrame {
                         .addGap(107, 107, 107)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(268, 268, 268)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(messageTF)))
                 .addGap(20, 20, 20))
         );
 
@@ -431,7 +450,7 @@ public class ProjectMembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        MenuNavigation.goToProjectsMenu(this);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -442,15 +461,26 @@ public class ProjectMembers extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        ProjectView projectView = new ProjectView(this.project);
-        projectView.setVisible(true);
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        ProjectView projectScreen = new ProjectView(this.project);
+        projectScreen.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        MenuNavigation.goToTasksMenu(this);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
+        String message = this.messageTF.getText();
+        try {
+            this.projectMessageController.createMessage(this.project, message);
+            loadMessages();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_sendBtnActionPerformed
+
+    private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_messageTFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,14 +499,142 @@ public class ProjectMembers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProjectMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProjectMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProjectMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProjectMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -609,15 +767,15 @@ public class ProjectMembers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProjectMembers().setVisible(true);
+                new ChatProjectView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel gridJPanel;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JPanel chatJP;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -625,14 +783,16 @@ public class ProjectMembers extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JScrollPane scrollPanel;
-    private javax.swing.JLabel titleJL;
+    private javax.swing.JTextField messageTF;
+    private javax.swing.JButton sendBtn;
     // End of variables declaration//GEN-END:variables
 }

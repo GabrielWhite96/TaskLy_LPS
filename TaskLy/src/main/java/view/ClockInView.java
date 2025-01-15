@@ -7,8 +7,6 @@ package view;
 import controller.ClockInController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.ClockInWorkSingleton;
 

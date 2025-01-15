@@ -34,7 +34,10 @@ public class ClockIn {
     private String endHour;
     private String dateEnd;
 
-    public ClockIn() {}
+    public ClockIn() {
+        this.startHour = "XX:XX";
+        this.endHour = "XX:XX";
+    }
 
     public ClockIn(String description) {
         this.description = description;
@@ -57,13 +60,5 @@ public class ClockIn {
     public void stop(){
         this.dateEnd = DateFunctions.getCurrentDate();
         this.endHour = DateFunctions.getCurrentHour();
-    }
-    
-    public boolean isOpened(){
-        return (
-            (endHour == null || endHour == "XX:XX")
-            &&
-            (startHour != null && startHour != "XX:XX")
-        );
     }
 }
