@@ -36,8 +36,15 @@ public class ClockIn {
 
     public ClockIn() {}
 
+    public ClockIn(String description) {
+        this.description = description;
+        this.startHour = "XX:XX";
+        this.endHour = "XX:XX";
+    }
+
     public ClockIn(Person person, String description) {
         this.person = person;
+        this.description = description;
         this.startHour = "XX:XX";
         this.endHour = "XX:XX";
     }

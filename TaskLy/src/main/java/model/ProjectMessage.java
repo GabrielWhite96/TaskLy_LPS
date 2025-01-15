@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import utils.DateFunctions;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ProjectMessage {
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
     private String content;
+    private String date;
     
     public ProjectMessage(){}
     
@@ -38,5 +40,6 @@ public class ProjectMessage {
         this.content = message;
         this.project = project;
         this.person = person;
+        this.date = DateFunctions.getCurrentDate();
     }
 }

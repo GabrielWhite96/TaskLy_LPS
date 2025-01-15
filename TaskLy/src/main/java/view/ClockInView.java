@@ -4,10 +4,12 @@
  */
 package view;
 
+import controller.ClockInController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.ClockInWorkSingleton;
 
 /**
@@ -16,13 +18,13 @@ import model.ClockInWorkSingleton;
  */
 public class ClockInView extends javax.swing.JFrame {
     private ClockInWorkSingleton clockIn;
+    private ClockInController clockInController = null;
     
     public ClockInView() {
         this.clockIn = ClockInWorkSingleton.getInstance();
+        this.clockInController = new ClockInController();
         
         initComponents();
-        
-        this.updateComponents();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -462,12 +464,8 @@ public class ClockInView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            this.clockIn.start();
-        } catch (Exception ex) {
-            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.updateComponents();
+        this.clockIn.start();
+        this.startJLB.setText(this.clockIn.getClockInStart());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -477,24 +475,28 @@ public class ClockInView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             this.clockIn.stop();
-        } catch (Exception ex) {
-            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
+            this.clockInController.createClockIn(this.clockIn.getClockIn());
+            this.EndJLB.setText(this.clockIn.getClockInEnd());
+            this.clockIn.resetTurn();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        this.updateComponents();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         this.clockIn.startPause();
-        this.updateComponents();
+        this.startPauseJLB.setText(this.clockIn.getClockInStartPause());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
             this.clockIn.stopPause();
-        } catch (Exception ex) {
-            Logger.getLogger(ClockInView.class.getName()).log(Level.SEVERE, null, ex);
+            this.clockInController.createClockIn(this.clockIn.getClockInRelax());
+            this.endPauseJLB.setText(this.clockIn.getClockInEndPause());
+            this.clockIn.resetPause();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        this.updateComponents();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

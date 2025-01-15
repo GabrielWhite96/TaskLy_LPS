@@ -5,6 +5,7 @@
 package model;
 
 import controller.ClockInController;
+import lombok.Getter;
 
 /**
  *
@@ -12,12 +13,12 @@ import controller.ClockInController;
  */
 public class ClockInWorkSingleton {
     private static ClockInWorkSingleton instance = null;
+    @Getter
     private ClockIn clockIn = null;
+    @Getter
     private ClockIn clockInRelax = null;
     private boolean working = false;
     private boolean relaxing = false;
-    private AppStateSingleton appState = null;
-    private ClockInController clockInController = null;
 
     private ClockInWorkSingleton() {}
     
@@ -28,74 +29,57 @@ public class ClockInWorkSingleton {
         return instance;
     }
     
-    private void setAtributes(){
-        if(this.clockInController == null){
-            this.appState = AppStateSingleton.getInstance();
-            this.clockInController = new ClockInController();
-        }
-    }
-    
     public String getClockInStart(){
-        this.setAtributes();
-        return "XX:XX";
+        return this.clockIn.getStartHour();
     }
     
     public String getClockInEnd(){
-        this.setAtributes();
-        return "XX:XX";
+        return this.clockIn.getEndHour();
     }
     
     public String getClockInStartPause(){
-        this.setAtributes();
-        return "XX:XX";
+        return this.clockInRelax.getStartHour();
     }
     
     public String getClockInEndPause(){
-        this.setAtributes();
-        return "XX:XX";
+        return this.clockInRelax.getEndHour();
     }
     
-    public void start() throws Exception{
-        if(this.relaxing){
-            this.stopPause();
-        }
-        this.setAtributes();
-        if(!this.working){
+    public void start() {
+        if(!this.working && !this.relaxing){
             this.working = true;
-            this.clockIn = new ClockIn(this.appState.getUser(), "Working");
+            this.clockIn = new ClockIn("Working");
             this.clockIn.start();
         }
     }
     
-    public void stop() throws Exception {
-        if(this.relaxing){
-            this.stopPause();
-        }
+    public void stop() {
         if(this.clockIn != null){
-            this.setAtributes();
             this.working = false;
             this.clockIn.stop();
-            this.clockInController.createClockIn(this.clockIn);
-            this.clockIn = null;
         }
+    }
+    
+    public void resetTurn(){
+        this.clockIn = null;
     }
     
     public void startPause(){
         if(!this.relaxing){
-            this.setAtributes();
             this.relaxing = true;
-            this.clockInRelax = new ClockIn(this.appState.getUser(), "Relaxing");
+            this.clockInRelax = new ClockIn("Relaxing");
             this.clockInRelax.start();
         }
     }
     
-    public void stopPause() throws Exception{
+    public void stopPause(){
         if(this.clockInRelax != null){
-            this.setAtributes();
             this.relaxing = false;
             this.clockInRelax.stop();
-            this.clockInController.createClockIn(this.clockInRelax);
-            this.clockInRelax = null;
         }
+    }
+    
+    public void resetPause(){
+        this.clockInRelax = null;
     }
 }

@@ -8,9 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import utils.DateFunctions;
 
 /**
  *
@@ -26,5 +25,15 @@ public class TaskMessage {
     @ManyToOne
     private Task task;
     private String content;
+    private String date;
     
+    public TaskMessage(){}
+
+    public TaskMessage(String content, Task task, Person person){
+        this.content = content;
+        this.task = task;
+        this.person = person;
+        this.date = DateFunctions.getCurrentDate();
+    }
+
 }
