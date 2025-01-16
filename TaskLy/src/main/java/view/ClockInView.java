@@ -78,7 +78,6 @@ public class ClockInView extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
@@ -298,11 +297,6 @@ public class ClockInView extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel5);
 
-        jButton11.setBackground(new java.awt.Color(42, 62, 95));
-        jButton11.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(241, 243, 245));
-        jButton11.setText("Confirmar");
-
         jButton12.setBackground(new java.awt.Color(42, 62, 95));
         jButton12.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jButton12.setForeground(new java.awt.Color(241, 243, 245));
@@ -368,11 +362,6 @@ public class ClockInView extends javax.swing.JFrame {
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel12)))
                                 .addGap(0, 316, Short.MAX_VALUE))))))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton11)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,11 +403,6 @@ public class ClockInView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton11)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -572,7 +556,6 @@ public class ClockInView extends javax.swing.JFrame {
     private javax.swing.JLabel endPauseJLB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

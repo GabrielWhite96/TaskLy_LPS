@@ -5,7 +5,6 @@
 package view;
 
 import controller.PersonController;
-import controller.ProjectController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -95,7 +94,7 @@ public class PersonsMenuView extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        UserView userView = new UserView(person);
+                        PersonView userView = new PersonView(person);
                         userView.setVisible(true);
                         PersonsMenuView.this.dispose();
                     }

@@ -5,7 +5,6 @@
 package view;
 
 import controller.PersonController;
-import controller.ProjectController;
 import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
@@ -322,7 +321,7 @@ public class EditTaskView extends javax.swing.JFrame {
         );
 
         titleJL.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        titleJL.setText("Editar Projeto");
+        titleJL.setText("Editar Tarefa");
         titleJL.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);

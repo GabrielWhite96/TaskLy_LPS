@@ -4,7 +4,6 @@
  */
 package view;
 
-import javax.swing.JOptionPane;
 import model.Person;
 import utils.MenuNavigation;
 

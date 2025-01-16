@@ -4,7 +4,6 @@
  */
 package view;
 
-import controller.ProjectController;
 import controller.TaskReportController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,19 +12,15 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.Project;
 import model.TaskReport;
 import utils.MenuNavigation;
 
