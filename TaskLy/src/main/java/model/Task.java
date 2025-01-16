@@ -24,7 +24,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)

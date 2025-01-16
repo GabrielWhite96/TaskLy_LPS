@@ -32,6 +32,7 @@ public class ReportProjectView extends javax.swing.JFrame {
     }
     
     private void initAtributes(){
+        this.titleJLB.setText("Relatório do projeto: " + this.projectReport.getProject().getTitle());
         this.titleLb.setText(this.projectReport.getTitle());
         this.descriptionTx.setText(this.projectReport.getDescription());
         this.authorLb.setText(this.projectReport.getPerson().getName());
@@ -71,7 +72,7 @@ public class ReportProjectView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
+        titleJLB = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -234,9 +235,9 @@ public class ReportProjectView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Relatório Projeto - tau");
-        jLabel7.setToolTipText("");
+        titleJLB.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        titleJLB.setText("Relatório Projeto - tau");
+        titleJLB.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -298,7 +299,7 @@ public class ReportProjectView extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(titleJLB)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -336,7 +337,7 @@ public class ReportProjectView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleJLB, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -544,7 +545,6 @@ public class ReportProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -556,6 +556,7 @@ public class ReportProjectView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel projectLb;
+    private javax.swing.JLabel titleJLB;
     private javax.swing.JLabel titleLb;
     // End of variables declaration//GEN-END:variables
 }
