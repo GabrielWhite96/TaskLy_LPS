@@ -27,7 +27,7 @@ public class ProjectReport {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
     private Person person;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project;
     private String title;

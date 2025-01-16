@@ -24,7 +24,7 @@ public class TaskReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id", referencedColumnName = "id", nullable = false)
     private Task task;
     @ManyToOne(fetch = FetchType.EAGER)
