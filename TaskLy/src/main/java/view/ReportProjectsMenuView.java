@@ -98,7 +98,7 @@ public class ReportProjectsMenuView extends javax.swing.JFrame {
                 // Ação do botão ao clicar
                 projectButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        ReportProjectsMenu.this.showReportScreen(projectReport);
+                        ReportProjectsMenuView.this.showReportScreen(projectReport);
                     }
                 });
                 

@@ -11,12 +11,8 @@ import utils.MenuNavigation;
  *
  * @author Gabriel White
  */
-<<<<<<< HEAD:TaskLy/src/main/java/view/MainPage.java
-public class MainPage extends javax.swing.JFrame {
-    private Person person;
-=======
 public class MainPageView extends javax.swing.JFrame {
->>>>>>> origin/wekisley:TaskLy/src/main/java/view/MainPageView.java
+    private Person person;
 
     /**
      * Creates new form CreateEmployee
@@ -25,12 +21,8 @@ public class MainPageView extends javax.swing.JFrame {
         initComponents();
     }
 
-<<<<<<< HEAD:TaskLy/src/main/java/view/MainPage.java
-    public MainPage(Person user) {
-        this.person = user;
-=======
     public MainPageView(Person user) {
->>>>>>> origin/wekisley:TaskLy/src/main/java/view/MainPageView.java
+        this.person = user;
         initComponents();
         showMessage();
     }
