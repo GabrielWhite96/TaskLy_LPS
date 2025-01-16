@@ -7,8 +7,6 @@ package view;
 import controller.LoginController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Person;
 
@@ -35,7 +33,7 @@ public class LoginView extends javax.swing.JFrame {
     }
     
     public void showMainPage(Person user){
-        MainPage mainScreen = new MainPage(user);
+        MainPageView mainScreen = new MainPageView(user);
         mainScreen.setVisible(true);
         this.dispose();
     }

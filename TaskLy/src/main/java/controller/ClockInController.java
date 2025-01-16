@@ -5,7 +5,6 @@
 package controller;
 
 import dao.ClockInDAO;
-import java.util.List;
 import model.AppStateSingleton;
 import model.ClockIn;
 
@@ -18,13 +17,14 @@ public class ClockInController {
     private AppStateSingleton appState;
     
     public ClockInController(){
-        ClockInDAO clockInDAO = new ClockInDAO();
+        this.clockInDAO = new ClockInDAO();
         this.appState = AppStateSingleton.getInstance();
     }
     
     public void createClockIn(ClockIn clockIn) throws Exception{
+        clockIn.setPerson(this.appState.getUser());
         try {
-            clockInDAO.save(clockIn);
+            this.clockInDAO.save(clockIn);
         } catch (Exception e){
             throw new Exception("Não foi possível criar o ponto!");
         }

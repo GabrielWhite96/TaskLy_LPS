@@ -4,15 +4,21 @@
  */
 package model;
 
+import controller.ClockInController;
+import lombok.Getter;
+
 /**
  *
  * @author wekisley
  */
 public class ClockInWorkSingleton {
     private static ClockInWorkSingleton instance = null;
+    @Getter
     private ClockIn clockIn = null;
-    private String status = "stopped";
-    private AppStateSingleton appState = null;
+    @Getter
+    private ClockIn clockInRelax = null;
+    private boolean working = false;
+    private boolean relaxing = false;
 
     private ClockInWorkSingleton() {}
     
@@ -23,50 +29,57 @@ public class ClockInWorkSingleton {
         return instance;
     }
     
-    private void setAtributes(){
-        if(this.clockIn == null){
-            this.appState = AppStateSingleton.getInstance();
-            this.clockIn = new ClockIn(this.appState.getUser());
-        }
-    }
-    
     public String getClockInStart(){
-        return "xx:xx";
+        return this.clockIn.getStartHour();
     }
     
     public String getClockInEnd(){
-        return "";
+        return this.clockIn.getEndHour();
     }
     
     public String getClockInStartPause(){
-        return "";
+        return this.clockInRelax.getStartHour();
     }
     
     public String getClockInEndPause(){
-        return "";
+        return this.clockInRelax.getEndHour();
     }
     
-    public ClockIn getClockIn(){
-        this.setAtributes();
-        return this.clockIn;
+    public void start() {
+        if(!this.working && !this.relaxing){
+            this.working = true;
+            this.clockIn = new ClockIn("Working");
+            this.clockIn.start();
+        }
     }
     
-    public void start(){
-        this.status = "started";
+    public void stop() {
+        if(this.clockIn != null){
+            this.working = false;
+            this.clockIn.stop();
+        }
     }
     
-    public void stop(){
-        this.status = "stopped";
-        
+    public void resetTurn(){
+        this.clockIn = null;
     }
     
     public void startPause(){
-        this.status = "paused";
-        
+        if(!this.relaxing){
+            this.relaxing = true;
+            this.clockInRelax = new ClockIn("Relaxing");
+            this.clockInRelax.start();
+        }
     }
     
     public void stopPause(){
-        this.status = "paused";
-        
+        if(this.clockInRelax != null){
+            this.relaxing = false;
+            this.clockInRelax.stop();
+        }
+    }
+    
+    public void resetPause(){
+        this.clockInRelax = null;
     }
 }

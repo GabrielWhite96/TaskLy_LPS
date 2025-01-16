@@ -4,45 +4,52 @@
  */
 package view;
 
-import controller.ProjectController;
-import controller.ProjectMessageController;
+import controller.PersonController;
+import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.Project;
-import model.ProjectMessage;
+import model.Person;
+import model.Task;
 import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
  * @author Gabriel White
  */
-public class ChatProject extends javax.swing.JFrame {
-    private Project project;
-    private ProjectController projectController;
-    private ProjectMessageController projectMessageController;
-    public ChatProject() {
+public class EditTaskView extends javax.swing.JFrame {
+    private Task task;
+    private List<JCheckBox> checkBoxesPersons;
+    
+    private TaskController taskController;
+    private PersonController personController;
+    private List<Person> persons;
+    private List<Person> selectedPersons;
+    
+    public EditTaskView() {
+        
         initComponents();
     }
     
-    public ChatProject(Project project) {
-        this.project = project;
-        this.projectController = new ProjectController();
-        this.projectMessageController = new ProjectMessageController();
+    public EditTaskView(Task task) {
+        this.task = task;
+        this.initAtributes();
         
         initComponents();
-        loadMessages();
+        styleScroll();
+        
+        this.initJPanels();
+        this.updateAtributes();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -54,134 +61,65 @@ public class ChatProject extends javax.swing.JFrame {
         });
     }
     
-    private void loadMessages() {
-        clearChatPanel();
-        configureChatPanelLayout();
-        configureScrollPane();
-
-        try {
-            List<ProjectMessage> messages = fetchMessages();
-            displayMessages(messages);
-        } catch (Exception e) {
-            showErrorDialog("Erro ao carregar mensagens: " + e.getMessage());
-        }
-
-        autoScrollToBottom();
-        refreshChatPanel();
-    }
-
-    private void clearChatPanel() {
-        chatJP.removeAll();
-    }
-
-    private void configureChatPanelLayout() {
-        chatJP.setLayout(new BoxLayout(chatJP, BoxLayout.Y_AXIS));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368));
-    }
-
-    private List<ProjectMessage> fetchMessages() throws Exception {
-        return projectController.find(project.getId()).getMessages();
-    }
-
-    private void displayMessages(List<ProjectMessage> messages) {
-        if (messages.isEmpty()) {
-            addNoMessagesLabel();
-        } else {
-            for (ProjectMessage message : messages) {
-                addMessageToPanel(message);
+    private void styleScroll(){
+        
+         jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
             }
-        }
-    }
 
-    private void addNoMessagesLabel() {
-        JLabel noMessagesLabel = new JLabel("Nenhuma mensagem encontrada.");
-        chatJP.add(noMessagesLabel);
-    }
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
 
-    private void addMessageToPanel(ProjectMessage message) {
-        JLabel messageLabel = createMessageLabel(message);
-        chatJP.add(messageLabel);
-        chatJP.add(Box.createVerticalStrut(10)); // Espaço entre mensagens
-    }
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
 
-    private JLabel createMessageLabel(ProjectMessage message) {
-        JLabel messageLabel = new JLabel(formatMessage(message));
-        messageLabel.setOpaque(true);
-        messageLabel.setBackground(new Color(240, 240, 240));
-        messageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        return messageLabel;
-    }
-
-    private void configureScrollPane() {
-        configureVerticalScrollBar();
-        configureHorizontalScrollBar();
-    }
-
-    private void configureVerticalScrollBar() {
-        jScrollPane2.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
-    }
-
-    private void configureHorizontalScrollBar() {
-        jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
-    }
-
-    private void autoScrollToBottom() {
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar verticalScrollBar = jScrollPane2.getVerticalScrollBar();
-            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
         });
+        
+        // Personaliza a barra de rolagem horizontal
+        jScrollPane1.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                this.trackColor = new Color(230, 230, 230); // Cor do fundo
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        // Alterar a largura da barra de rolagem
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+        // Alterar a altura da barra de rolagem horizontal
+        jScrollPane1.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 12));
     }
-
-    private void refreshChatPanel() {
-        chatJP.revalidate();
-        chatJP.repaint();
-    }
-
-    private void showErrorDialog(String errorMessage) {
-        JOptionPane.showMessageDialog(this, errorMessage, "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private String formatMessage(ProjectMessage message) {
-        String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
-        return String.format(
-            "<html>"
-            + "<div style='font-size:9px; color:#555555;margin-left: 4px;'>%s</div>"
-            + "<div style='font-size:10px; color:#111111; margin-left: 8px; width: 400px; word-wrap: break-word;'>%s</div>"
-            + "</html>",
-            personName, message.getContent()
-        );
-    }
-
-    // Custom ScrollBar UI class
-    private static class CustomScrollBarUI extends BasicScrollBarUI {
-        @Override
-        protected void configureScrollBarColors() {
-            this.thumbColor = new Color(210, 210, 210);
-            this.trackColor = new Color(230, 230, 230);
-        }
-
-        @Override
-        protected JButton createDecreaseButton(int orientation) {
-            return createZeroButton();
-        }
-
-        @Override
-        protected JButton createIncreaseButton(int orientation) {
-            return createZeroButton();
-        }
-
-        private JButton createZeroButton() {
-            JButton button = new JButton();
-            button.setPreferredSize(new Dimension(0, 0));
-            button.setMinimumSize(new Dimension(0, 0));
-            button.setMaximumSize(new Dimension(0, 0));
-            return button;
-        }
-    }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,16 +141,23 @@ public class ChatProject extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jButton8 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
+        titleJL = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        chatJP = new javax.swing.JPanel();
-        sendBtn = new javax.swing.JButton();
-        cancelBtn = new javax.swing.JButton();
-        messageTF = new javax.swing.JTextField();
+        confirmJB = new javax.swing.JButton();
+        cancelJB = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        descriptionField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        managersJP = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,8 +253,9 @@ public class ChatProject extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\Gabriel White\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -318,11 +264,6 @@ public class ChatProject extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -333,15 +274,24 @@ public class ChatProject extends javax.swing.JFrame {
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))
-                    .addComponent(jSeparator2)))
+                    .addComponent(jSeparator2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(32, 32, 32))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
@@ -361,9 +311,34 @@ public class ChatProject extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Chat - Projeto TaskLy");
-        jLabel7.setToolTipText("");
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setText("Nome:");
+
+        nameField.setBorder(null);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        titleJL.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        titleJL.setText("Editar Tarefa");
+        titleJL.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -373,48 +348,69 @@ public class ChatProject extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout chatJPLayout = new javax.swing.GroupLayout(chatJP);
-        chatJP.setLayout(chatJPLayout);
-        chatJPLayout.setHorizontalGroup(
-            chatJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
-        );
-        chatJPLayout.setVerticalGroup(
-            chatJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
-        );
-
-        jScrollPane2.setViewportView(chatJP);
-
-        sendBtn.setBackground(new java.awt.Color(241, 243, 245));
-        sendBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        sendBtn.setText("Enviar");
-        sendBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 62, 95)));
-        sendBtn.addActionListener(new java.awt.event.ActionListener() {
+        confirmJB.setBackground(new java.awt.Color(42, 62, 95));
+        confirmJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        confirmJB.setForeground(new java.awt.Color(241, 243, 245));
+        confirmJB.setText("Confirmar");
+        confirmJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendBtnActionPerformed(evt);
+                confirmJBActionPerformed(evt);
             }
         });
 
-        cancelBtn.setBackground(new java.awt.Color(42, 62, 95));
-        cancelBtn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        cancelBtn.setForeground(new java.awt.Color(241, 243, 245));
-        cancelBtn.setText("Voltar");
-        cancelBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(42, 62, 95)));
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+        cancelJB.setBackground(new java.awt.Color(241, 243, 245));
+        cancelJB.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelJB.setText("Cancelar");
+        cancelJB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelBtnActionPerformed(evt);
+                cancelJBActionPerformed(evt);
             }
         });
 
-        messageTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                messageTFActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel4.setText("Descrição:");
+
+        descriptionField.setBorder(null);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionField)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        managersJP.setAutoscrolls(true);
+
+        javax.swing.GroupLayout managersJPLayout = new javax.swing.GroupLayout(managersJP);
+        managersJP.setLayout(managersJPLayout);
+        managersJPLayout.setHorizontalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 408, Short.MAX_VALUE)
+        );
+        managersJPLayout.setVerticalGroup(
+            managersJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 235, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(managersJP);
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setText("Membros");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -425,45 +421,56 @@ public class ChatProject extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(messageTF)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(373, 373, 373)
+                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(8, 8, 8)))
                         .addGap(56, 56, 56))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titleJL)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel2)))
+                        .addContainerGap(624, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleJL, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
+                        .addGap(19, 19, 19)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(268, 268, 268)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(365, 365, 365))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(messageTF)))
-                .addGap(20, 20, 20))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmJB, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -497,7 +504,69 @@ public class ChatProject extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void initAtributes(){
+        this.checkBoxesPersons = new ArrayList<>();
+        this.selectedPersons = new ArrayList<>();
+        this.taskController = new TaskController();
+        this.personController = new PersonController();
+        try {
+            this.persons = this.personController.getAllPersons();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
+    private void updateAtributes(){
+        this.titleJL.setText("Editar " + this.task.getTitle());
+        this.nameField.setText(this.task.getTitle());
+        this.descriptionField.setText(this.task.getDescription());
+    }
+    
+    private void initJPanels(){
+        this.managersJP.setLayout(new GridLayout(0, 1, 10, 10));
+        this.managersJP.removeAll();
+        this.checkBoxesPersons.clear();
+        
+        List<Person> employees = personController.getEmployeesByRole(this.persons, Roles.EMPLOYEE);
+        
+        for (Person person : employees) {
+            if(person.getTask()== null || person.getTask().equalsTo(this.task)){
+                JCheckBox checkBox = new JCheckBox(person.getName());
+                checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                checkBox.setSelected(this.task.equalsTo(person.getTask()));
+                checkBoxesPersons.add(checkBox);
+                this.managersJP.add(checkBox);
+            }
+        }
+        
+        this.managersJP.revalidate();
+        this.managersJP.repaint();
+    }
+    
+    private void pushSelectedPersons() {
+        List<Person> persons = personController.getEmployeesByRole(this.persons, Roles.EMPLOYEE);
+        
+        if(persons.size() > 0){
+            for (int i = 0; i < this.checkBoxesPersons.size(); i++) {
+                if (this.checkBoxesPersons.get(i).isSelected()) {
+                    this.selectedPersons.add(persons.get(i));
+                }
+            }
+        }
+    }
+    
+    private void showTaskView(){
+        try {
+            Task taskUpdated = this.taskController.getTask(this.task);
+            TaskView taskView = new TaskView(taskUpdated);
+            taskView.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MenuNavigation.goToProjectsMenu(this);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -506,31 +575,28 @@ public class ChatProject extends javax.swing.JFrame {
         MenuNavigation.goToClockIn(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void confirmJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmJBActionPerformed
+        String name = this.nameField.getText();
+        String description = this.descriptionField.getText();
+        this.task.setTitle(name);
+        this.task.setDescription(description);
+        this.pushSelectedPersons();
+        try {
+            this.taskController.updateTask(this.task, this.selectedPersons);
+            JOptionPane.showMessageDialog(this, "Tarefa atualizada com sucesso!");
+            this.showTaskView();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_confirmJBActionPerformed
+
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         MenuNavigation.goToPersonsMenu(this);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        ProjectView projectScreen = new ProjectView(this.project);
-        projectScreen.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_cancelBtnActionPerformed
-
-    private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
-        String message = this.messageTF.getText();
-        try {
-            this.projectMessageController.createMessage(this.project, message);
-            loadMessages();
-            this.messageTF.setText("");
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
-    }//GEN-LAST:event_sendBtnActionPerformed
-
-    private void messageTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_messageTFActionPerformed
+    private void cancelJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelJBActionPerformed
+        this.showTaskView();
+    }//GEN-LAST:event_cancelJBActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         MenuNavigation.goToTasksMenu(this);
@@ -561,78 +627,14 @@ public class ChatProject extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChatProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditTaskView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChatProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditTaskView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChatProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditTaskView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChatProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditTaskView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -701,14 +703,15 @@ public class ChatProject extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChatProject().setVisible(true);
+                new EditTaskView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelBtn;
-    private javax.swing.JPanel chatJP;
+    private javax.swing.JButton cancelJB;
+    private javax.swing.JButton confirmJB;
+    private javax.swing.JTextField descriptionField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
@@ -717,16 +720,22 @@ public class ChatProject extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField messageTF;
-    private javax.swing.JButton sendBtn;
+    private javax.swing.JPanel managersJP;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel titleJL;
     // End of variables declaration//GEN-END:variables
 }

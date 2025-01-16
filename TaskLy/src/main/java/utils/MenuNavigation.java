@@ -5,11 +5,11 @@
 package utils;
 
 import view.ClockInView;
-import view.PersonsMenu;
-import view.ProjectsMenu;
-import view.ReportProjectsMenu;
-import view.ReportTasksMenu;
-import view.TasksMenu;
+import view.PersonsMenuView;
+import view.ProjectsMenuView;
+import view.ReportProjectsMenuView;
+import view.ReportTasksMenuView;
+import view.TasksMenuView;
 
 /**
  *
@@ -24,31 +24,31 @@ public class MenuNavigation {
     }
     
     public static void goToProjectsMenu(javax.swing.JFrame jFrame){
-        ProjectsMenu projectsMenu = new ProjectsMenu();
+        ProjectsMenuView projectsMenu = new ProjectsMenuView();
         projectsMenu.setVisible(true);
         jFrame.dispose();
     }
     
     public static void goToTasksMenu(javax.swing.JFrame jFrame){
-        TasksMenu tasksMenu = new TasksMenu();
+        TasksMenuView tasksMenu = new TasksMenuView();
         tasksMenu.setVisible(true);
         jFrame.dispose();
     }
     
     public static void goToPersonsMenu(javax.swing.JFrame jFrame){
-        PersonsMenu tasksMenu = new PersonsMenu();
+        PersonsMenuView tasksMenu = new PersonsMenuView();
         tasksMenu.setVisible(true);
         jFrame.dispose();
     }
     
     public static void goToReportProjectsMenu(javax.swing.JFrame jFrame){
-        ReportProjectsMenu reportProjectsMenu = new ReportProjectsMenu();
+        ReportProjectsMenuView reportProjectsMenu = new ReportProjectsMenuView();
         reportProjectsMenu.setVisible(true);
         jFrame.dispose();
     }
     
     public static void goToReportTasksMenu(javax.swing.JFrame jFrame){
-        ReportTasksMenu reportProjectsMenu = new ReportTasksMenu();
+        ReportTasksMenuView reportProjectsMenu = new ReportTasksMenuView();
         reportProjectsMenu.setVisible(true);
         jFrame.dispose();
     }

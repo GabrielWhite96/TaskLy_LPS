@@ -28,15 +28,26 @@ public class ClockIn {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="person_id", referencedColumnName = "id")
     private Person person;
+    private String description;
     private String dateStart;
     private String startHour;
     private String endHour;
     private String dateEnd;
 
-    public ClockIn() {}
+    public ClockIn() {
+        this.startHour = "XX:XX";
+        this.endHour = "XX:XX";
+    }
 
-    public ClockIn(Person person) {
+    public ClockIn(String description) {
+        this.description = description;
+        this.startHour = "XX:XX";
+        this.endHour = "XX:XX";
+    }
+
+    public ClockIn(Person person, String description) {
         this.person = person;
+        this.description = description;
         this.startHour = "XX:XX";
         this.endHour = "XX:XX";
     }
@@ -49,13 +60,5 @@ public class ClockIn {
     public void stop(){
         this.dateEnd = DateFunctions.getCurrentDate();
         this.endHour = DateFunctions.getCurrentHour();
-    }
-    
-    public boolean isOpened(){
-        return (
-            (endHour == null || endHour == "XX:XX")
-            &&
-            (startHour != null && startHour != "XX:XX")
-        );
     }
 }

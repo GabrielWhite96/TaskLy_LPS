@@ -4,17 +4,15 @@
  */
 package view;
 
+import controller.ClockInController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.ClockInWorkSingleton;
-import model.ProjectMessage;
 import utils.MenuNavigation;
 
 /**
@@ -23,13 +21,14 @@ import utils.MenuNavigation;
  */
 public class ClockInView extends javax.swing.JFrame {
     private ClockInWorkSingleton clockIn;
+    private ClockInController clockInController = null;
     
     public ClockInView() {
         this.clockIn = ClockInWorkSingleton.getInstance();
+        this.clockInController = new ClockInController();
         
         initComponents();
         this.configureScrollPane();
-        this.updateComponents();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -38,13 +37,6 @@ public class ClockInView extends javax.swing.JFrame {
                 factory.close();
             }
         });
-    }
-    
-    public void updateComponents(){
-        this.startJLB.setText(this.clockIn.getClockInStart());
-        this.EndJLB.setText(this.clockIn.getClockInEnd());
-        this.startPauseJLB.setText(this.clockIn.getClockInStartPause());
-        this.endPauseJLB.setText(this.clockIn.getClockInEndPause());
     }
     
     private void configureScrollPane() {
@@ -496,7 +488,7 @@ public class ClockInView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.clockIn.start();
-        this.updateComponents();
+        this.startJLB.setText(this.clockIn.getClockInStart());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -504,18 +496,30 @@ public class ClockInView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.clockIn.stop();
-        this.updateComponents();
+        try {
+            this.clockIn.stop();
+            this.clockInController.createClockIn(this.clockIn.getClockIn());
+            this.EndJLB.setText(this.clockIn.getClockInEnd());
+            this.clockIn.resetTurn();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         this.clockIn.startPause();
-        this.updateComponents();
+        this.startPauseJLB.setText(this.clockIn.getClockInStartPause());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        this.clockIn.stopPause();
-        this.updateComponents();
+        try {
+            this.clockIn.stopPause();
+            this.clockInController.createClockIn(this.clockIn.getClockInRelax());
+            this.endPauseJLB.setText(this.clockIn.getClockInEndPause());
+            this.clockIn.resetPause();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
