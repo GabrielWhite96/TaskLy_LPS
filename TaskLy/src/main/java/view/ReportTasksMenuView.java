@@ -47,14 +47,9 @@ public class ReportTasksMenuView extends javax.swing.JFrame {
         });
     }
     
-    private void showScreenCreateProject(){
-        CreateProjectView projectCreationScreen = new CreateProjectView();
-        projectCreationScreen.setVisible(true);
-        this.dispose();
-    }
-    
     private void showReportTasksScreen(TaskReport report){
-        // Implementar
+        ReportTaskView reportView = new ReportTaskView(report);
+        reportView.setVisible(true);
         this.dispose();
     }
     

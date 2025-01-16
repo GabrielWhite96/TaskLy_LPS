@@ -6,7 +6,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import model.ProjectReport;
 import model.TaskReport;
 import utils.MenuNavigation;
 
@@ -35,8 +34,8 @@ public class ReportTaskView extends javax.swing.JFrame {
     private void initAtributes(){
         this.titleLb.setText(this.taskReport.getTitle());
         this.descriptionTx.setText(this.taskReport.getDescription());
-        this.authorLb.setText(this.taskReport.getPerson().getName());
-        this.projectLb.setText(this.taskReport.getTask().getTitle());
+//        this.authorLb.setText(this.taskReport.getPerson().getName());
+//        this.projectLb.setText(this.taskReport.getTask().getTitle());
         this.dateLb.setText(this.taskReport.getDate());
         
         this.descriptionTx.setEditable(false);
