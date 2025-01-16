@@ -7,6 +7,7 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import model.ProjectReport;
+import model.TaskReport;
 import utils.MenuNavigation;
 
 /**
@@ -14,7 +15,7 @@ import utils.MenuNavigation;
  * @author Gabriel White
  */
 public class ReportTaskView extends javax.swing.JFrame {
-    private ProjectReport projectReport;
+    private TaskReport taskReport;
     
     /**
      * Creates new form CreateEmployee
@@ -23,8 +24,8 @@ public class ReportTaskView extends javax.swing.JFrame {
         initComponents();
     }
     
-    public ReportTaskView(ProjectReport projectReport) {
-        this.projectReport = projectReport;
+    public ReportTaskView(TaskReport taskReport) {
+        this.taskReport = taskReport;
         
         initComponents();
         
@@ -32,11 +33,11 @@ public class ReportTaskView extends javax.swing.JFrame {
     }
     
     private void initAtributes(){
-        this.titleLb.setText(this.projectReport.getTitle());
-        this.descriptionTx.setText(this.projectReport.getDescription());
-        this.authorLb.setText(this.projectReport.getPerson().getName());
-        this.projectLb.setText(this.projectReport.getProject().getTitle());
-        this.dateLb.setText(this.projectReport.getDate());
+        this.titleLb.setText(this.taskReport.getTitle());
+        this.descriptionTx.setText(this.taskReport.getDescription());
+        this.authorLb.setText(this.taskReport.getPerson().getName());
+        this.projectLb.setText(this.taskReport.getTask().getTitle());
+        this.dateLb.setText(this.taskReport.getDate());
         
         this.descriptionTx.setEditable(false);
 
@@ -235,7 +236,7 @@ public class ReportTaskView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel7.setText("Relatório Projeto - tau");
+        jLabel7.setText("Relatório Tarefa - tau");
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
