@@ -14,6 +14,8 @@ import utils.MenuNavigation;
  * @author Gabriel White
  */
 public class PersonView extends javax.swing.JFrame {
+    private Person person;
+    
     public PersonView() {
         
         initComponents();
@@ -28,6 +30,8 @@ public class PersonView extends javax.swing.JFrame {
     }
     
     public PersonView(Person person) {
+        this.person = person;
+        
         initComponents();
         
         this.nameJL.setText(person.getName());
@@ -56,6 +60,7 @@ public class PersonView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -85,6 +90,7 @@ public class PersonView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JButton();
         addressJL = new javax.swing.JLabel();
+        cancelBtn1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,6 +102,8 @@ public class PersonView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 255, 153));
@@ -297,6 +305,16 @@ public class PersonView extends javax.swing.JFrame {
 
         addressJL.setText("jLabel15");
 
+        cancelBtn1.setBackground(new java.awt.Color(241, 243, 245));
+        cancelBtn1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        cancelBtn1.setText("Horários");
+        cancelBtn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cancelBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -324,7 +342,8 @@ public class PersonView extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(phoneJL)))
+                                        .addComponent(phoneJL))
+                                    .addComponent(cancelBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(230, 230, 230)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -370,8 +389,10 @@ public class PersonView extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(emailJL)
                     .addComponent(addressJL))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -435,6 +456,12 @@ public class PersonView extends javax.swing.JFrame {
         MenuNavigation.goToReportProjectsMenu(this);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void cancelBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn1ActionPerformed
+        PersonClockInsView clockIns = new PersonClockInsView(this.person);
+        clockIns.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelBtn1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -480,10 +507,12 @@ public class PersonView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressJL;
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton cancelBtn1;
     private javax.swing.JLabel emailJL;
     private javax.swing.JLabel genderJL;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

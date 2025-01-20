@@ -5,8 +5,10 @@
 package controller;
 
 import dao.ClockInDAO;
+import java.util.List;
 import model.AppStateSingleton;
 import model.ClockIn;
+import model.Person;
 
 /**
  *
@@ -28,5 +30,15 @@ public class ClockInController {
         } catch (Exception e){
             throw new Exception("Não foi possível criar o ponto!");
         }
+    }
+    
+    public List<ClockIn> getClockInOf(Person person) throws Exception{
+        List<ClockIn> clockIns;
+        try {
+            clockIns = this.clockInDAO.getClockInOfPerson(person);
+        }catch (Exception e){
+            throw new Exception("Erro ao obter horarios de pessoa", e);
+        }
+        return clockIns;
     }
 }
