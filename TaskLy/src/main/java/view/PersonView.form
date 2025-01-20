@@ -17,6 +17,11 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton3"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -377,6 +382,7 @@
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="phoneJL" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="cancelBtn1" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -437,8 +443,11 @@
                           <Component id="emailJL" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="addressJL" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="cancelBtn" min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace pref="233" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cancelBtn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="cancelBtn1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -552,6 +561,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="jLabel15"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="cancelBtn1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f5" green="f3" red="f1" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Trebuchet MS" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Hor&#xe1;rios"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtn1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

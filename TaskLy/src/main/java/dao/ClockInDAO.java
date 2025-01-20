@@ -84,7 +84,7 @@ public class ClockInDAO implements DAOInterface<ClockIn> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         List<ClockIn> clockInList = null;
         try{
-            TypedQuery<ClockIn> query = entityManager.createQuery("SELECT clockIn FROM ClockIn clockIn WHERE clockin.person.id = :id", ClockIn.class);
+            TypedQuery<ClockIn> query = entityManager.createQuery("SELECT clockIn FROM ClockIn clockIn WHERE clockIn.person.id = :id", ClockIn.class);
             query.setParameter("id", person.getId());
             clockInList = query.getResultList();
         } catch (Exception e) {

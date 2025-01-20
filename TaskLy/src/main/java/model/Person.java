@@ -45,8 +45,6 @@ public class Person {
     private List<ProjectMessage> projectMessages;
     @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
     private List<ClockIn> clockIns;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
-    private List<ClockIn> clockInsPause;
     private String name;
     private String address;
     private String phoneNumber;
@@ -60,7 +58,6 @@ public class Person {
         this.projectReports = new ArrayList<>();
         this.projectMessages = new ArrayList<>();
         this.clockIns = new ArrayList<>();
-        this.clockInsPause = new ArrayList<>();
         this.name = name;
         this.login = login;
         this.address = address;
