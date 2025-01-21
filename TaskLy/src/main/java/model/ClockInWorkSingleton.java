@@ -4,7 +4,6 @@
  */
 package model;
 
-import controller.ClockInController;
 import lombok.Getter;
 import utils.ClockInDescriptions;
 

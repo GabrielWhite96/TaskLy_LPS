@@ -21,6 +21,10 @@ public class AppStateSingleton {
         return instance;
     }
     
+    public boolean userIs(String role){
+        return this.user.getJobTitle().equals(role);
+    }
+    
     public void setUser(Person user){
         this.user = user;
     }

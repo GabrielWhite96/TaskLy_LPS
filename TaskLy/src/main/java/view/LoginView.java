@@ -8,6 +8,7 @@ import controller.LoginController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import javax.swing.JOptionPane;
+import model.AppStateSingleton;
 import model.Person;
 
 /**
@@ -172,8 +173,11 @@ public class LoginView extends javax.swing.JFrame {
         String email = this.emailField.getText();
         String password = new String(this.passwordField.getPassword());
         try {
-            Person user = this.loginController.getUserAccount(email, password);
-            JOptionPane.showMessageDialog(this, user.getName());
+            Person user = AppStateSingleton.getInstance().getUser();
+            if(user == null){
+                user = this.loginController.getUserAccount(email, password);
+                JOptionPane.showMessageDialog(this, user.getName());
+            }
             this.showMainPage(user);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

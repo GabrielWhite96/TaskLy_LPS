@@ -7,93 +7,118 @@ package controller;
 import dao.PersonDAO;
 import java.util.ArrayList;
 import java.util.List;
+import model.AppStateSingleton;
 import model.Login;
 import model.Person;
 import model.Project;
 import model.Task;
+import utils.Roles;
 
 /**
  *
  * @author wekisley
  */
 public class PersonController {
-    public final PersonDAO personDAO;
-    
+    private final PersonDAO personDAO;
+    private AppStateSingleton appStateSingleton;
     
     public PersonController(){
         this.personDAO = new PersonDAO();
+        this.appStateSingleton = AppStateSingleton.getInstance();
     }
     
     public void createNewUser(String name, Login login, String address, String phoneNumber, String jobTitle, String gender) throws Exception {
-        Person person = new Person(name, login, address, phoneNumber, jobTitle, gender);
-        try {
-            this.personDAO.save(person);
-        } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o usuário!");
-        }
-    }
-    
-    public void update(Person person) throws Exception{
-        try {
-            this.personDAO.update(person);
-        } catch (Exception e) {
-            throw new Exception("Não foi possível atualizar o usuário!");
-        }
-    }
-    
-    public void update(List<Person> persons) throws Exception{
-        try {
-            for(Person person: persons){
-                this.update(person);
+        if(login.getEmail() == Roles.ADMIN || this.appStateSingleton.userIs(Roles.ADMIN)){
+            Person person = new Person(name, login, address, phoneNumber, jobTitle, gender);
+            try {
+                this.personDAO.save(person);
+            } catch (Exception e) {
+                throw new Exception("Não foi possível salvar o usuário!");
             }
-        } catch (Exception e) {
-            throw new Exception("Não foi possível atualizar os usuários!");
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
-    public void removePersonsOfProject(Project project) throws Exception{
-        try {
-            List<Person> persons = (List<Person>) personDAO.getByProject(project);
-            for(Person person: persons){
-                person.setProject(null);
-                this.update(person);
+    public void update(Person person) throws Exception {
+        if(this.appStateSingleton.userIs(Roles.ADMIN)){
+            try {
+                this.personDAO.update(person);
+            } catch (Exception e) {
+                throw new Exception("Não foi possível atualizar o usuário!");
             }
-        } catch(Exception e) {
-            throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
-    public void removePersonsOfTask(Task task) throws Exception{
-        try {
-            List<Person> persons = (List<Person>) personDAO.getByTask(task);
-            for(Person person: persons){
-                person.setProject(null);
-                this.update(person);
+    public void update(List<Person> persons) throws Exception {
+        if(this.appStateSingleton.userIs(Roles.ADMIN)){
+            try {
+                for(Person person: persons){
+                    this.update(person);
+                }
+            } catch (Exception e) {
+                throw new Exception("Não foi possível atualizar os usuários!");
             }
-        } catch(Exception e) {
-            throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
-    public Person find(int id) throws Exception{
+    public void removePersonsOfProject(Project project) throws Exception {
+        if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+            try {
+                List<Person> persons = (List<Person>) personDAO.getByProject(project);
+                for(Person person: persons){
+                    person.setProject(null);
+                    this.update(person);
+                }
+            } catch(Exception e) {
+                throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
+        }
+    }
+    
+    public void removePersonsOfTask(Task task) throws Exception {
+        if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+            try {
+                List<Person> persons = (List<Person>) personDAO.getByTask(task);
+                for(Person person: persons){
+                    person.setProject(null);
+                    this.update(person);
+                }
+            } catch(Exception e) {
+                throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
+        }
+    }
+    
+    public Person find(int id) throws Exception {
         try {
-            return personDAO.getById(id);
+            if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+                return personDAO.getById(id);
+            } else {
+                throw new Exception("Você não tem a permissão necessária!");
+            }
         } catch (Exception e) {
             throw new Exception("Não foi possível encontrar o usuário!");
         }
     }
     
-    public Person find(Person person) throws Exception{
+    public List<Person> getAllPersons() throws Exception {
         try {
-            return personDAO.getById(person.getId());
-        } catch (Exception e) {
-            throw new Exception("Não foi possível encontrar o usuário!");
-        }
-    }
-    
-    public List<Person> getAllPersons() throws Exception{
-        try {
-            return this.personDAO.getAll();
+            if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+                return this.personDAO.getAll();
+            } else {
+                ArrayList<Person> persons = new ArrayList<Person>();
+                persons.add(this.appStateSingleton.getUser());
+                return persons;
+            }
         } catch (Exception e) {
             throw new Exception("Não foi possível salvar o usuário!");
         }
