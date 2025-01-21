@@ -196,6 +196,7 @@ public class TaskView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         titleJL = new javax.swing.JLabel();
         editBtn1 = new javax.swing.JButton();
+        editBtn2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -432,11 +433,21 @@ public class TaskView extends javax.swing.JFrame {
 
         editBtn1.setBackground(new java.awt.Color(241, 243, 245));
         editBtn1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        editBtn1.setText("Enviar Feedback");
+        editBtn1.setText("Chat");
         editBtn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         editBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editBtn1ActionPerformed(evt);
+            }
+        });
+
+        editBtn2.setBackground(new java.awt.Color(241, 243, 245));
+        editBtn2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        editBtn2.setText("Enviar Feedback");
+        editBtn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        editBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtn2ActionPerformed(evt);
             }
         });
 
@@ -449,7 +460,9 @@ public class TaskView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(editBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(245, 245, 245)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
                         .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,7 +512,8 @@ public class TaskView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(editBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
         );
 
@@ -556,7 +570,7 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void editBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn1ActionPerformed
-        CreateReportTaskView reportView = new CreateReportTaskView(this.task);
+        ChatTaskView reportView = new ChatTaskView(this.task);
         reportView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editBtn1ActionPerformed
@@ -574,6 +588,10 @@ public class TaskView extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         MenuNavigation.goToReportProjectsMenu(this);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void editBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -646,6 +664,7 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JTextArea descriptionTA;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton editBtn1;
+    private javax.swing.JButton editBtn2;
     private javax.swing.JPanel gridJPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
