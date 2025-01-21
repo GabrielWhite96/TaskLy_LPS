@@ -7,6 +7,7 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
+import model.Task;
 import model.TaskMessage;
 
 /**
@@ -92,5 +93,20 @@ public class TaskMessageDAO implements DAOInterface<TaskMessage> {
             entityManager.close();
         }
         return messageList;
+    }
+
+    public List getMessagesOfTask(Task task) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<TaskMessage> messagesList = null;
+        try{
+            TypedQuery<TaskMessage> query = entityManager.createQuery("SELECT taskMessage FROM TaskMessage taskMessage WHERE taskMessage.task.id = :id", TaskMessage.class);
+            query.setParameter("id", task.getId());
+            messagesList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception("Erro ao obter mensagens", e);
+        } finally {
+            entityManager.close();
+        }
+        return messagesList;
     }
 }

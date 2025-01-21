@@ -4,8 +4,7 @@
  */
 package view;
 
-import controller.ProjectController;
-import controller.ProjectMessageController;
+import controller.TaskMessageController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
@@ -20,8 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-import model.ProjectMessage;
 import model.Task;
+import model.TaskMessage;
 import utils.MenuNavigation;
 
 /**
@@ -30,16 +29,14 @@ import utils.MenuNavigation;
  */
 public class ChatTaskView extends javax.swing.JFrame {
     private Task task;
-    private ProjectController projectController;
-    private ProjectMessageController projectMessageController;
+    private TaskMessageController taskMessageController;
     public ChatTaskView() {
         initComponents();
     }
     
     public ChatTaskView(Task task) {
         this.task = task;
-        this.projectController = new ProjectController();
-        this.projectMessageController = new ProjectMessageController();
+        this.taskMessageController = new TaskMessageController();
         
         initComponents();
         loadMessages();
@@ -60,7 +57,7 @@ public class ChatTaskView extends javax.swing.JFrame {
         configureScrollPane();
 
         try {
-            List<ProjectMessage> messages = fetchMessages();
+            List<TaskMessage> messages = this.taskMessageController.getMessagesOf(this.task);
             displayMessages(messages);
         } catch (Exception e) {
             showErrorDialog("Erro ao carregar mensagens: " + e.getMessage());
@@ -79,15 +76,11 @@ public class ChatTaskView extends javax.swing.JFrame {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(667, 368));
     }
 
-    private List<ProjectMessage> fetchMessages() throws Exception {
-        return projectController.find(project.getId()).getMessages();
-    }
-
-    private void displayMessages(List<ProjectMessage> messages) {
+    private void displayMessages(List<TaskMessage> messages) {
         if (messages.isEmpty()) {
             addNoMessagesLabel();
         } else {
-            for (ProjectMessage message : messages) {
+            for (TaskMessage message : messages) {
                 addMessageToPanel(message);
             }
         }
@@ -98,13 +91,13 @@ public class ChatTaskView extends javax.swing.JFrame {
         chatJP.add(noMessagesLabel);
     }
 
-    private void addMessageToPanel(ProjectMessage message) {
+    private void addMessageToPanel(TaskMessage message) {
         JLabel messageLabel = createMessageLabel(message);
         chatJP.add(messageLabel);
         chatJP.add(Box.createVerticalStrut(10)); // Espaço entre mensagens
     }
 
-    private JLabel createMessageLabel(ProjectMessage message) {
+    private JLabel createMessageLabel(TaskMessage message) {
         JLabel messageLabel = new JLabel(formatMessage(message));
         messageLabel.setOpaque(true);
         messageLabel.setBackground(new Color(240, 240, 240));
@@ -143,7 +136,7 @@ public class ChatTaskView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, errorMessage, "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
-    private String formatMessage(ProjectMessage message) {
+    private String formatMessage(TaskMessage message) {
         String personName = message.getPerson() != null ? message.getPerson().getName() : "Desconhecido";
         return String.format(
             "<html>"
@@ -510,15 +503,15 @@ public class ChatTaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        ProjectView projectScreen = new ProjectView(this.project);
-        projectScreen.setVisible(true);
+        TaskView taskScreen = new TaskView(this.task);
+        taskScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         String message = this.messageTF.getText();
         try {
-            this.projectMessageController.createMessage(this.project, message);
+            this.taskMessageController.createMessage(this.task, message);
             loadMessages();
             this.messageTF.setText("");
         } catch (Exception e){

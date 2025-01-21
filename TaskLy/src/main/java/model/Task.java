@@ -29,7 +29,7 @@ public class Task {
     private Project project;
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<TaskReport> reports;
-    @OneToMany(mappedBy="task", cascade={ CascadeType.REMOVE, CascadeType.REFRESH })
+    @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<TaskMessage> messages;
     @OneToMany(mappedBy="task", cascade={ CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     private List<Person> persons;

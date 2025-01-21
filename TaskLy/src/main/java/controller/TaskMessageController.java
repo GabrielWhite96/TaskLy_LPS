@@ -4,30 +4,41 @@
  */
 package controller;
 
-import dao.ProjectMessageDAO;
+import dao.TaskMessageDAO;
+import java.util.List;
 import model.AppStateSingleton;
-import model.Project;
-import model.ProjectMessage;
+import model.Task;
+import model.TaskMessage;
 
 /**
  *
  * @author wekisley
  */
 public class TaskMessageController {
-    private ProjectMessageDAO projectMessageDAO;
+    private TaskMessageDAO taskMessageDAO;
     private AppStateSingleton appState;
     
     public TaskMessageController(){
-        this.projectMessageDAO = new ProjectMessageDAO();
+        this.taskMessageDAO = new TaskMessageDAO();
         this.appState = AppStateSingleton.getInstance();
     }
     
-    public void createMessage(Project project, String message) throws Exception{
-        ProjectMessage projectMessage = new ProjectMessage(message, project, this.appState.getUser());
+    public void createMessage(Task task, String message) throws Exception{
+        TaskMessage taskMessage = new TaskMessage(message, task, this.appState.getUser());
         try {
-            this.projectMessageDAO.save(projectMessage);
+            this.taskMessageDAO.save(taskMessage);
         } catch (Exception e) {
-            throw new Exception("Não foi possível enviar o relatório!", e);
+            throw new Exception("Não foi possível enviar a mensagenm!", e);
         }
+    }
+    
+    public List<TaskMessage> getMessagesOf(Task task) throws Exception{
+        List<TaskMessage> messages;
+        try {
+            messages = this.taskMessageDAO.getMessagesOfTask(task);
+        } catch (Exception e){
+            throw new Exception("Não foi possível carregar as mensagens!", e);
+        }
+        return messages;
     }
 }

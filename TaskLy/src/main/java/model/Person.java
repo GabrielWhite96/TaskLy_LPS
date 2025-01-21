@@ -34,7 +34,7 @@ public class Person {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="project_id", referencedColumnName = "id")
     private Project project;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
     @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
