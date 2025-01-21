@@ -6,6 +6,7 @@ package model;
 
 import controller.ClockInController;
 import lombok.Getter;
+import utils.ClockInDescriptions;
 
 /**
  *
@@ -48,7 +49,7 @@ public class ClockInWorkSingleton {
     public void start() {
         if(!this.working && !this.relaxing){
             this.working = true;
-            this.clockIn = new ClockIn("Working");
+            this.clockIn = new ClockIn(ClockInDescriptions.WORKING);
             this.clockIn.start();
         }
     }
@@ -67,7 +68,7 @@ public class ClockInWorkSingleton {
     public void startPause(){
         if(!this.relaxing){
             this.relaxing = true;
-            this.clockInRelax = new ClockIn("Relaxing");
+            this.clockInRelax = new ClockIn(ClockInDescriptions.RELAXING);
             this.clockInRelax.start();
         }
     }
