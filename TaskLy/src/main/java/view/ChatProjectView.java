@@ -80,7 +80,7 @@ public class ChatProjectView extends javax.swing.JFrame {
     }
 
     private List<ProjectMessage> fetchMessages() throws Exception {
-        return projectController.find(project.getId()).getMessages();
+        return this.projectMessageController.getMessagesOf(this.project);
     }
 
     private void displayMessages(List<ProjectMessage> messages) {

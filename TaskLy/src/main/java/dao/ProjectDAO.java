@@ -7,6 +7,8 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
+import model.ClockIn;
+import model.Person;
 import model.Project;
 import org.hibernate.Hibernate;
 

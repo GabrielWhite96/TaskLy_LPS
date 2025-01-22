@@ -1,10 +1,13 @@
 package controller;
 
 import dao.ProjectDAO;
+import java.util.ArrayList;
 import java.util.List;
+import model.AppStateSingleton;
 import model.Person;
 import model.Project;
 import model.ProjectMessage;
+import utils.Roles;
 
 /**
  * @author wekisley
@@ -13,49 +16,67 @@ import model.ProjectMessage;
 public class ProjectController {
     private ProjectDAO projectDAO;
     private PersonController personController;
+    private AppStateSingleton appStateSingleton;
     
     public ProjectController(){
         this.projectDAO = new ProjectDAO();
         this.personController = new PersonController();
+        this.appStateSingleton = AppStateSingleton.getInstance();
     }
     
     public Project createNewProject(String title, String description) throws Exception {
-        Project project = new Project(title, description);
-        try {
-            this.projectDAO.save(project);
-        } catch(Exception e) {
-            throw new Exception("Não foi possível criar o projeto!", e);
+        if(this.appStateSingleton.userIs(Roles.ADMIN)){
+            Project project = new Project(title, description);
+            try {
+                this.projectDAO.save(project);
+            } catch(Exception e) {
+                throw new Exception("Não foi possível criar o projeto!", e);
+            }
+            return project;
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
-        return project;
     }
     
     public Project createNewProject(String title, String description, List<Person> persons) throws Exception {
-        Project project = new Project(title, description);
-        project.addPersons(persons);
-        try {
-            this.projectDAO.update(project);
-        } catch(Exception e) {
-            throw new Exception("Não foi possível criar o projeto!", e);
+        if(this.appStateSingleton.userIs(Roles.ADMIN)){
+            Project project = new Project(title, description);
+            project.addPersons(persons);
+            try {
+                this.projectDAO.update(project);
+            } catch(Exception e) {
+                throw new Exception("Não foi possível criar o projeto!", e);
+            }
+            return project;
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
-        return project;
     }
     
     public void updateProject(Project project) throws Exception {
-        try {
-            this.projectDAO.update(project);
-        } catch(Exception e) {
-            throw new Exception("Não foi possível atualizar o projeto!", e);
+        if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+            try {
+                this.projectDAO.update(project);
+            } catch(Exception e) {
+                throw new Exception("Não foi possível atualizar o projeto!", e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
     public void updateProject(Project project, List<Person> persons) throws Exception {
-        try {
-            personController.removePersonsOfProject(project);
-            project.clearPersons();
-            project.addPersons(persons);
-            this.projectDAO.update(project);
-        } catch(Exception e) {
-            throw new Exception(e);
+        if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+            try {
+                personController.removePersonsOfProject(project);
+                project.clearPersons();
+                project.addPersons(persons);
+                this.projectDAO.update(project);
+            } catch(Exception e) {
+                throw new Exception(e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
@@ -63,7 +84,6 @@ public class ProjectController {
         try {
             ProjectMessage projectMessage = new ProjectMessage(message, project, person);
             project.addMessage(projectMessage);
-            System.out.println("Message: " + project.getMessages().get(0).getContent());
             this.updateProject(project);
         } catch (Exception e) {
             throw new Exception(e);
@@ -72,25 +92,29 @@ public class ProjectController {
     
     public Project find(int id) throws Exception{
         try {
-            return this.projectDAO.getById(id);
+            Project project = this.projectDAO.getById(id);
+            if(!this.appStateSingleton.userIs(Roles.EMPLOYEE) || this.appStateSingleton.getUser().getProject().getId() == project.getId()){
+                return project;
+            } else {
+                throw new Exception("Você não tem a permissão necessária!");
+            }
         } catch (Exception e) {
-            throw new Exception("Não foi possível encontrar o usuário!");
-        }
-    }
-    
-    public Project find(Project project) throws Exception{
-        try {
-            return this.projectDAO.getById(project.getId());
-        } catch (Exception e) {
-            throw new Exception("Não foi possível encontrar o usuário!");
+            throw new Exception("Não foi possível encontrar o projeto!");
         }
     }
     
     public List<Project> getAllProjects() throws Exception {
         try {
-            return this.projectDAO.getAll();
+            if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+                return this.projectDAO.getAll();
+            } else if(this.appStateSingleton.getUser().getProject() != null){
+                List<Project> projects = new ArrayList<>();
+                projects.add(this.appStateSingleton.getUser().getProject());
+                return projects;
+            }
+            return new ArrayList<Project>();
         } catch (Exception e) {
-            throw new Exception("Não foi possível salvar o usuário!");
+            throw new Exception("Não foi possível encontrar os projetos!");
         }
     }
 }

@@ -28,7 +28,7 @@ public class PersonController {
     }
     
     public void createNewUser(String name, Login login, String address, String phoneNumber, String jobTitle, String gender) throws Exception {
-        if(login.getEmail() == Roles.ADMIN || this.appStateSingleton.userIs(Roles.ADMIN)){
+        if(this.appStateSingleton.userIs(Roles.ADMIN)){
             Person person = new Person(name, login, address, phoneNumber, jobTitle, gender);
             try {
                 this.personDAO.save(person);

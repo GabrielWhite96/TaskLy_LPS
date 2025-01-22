@@ -21,9 +21,9 @@ public class Project {
     private int id;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<ProjectReport> reports;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<Task> tasks;
-    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<ProjectMessage> messages;
     @OneToMany(mappedBy="project", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Person> persons;

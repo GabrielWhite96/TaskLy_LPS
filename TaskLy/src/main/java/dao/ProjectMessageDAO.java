@@ -7,6 +7,7 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
+import model.Project;
 import model.ProjectMessage;
 
 /**
@@ -88,6 +89,21 @@ public class ProjectMessageDAO implements DAOInterface<ProjectMessage> {
             messageList = query.getResultList();
         } catch (Exception e) {
             throw new Exception("Erro ao obter mensagens" ,e);
+        } finally {
+            entityManager.close();
+        }
+        return messageList;
+    }
+    
+    public List<ProjectMessage> getMessagesOfProject(Project project) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<ProjectMessage> messageList = null;
+        try{
+            TypedQuery<ProjectMessage> query = entityManager.createQuery("SELECT message FROM ProjectMessage message WHERE message.project.id = :id", ProjectMessage.class);
+            query.setParameter("id", project.getId());
+            messageList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e);
         } finally {
             entityManager.close();
         }
