@@ -188,8 +188,6 @@ public class ProjectView extends javax.swing.JFrame {
         this.descriptionTA.setWrapStyleWord(true);
     }
 
-    
-    
     private void initJPanelsMembers(){
         try {
             // Obtém a lista de projetos

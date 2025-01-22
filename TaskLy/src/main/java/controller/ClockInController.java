@@ -41,4 +41,12 @@ public class ClockInController {
         }
         return clockIns;
     }
+    
+    public List<ClockIn> getClockInOfLoggedPerson() throws Exception{
+        try {
+            return this.clockInDAO.getClockInOfPerson(this.appState.getUser());
+        }catch (Exception e){
+            throw new Exception("Erro ao obter horarios de pessoa", e);
+        }
+    }
 }
