@@ -797,34 +797,37 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-128" value="PersonDAO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="975" y="585" width="260" height="242" as="geometry" />
+          <mxGeometry x="981" y="559" width="299" height="268" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-129" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="26" width="260" height="8" as="geometry" />
+          <mxGeometry y="26" width="299" height="8" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-130" value="+ save(Person): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="34" width="260" height="26" as="geometry" />
+          <mxGeometry y="34" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-131" value="+ getById(int id): Person" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="60" width="260" height="26" as="geometry" />
+          <mxGeometry y="60" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-137" value="+ getByEmail(String email): Person" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="86" width="260" height="26" as="geometry" />
+          <mxGeometry y="86" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-135" value="+ getByProject(Project): Person" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="112" width="260" height="26" as="geometry" />
+          <mxGeometry y="112" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-136" value="+ getByTask(Task): Person" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="138" width="260" height="26" as="geometry" />
+          <mxGeometry y="138" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-132" value="+ update(Person): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="164" width="260" height="26" as="geometry" />
+          <mxGeometry y="164" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-133" value="+ delete(int id): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="190" width="260" height="26" as="geometry" />
+          <mxGeometry y="190" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-134" value="+ getAll(): List&amp;lt;Person&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
-          <mxGeometry y="216" width="260" height="26" as="geometry" />
+          <mxGeometry y="216" width="299" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="hnOPmALZZg3iVn7PizaD-3" value="+&amp;nbsp;getPersonsOfProject(Project project):&amp;nbsp;List&amp;lt;Person&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-128">
+          <mxGeometry y="242" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="nr3g6lH87xgBXWWUQvn2-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-140" target="K_4pP7Nmxy2bWATmmaD6-24" edge="1">
           <mxGeometry relative="1" as="geometry" />
