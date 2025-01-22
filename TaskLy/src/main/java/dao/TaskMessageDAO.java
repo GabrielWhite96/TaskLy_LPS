@@ -7,55 +7,56 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
-import model.Project;
+import model.Task;
+import model.TaskMessage;
 
 /**
  *
  * @author wekisley
  */
-public class ProjectDAO implements DAOInterface<Project> {
+public class TaskMessageDAO implements DAOInterface<TaskMessage> {
     
-    public ProjectDAO(){ }
+    public TaskMessageDAO(){ }
 
     @Override
-    public void save(Project project) throws Exception {
+    public void save(TaskMessage message) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.persist(project);
+            entityManager.persist(message);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao salvar mensagem" ,e);
         } finally {
             entityManager.close();
         }
     }
 
     @Override
-    public Project getById(int id) throws Exception {
+    public TaskMessage getById(int id) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        Project project = null;
+        TaskMessage message = null;
         try{
-            project = entityManager.find(Project.class, id);
+            message = entityManager.find(TaskMessage.class, id);
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Erro ao obter mensagem" ,e);
         } finally {
             entityManager.close();
         }
-        return project;
+        return message;
     }
 
     @Override
-    public void update(Project project) throws Exception {
+    public void update(TaskMessage message) throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            entityManager.merge(project);
+            entityManager.merge(message);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao atualizar mensagem" ,e);
         } finally {
             entityManager.close();
         }
@@ -66,14 +67,14 @@ public class ProjectDAO implements DAOInterface<Project> {
         EntityManager entityManager = ConnectionDB.getEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Project project = entityManager.find(Project.class, id);
-            if (project != null) {
-                entityManager.remove(project);
+            TaskMessage message = entityManager.find(TaskMessage.class, id);
+            if (message != null) {
+                entityManager.remove(message);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new Exception(e);
+            throw new Exception("Erro ao deletar mensagem" ,e);
         } finally {
             entityManager.close();
         }
@@ -82,15 +83,30 @@ public class ProjectDAO implements DAOInterface<Project> {
     @Override
     public List getAll() throws Exception {
         EntityManager entityManager = ConnectionDB.getEntityManager();
-        List<Project> projectList = null;
+        List<TaskMessage> messageList = null;
         try{
-            TypedQuery<Project> query = entityManager.createQuery("SELECT project FROM Project project", Project.class);
-            projectList = query.getResultList();
+            TypedQuery<TaskMessage> query = entityManager.createQuery("SELECT message FROM ProjectMessage message", TaskMessage.class);
+            messageList = query.getResultList();
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Erro ao obter mensagens" ,e);
         } finally {
             entityManager.close();
         }
-        return projectList;
+        return messageList;
+    }
+
+    public List getMessagesOfTask(Task task) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<TaskMessage> messagesList = null;
+        try{
+            TypedQuery<TaskMessage> query = entityManager.createQuery("SELECT taskMessage FROM TaskMessage taskMessage WHERE taskMessage.task.id = :id", TaskMessage.class);
+            query.setParameter("id", task.getId());
+            messagesList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception("Erro ao obter mensagens", e);
+        } finally {
+            entityManager.close();
+        }
+        return messagesList;
     }
 }

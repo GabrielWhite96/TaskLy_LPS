@@ -5,6 +5,7 @@
 package controller;
 
 import dao.ProjectMessageDAO;
+import java.util.List;
 import model.AppStateSingleton;
 import model.Project;
 import model.ProjectMessage;
@@ -26,6 +27,14 @@ public class ProjectMessageController {
         ProjectMessage projectMessage = new ProjectMessage(message, project, this.appState.getUser());
         try {
             this.projectMessageDAO.save(projectMessage);
+        } catch (Exception e) {
+            throw new Exception("Não foi possível enviar o relatório!", e);
+        }
+    }
+    
+    public List<ProjectMessage> getMessagesOf(Project project) throws Exception{
+        try {
+            return this.projectMessageDAO.getMessagesOfProject(project);
         } catch (Exception e) {
             throw new Exception("Não foi possível enviar o relatório!", e);
         }

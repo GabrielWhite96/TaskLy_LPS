@@ -6,6 +6,7 @@ package model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,19 +32,19 @@ public class Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="login_id", referencedColumnName = "id")
     private Login login;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
     @JoinColumn(name="project_id", referencedColumnName = "id")
     private Project project;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ProjectReport> projectReports;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<TaskReport> taskReports;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ProjectMessage> projectMessages;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ClockIn> clockIns;
     private String name;
     private String address;

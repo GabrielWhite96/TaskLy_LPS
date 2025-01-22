@@ -10,6 +10,7 @@ import model.AppStateSingleton;
 import model.Person;
 import model.Task;
 import model.TaskReport;
+import utils.Roles;
 
 /**
  *
@@ -26,17 +27,25 @@ public class TaskReportController {
     
     public void createReport(Task task, String title, String description) throws Exception {
         Person user = this.appState.getUser();
-        TaskReport report = new TaskReport(task, user, title, description);
-        try {
-            this.taskReportDAO.save(report);
-        } catch (Exception e) {
-            throw new Exception("Não foi possível enviar o relatório!", e);
+        if(this.appState.userIs(Roles.ADMIN) || user.getTask().getId() == task.getId()){
+            TaskReport report = new TaskReport(task, user, title, description);
+            try {
+                this.taskReportDAO.save(report);
+            } catch (Exception e) {
+                throw new Exception("Não foi possível enviar o relatório!", e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
     public List<TaskReport> getAllTaskReports() throws Exception{
         try {
-            return this.taskReportDAO.getAll();
+            if(this.appState.userIs(Roles.ADMIN)){
+                return this.taskReportDAO.getAll();
+            } else {
+                return this.taskReportDAO.getTaskReportOfPerson(this.appState.getUser());
+            }
         } catch (Exception e) {
             throw new Exception("Não foi possível obter os relatórios!", e);
         }

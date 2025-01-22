@@ -7,6 +7,8 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
+import model.Person;
+import model.Project;
 import model.Task;
 
 /**
@@ -93,6 +95,35 @@ public class TaskDAO implements DAOInterface<Task> {
         }
         return taskList;
     }
-    
+
+    public List getTasksOfProject(Project project) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<Task> taskList = null;
+        try{
+            TypedQuery<Task> query = entityManager.createQuery("SELECT task FROM Task task WHERE task.project.id = :id", Task.class);
+            query.setParameter("id", project.getId());
+            taskList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            entityManager.close();
+        }
+        return taskList;
+    }
+
+    public List getTasksOfPerson(Person person) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<Task> taskList = null;
+        try{
+            TypedQuery<Task> query = entityManager.createQuery("SELECT task FROM Task task WHERE task.person.id = :id", Task.class);
+            query.setParameter("id", person.getId());
+            taskList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            entityManager.close();
+        }
+        return taskList;
+    }
 }
 

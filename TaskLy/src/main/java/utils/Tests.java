@@ -4,7 +4,6 @@
  */
 package utils;
 
-import controller.LoginController;
 import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
@@ -12,7 +11,6 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 import model.Login;
 import model.Person;
-import model.Project;
 import view.CreateProjectView;
 import view.LoginView;
 import view.ProjectsMenuView;
@@ -40,17 +38,6 @@ public class Tests {
         factory.close();
     }
     
-    public static void removePersonsOfProjects() throws Exception{
-        EntityManagerFactory factory = ConnectionDB.getFactory();
-        PersonController personController = new PersonController();
-        
-        Person p = personController.find(80);
-        p.setProject(null);
-        personController.update(p);
-            
-        factory.close();
-    }
-    
     public static void createProjectWithPersons() throws Exception{
         EntityManagerFactory factory = ConnectionDB.getFactory();
 
@@ -58,6 +45,16 @@ public class Tests {
         List<Person> persons = personController.getAllPersons();
         ProjectController project2 = new ProjectController();
         project2.createNewProject("Comprar galinha", "Ir na feira compra pao", persons);
+        
+        factory.close();
+    }
+    
+    public static void createCreateAdmin() throws Exception{
+        EntityManagerFactory factory = ConnectionDB.getFactory();
+        
+        PersonController personController = new PersonController();
+        Login login = new Login(Roles.ADMIN, "1234567");
+        personController.createNewUser(Roles.ADMIN, login, "as", "21q212", Roles.ADMIN, "M");
         
         factory.close();
     }
@@ -72,7 +69,7 @@ public class Tests {
         projectCreation.setVisible(true);
     }
     
-    public static void startAplication(){
+    public static void startAplication() throws Exception {
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
     }
