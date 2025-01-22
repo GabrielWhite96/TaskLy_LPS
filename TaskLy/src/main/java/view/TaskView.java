@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.PersonController;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -31,8 +32,7 @@ import utils.MenuNavigation;
  */
 public class TaskView extends javax.swing.JFrame {
     private Task task;
-    private List<JCheckBox> checkBoxesEmployees;
-
+    private PersonController personController;
 
     /**
      * Creates new form CreateEmployee
@@ -43,6 +43,7 @@ public class TaskView extends javax.swing.JFrame {
     
     public TaskView(Task task) {
         this.task = task;
+        this.personController = new PersonController();
         
         initComponents();
         
@@ -62,13 +63,12 @@ public class TaskView extends javax.swing.JFrame {
         this.descriptionTA.setLineWrap(true);
         this.descriptionTA.setWrapStyleWord(true);
         
-        this.checkBoxesEmployees = new ArrayList<>();
     }
     
     private void initJPanelsMembers(){
         try {
             // Obtém a lista de projetos
-            List<Person> persons = this.task.getPersons();
+            List<Person> persons = this.personController.getPersonsOf(this.task);
             
             // Limpa os componentes existentes no painel
             this.gridJPanel.removeAll();

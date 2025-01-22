@@ -38,13 +38,13 @@ public class Person {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.EAGER)
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ProjectReport> projectReports;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<TaskReport> taskReports;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ProjectMessage> projectMessages;
-    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "person", cascade ={CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     private List<ClockIn> clockIns;
     private String name;
     private String address;
