@@ -10,6 +10,7 @@ import model.AppStateSingleton;
 import model.Person;
 import model.Project;
 import model.ProjectReport;
+import utils.Roles;
 
 /**
  *
@@ -26,17 +27,25 @@ public class ProjectReportController {
     
     public void createReport(Project project, String title, String description) throws Exception {
         Person user = this.appState.getUser();
-        ProjectReport report = new ProjectReport(project, user, title, description);
-        try {
-            this.projectReportDAO.save(report);
-        } catch (Exception e) {
-            throw new Exception("Não foi possível enviar o relatório!", e);
+        if(this.appState.userIs(Roles.ADMIN) || user.getProject().getId() == project.getId()){
+            ProjectReport report = new ProjectReport(project, user, title, description);
+            try {
+                this.projectReportDAO.save(report);
+            } catch (Exception e) {
+                throw new Exception("Não foi possível enviar o relatório!", e);
+            }
+        } else {
+            throw new Exception("Você não tem a permissão necessária!");
         }
     }
     
     public List<ProjectReport> getAllProjectReports() throws Exception{
         try {
-            return this.projectReportDAO.getAll();
+            if(this.appState.userIs(Roles.ADMIN)){
+                return this.projectReportDAO.getAll();
+            } else {
+                return this.projectReportDAO.getProjectReportOfPerson(this.appState.getUser());
+            }
         } catch (Exception e) {
             throw new Exception("Não foi possível obter os relatórios!", e);
         }

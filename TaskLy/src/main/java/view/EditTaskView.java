@@ -558,8 +558,7 @@ public class EditTaskView extends javax.swing.JFrame {
     
     private void showTaskView(){
         try {
-            Task taskUpdated = this.taskController.getTask(this.task);
-            TaskView taskView = new TaskView(taskUpdated);
+            TaskView taskView = new TaskView(this.task);
             taskView.setVisible(true);
             this.dispose();
         } catch (Exception e) {

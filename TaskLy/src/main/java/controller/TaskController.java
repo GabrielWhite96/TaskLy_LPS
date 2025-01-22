@@ -1,6 +1,7 @@
 package controller;
 
 import dao.TaskDAO;
+import java.util.ArrayList;
 import java.util.List;
 import model.AppStateSingleton;
 import model.Person;
@@ -77,17 +78,14 @@ public class TaskController {
         }
     }
     
-    public Task getTask(Task task) throws Exception{
-        try {
-            return this.taskDAO.getById(task.getId());
-        } catch (Exception e) {
-            throw new Exception("Não foi possível obter a tarefa!");
-        }
-    }
     
     public List<Task> getAllTasks() throws Exception{
         try {
-            return this.taskDAO.getAll();
+            if(this.appStateSingleton.userIs(Roles.ADMIN)){
+                return this.taskDAO.getAll();
+            } else {
+                return this.getTasksOf(this.appStateSingleton.getUser().getProject());
+            }
         } catch (Exception e) {
             throw new Exception("Não foi possível obter todas as tarefas!");
         }

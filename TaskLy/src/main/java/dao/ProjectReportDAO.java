@@ -7,7 +7,9 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
+import model.Person;
 import model.ProjectReport;
+import model.Task;
 
 /**
  *
@@ -92,5 +94,20 @@ public class ProjectReportDAO implements DAOInterface<ProjectReport> {
             entityManager.close();
         }
         return reportList;
+    }
+
+    public List getProjectReportOfPerson(Person person) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<ProjectReport> projectReportList = null;
+        try{
+            TypedQuery<ProjectReport> query = entityManager.createQuery("SELECT projectReport FROM ProjectReport projectReport WHERE projectReport.person.id = :id", ProjectReport.class);
+            query.setParameter("id", person.getId());
+            projectReportList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            entityManager.close();
+        }
+        return projectReportList;
     }
 }
