@@ -6,7 +6,6 @@ import java.util.List;
 import model.AppStateSingleton;
 import model.Person;
 import model.Project;
-import model.ProjectMessage;
 import utils.Roles;
 
 /**
@@ -77,16 +76,6 @@ public class ProjectController {
             }
         } else {
             throw new Exception("Você não tem a permissão necessária!");
-        }
-    }
-    
-    public void sendMessage(Person person, Project project, String message) throws Exception {
-        try {
-            ProjectMessage projectMessage = new ProjectMessage(message, project, person);
-            project.addMessage(projectMessage);
-            this.updateProject(project);
-        } catch (Exception e) {
-            throw new Exception(e);
         }
     }
     

@@ -4,8 +4,8 @@
  */
 package view;
 
-import controller.ProjectController;
-import dao.ConnectionDB;
+import controller.PersonController;
+    import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
 import java.awt.Component;
@@ -31,7 +31,7 @@ import utils.MenuNavigation;
  */
 public class ProjectMembersView extends javax.swing.JFrame {
     private Project project;
-    private ProjectController projectController;
+    private PersonController personController;
 
     /**
      * Creates new form CreateEmployee
@@ -42,7 +42,7 @@ public class ProjectMembersView extends javax.swing.JFrame {
     
     public ProjectMembersView(Project project) {
         this.project = project;
-        this.projectController = new ProjectController();
+        this.personController = new PersonController();
         
         initComponents();
         
@@ -65,7 +65,7 @@ public class ProjectMembersView extends javax.swing.JFrame {
     public void showCards() {
         try {
             // Obtém a lista de projetos
-            List<Person> persons = this.project.getPersons();
+            List<Person> persons = this.personController.getPersonsOf(this.project);
 
             // Limpa os componentes existentes no painel
             this.gridJPanel.removeAll();

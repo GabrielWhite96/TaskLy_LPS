@@ -141,4 +141,19 @@ public class PersonDAO implements DAOInterface<Person> {
         }
         return personList;
     }
+
+    public List getPersonsOfProject(Project project) throws Exception {
+        EntityManager entityManager = ConnectionDB.getEntityManager();
+        List<Person> personList = null;
+        try{
+            TypedQuery<Person> query = entityManager.createQuery("SELECT person FROM Person person WHERE person.project.id = :id", Person.class);
+            query.setParameter("id", project.getId());
+            personList = query.getResultList();
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            entityManager.close();
+        }
+        return personList;
+    }
 }

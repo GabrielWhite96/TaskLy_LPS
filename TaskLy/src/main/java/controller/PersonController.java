@@ -133,4 +133,17 @@ public class PersonController {
         }
         return personsFiltered;
     }
+    
+    public List<Person> getPersonsOf(Project project) throws Exception{
+        Person user = this.appStateSingleton.getUser();
+        if(this.appStateSingleton.userIs(Roles.ADMIN) || user.getProject().getId() == project.getId()){
+            try {
+                return this.personDAO.getByProject(project);
+            } catch (Exception e) {
+                throw new Exception("Não foi possível encontrar o usuário!");
+            }
+        } else {
+            throw new Exception("Você não pertence ao projeto!");
+        }
+    }
 }

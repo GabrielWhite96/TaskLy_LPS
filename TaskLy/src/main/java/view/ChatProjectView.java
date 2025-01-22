@@ -30,7 +30,6 @@ import utils.MenuNavigation;
  */
 public class ChatProjectView extends javax.swing.JFrame {
     private Project project;
-    private ProjectController projectController;
     private ProjectMessageController projectMessageController;
     public ChatProjectView() {
         initComponents();
@@ -38,7 +37,6 @@ public class ChatProjectView extends javax.swing.JFrame {
     
     public ChatProjectView(Project project) {
         this.project = project;
-        this.projectController = new ProjectController();
         this.projectMessageController = new ProjectMessageController();
         
         initComponents();

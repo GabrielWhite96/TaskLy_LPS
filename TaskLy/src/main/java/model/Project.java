@@ -25,7 +25,7 @@ public class Project {
     private List<Task> tasks;
     @OneToMany(mappedBy="project", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
     private List<ProjectMessage> messages;
-    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="project", cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Person> persons;
     private String title;
     private String description;
