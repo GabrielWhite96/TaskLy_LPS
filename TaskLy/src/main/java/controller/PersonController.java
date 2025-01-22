@@ -87,7 +87,7 @@ public class PersonController {
             try {
                 List<Person> persons = (List<Person>) personDAO.getByTask(task);
                 for(Person person: persons){
-                    person.setProject(null);
+                    person.setTask(null);
                     this.update(person);
                 }
             } catch(Exception e) {

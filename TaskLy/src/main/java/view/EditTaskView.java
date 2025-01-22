@@ -531,7 +531,7 @@ public class EditTaskView extends javax.swing.JFrame {
         List<Person> employees = personController.getEmployeesByRole(this.persons, Roles.EMPLOYEE);
         
         for (Person person : employees) {
-            if(person.getTask()== null || person.getTask().equalsTo(this.task)){
+            if(person.getTask() == null || person.getTask().equalsTo(this.task)){
                 JCheckBox checkBox = new JCheckBox(person.getName());
                 checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
                 checkBox.setSelected(this.task.equalsTo(person.getTask()));
