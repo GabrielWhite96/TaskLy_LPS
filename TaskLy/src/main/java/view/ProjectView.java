@@ -4,15 +4,26 @@
  */
 package view;
 
-import controller.ProjectController;
+import controller.TaskController;
 import dao.ConnectionDB;
 import jakarta.persistence.EntityManagerFactory;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import model.Project;
+import model.Task;
 import utils.MenuNavigation;
 
 /**
@@ -21,6 +32,7 @@ import utils.MenuNavigation;
  */
 public class ProjectView extends javax.swing.JFrame {
     private Project project;
+    private TaskController taskController;
     
     public ProjectView() {
         initComponents();
@@ -28,11 +40,13 @@ public class ProjectView extends javax.swing.JFrame {
     
     public ProjectView(Project project) {
         this.project = project;
+        this.taskController = new TaskController();
         
         initComponents();
-        styleScroll();
         
+        this.styleScroll();
         this.setAtributes();
+        this.initJPanelsMembers();
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -174,6 +188,101 @@ public class ProjectView extends javax.swing.JFrame {
         this.descriptionTA.setWrapStyleWord(true);
     }
 
+    
+    
+    private void initJPanelsMembers(){
+        try {
+            // Obtém a lista de projetos
+            List<Task> tasks = this.taskController.getTasksOf(this.project);
+            
+            // Limpa os componentes existentes no painel
+            this.jPanel7.removeAll();
+            this.jPanel7.setLayout(new BoxLayout(this.jPanel7, BoxLayout.Y_AXIS));
+            
+            if(tasks.size() == 0){
+                JLabel label = new JLabel("Sem funcionários na tarefa.");
+                label.setForeground(Color.red);
+                label.setFont(new Font("Arial", Font.PLAIN, 12));
+                this.jPanel7.add(label);
+            }
+
+            for (Task task : tasks) {
+                String title = task.getTitle();
+                JButton projectButton = new JButton(title);
+
+                // Estilos do botão
+                projectButton.setPreferredSize(new Dimension(680, 40));
+                projectButton.setMaximumSize(new Dimension(680, 40)); // Mantém tamanho fixo
+                projectButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza no eixo horizontal
+                projectButton.setFont(new Font("Arial", Font.BOLD, 14));
+                projectButton.setBackground(Color.WHITE);
+                projectButton.setForeground(Color.DARK_GRAY);
+                projectButton.setFocusPainted(false);
+                projectButton.setBorder(new LineBorder(new Color(220, 220, 220)));
+                projectButton.setContentAreaFilled(false);
+                projectButton.setOpaque(true);
+
+                // Efeito de hover: altera a cor de fundo e o cursor ao passar o mouse
+                projectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        projectButton.setBackground(new Color(230, 230, 230));
+                        projectButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+
+                    @Override
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        projectButton.setBackground(Color.WHITE);
+                        projectButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                });
+
+                // Ação do botão ao clicar
+                projectButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+//                        ProjectsMenu.this.showProjectScreen(project);
+                    }
+                });
+                
+                this.jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+                    @Override
+                    protected void configureScrollBarColors() {
+                        this.thumbColor = new Color(210, 210, 210); // Cor da barra
+                        this.trackColor = new Color(230, 230, 230); // Cor do fundo
+                    }
+
+                    @Override
+                    protected JButton createDecreaseButton(int orientation) {
+                        return createZeroButton();
+                    }
+
+                    @Override
+                    protected JButton createIncreaseButton(int orientation) {
+                        return createZeroButton();
+                    }
+
+                    private JButton createZeroButton() {
+                        JButton button = new JButton();
+                        button.setPreferredSize(new Dimension(0, 0));
+                        button.setMinimumSize(new Dimension(0, 0));
+                        button.setMaximumSize(new Dimension(0, 0));
+                        return button;
+                    }
+                });
+                // Alterar a largura da barra de rolagem
+                this.jScrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(12, 0));
+                              
+                this.jPanel7.add(projectButton);
+            }
+
+            // Atualiza a interface
+            this.jPanel7.revalidate();
+            this.jPanel7.repaint();
+
+        } catch (Exception ex) {
+            Logger.getLogger(TesteTableView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
