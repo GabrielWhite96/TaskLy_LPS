@@ -21,8 +21,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import model.AppStateSingleton;
 import model.Person;
 import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
@@ -34,6 +36,9 @@ public class PersonsMenuView extends javax.swing.JFrame {
     public PersonsMenuView() {
         this.personController = new PersonController();
         initComponents();
+        
+        this.jButton9.setVisible(AppStateSingleton.getInstance().userIs(Roles.ADMIN));
+        
         this.showCards();
         
         addWindowListener(new java.awt.event.WindowAdapter() {

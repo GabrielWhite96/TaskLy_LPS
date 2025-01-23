@@ -12,19 +12,19 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import model.AppStateSingleton;
 import model.Person;
 import model.Task;
 import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
@@ -46,6 +46,8 @@ public class TaskView extends javax.swing.JFrame {
         this.personController = new PersonController();
         
         initComponents();
+        
+        this.editBtn.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));
         
         this.initAtributes();
         this.initJPanelsMembers();

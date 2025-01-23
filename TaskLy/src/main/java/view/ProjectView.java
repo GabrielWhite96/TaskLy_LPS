@@ -22,9 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import model.AppStateSingleton;
 import model.Project;
 import model.Task;
 import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
@@ -43,6 +45,9 @@ public class ProjectView extends javax.swing.JFrame {
         this.taskController = new TaskController();
         
         initComponents();
+        
+        this.jButton4.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));
+        this.jButton3.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));
         
         this.styleScroll();
         this.setAtributes();

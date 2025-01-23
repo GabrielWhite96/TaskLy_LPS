@@ -21,8 +21,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import model.AppStateSingleton;
 import model.Task;
 import utils.MenuNavigation;
+import utils.Roles;
 
 /**
  *
@@ -37,6 +39,8 @@ public class TasksMenuView extends javax.swing.JFrame {
         this.taskController = new TaskController();
         initComponents();
         this.showCards();
+        
+        this.jButton1.setVisible(AppStateSingleton.getInstance().userIs(Roles.ADMIN));
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
