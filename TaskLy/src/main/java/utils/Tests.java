@@ -4,6 +4,7 @@
  */
 package utils;
 
+import controller.LoginController;
 import controller.PersonController;
 import controller.ProjectController;
 import dao.ConnectionDB;
@@ -49,16 +50,6 @@ public class Tests {
         factory.close();
     }
     
-    public static void createCreateAdmin() throws Exception{
-        EntityManagerFactory factory = ConnectionDB.getFactory();
-        
-        PersonController personController = new PersonController();
-        Login login = new Login(Roles.ADMIN, "1234567");
-        personController.createNewUser(Roles.ADMIN, login, "as", "21q212", Roles.ADMIN, "M");
-        
-        factory.close();
-    }
-    
     public static void startInProjectsMenu(){
         ProjectsMenuView projectMenu = new ProjectsMenuView();
         projectMenu.setVisible(true);
@@ -69,7 +60,20 @@ public class Tests {
         projectCreation.setVisible(true);
     }
     
+    public static void createDefaultAdmin() throws Exception{
+        EntityManagerFactory factory = ConnectionDB.getFactory();
+        LoginController loginController = new LoginController();
+        PersonController personController = new PersonController();
+        
+        Login login = new Login("admin", "1234567");
+        
+        if(!loginController.emailExist(login.getEmail())){
+            personController.createNewUser(Roles.ADMIN, login, "as", "21q212", Roles.ADMIN, "M");
+        }
+    }
+    
     public static void startAplication() throws Exception {
+        createDefaultAdmin();
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
     }

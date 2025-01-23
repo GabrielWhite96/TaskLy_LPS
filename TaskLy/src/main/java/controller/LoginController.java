@@ -5,6 +5,7 @@
 package controller;
 
 import dao.LoginDAO;
+import jakarta.persistence.NoResultException;
 import model.AppStateSingleton;
 import model.Login;
 import model.Person;
@@ -20,6 +21,18 @@ public class LoginController {
     public LoginController(){
         this.loginDAO = new LoginDAO();
         this.appState = AppStateSingleton.getInstance();
+    }
+    
+    public boolean emailExist(String email) {
+        Login login = null;
+        try {
+            login = this.loginDAO.getByEmail(email);
+        } catch (NoResultException e){
+            return false;
+        } catch (Exception e){
+            return true;
+        }
+        return login != null;
     }
   
     public Person getUserAccount(String email, String password) throws Exception {

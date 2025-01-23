@@ -4,8 +4,6 @@ import utils.Tests;
 
 public class TaskLy {
     public static void main(String[] args) throws Exception {
-        
-        
 //        Tests.createPersonsWithLogin(30, 15);
         
 //        Tests.createProjectWithPersons();

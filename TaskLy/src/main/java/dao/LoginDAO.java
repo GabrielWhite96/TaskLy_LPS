@@ -54,7 +54,7 @@ public class LoginDAO implements DAOInterface<Login> {
             query.setParameter("email", email);
             login = query.getSingleResult();
         } catch (Exception e) {
-            throw new Exception("Opa! Há algo de errado, tente mais tarde!");
+            throw new Exception("Erro ao obter login!", e);
         } finally {
             entityManager.close();
         }
