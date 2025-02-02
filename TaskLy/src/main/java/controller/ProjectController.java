@@ -94,7 +94,7 @@ public class ProjectController {
     
     public List<Project> getAllProjects() throws Exception {
         try {
-            if(!this.appStateSingleton.userIs(Roles.EMPLOYEE)){
+            if(this.appStateSingleton.userIs(Roles.ADMIN)){
                 return this.projectDAO.getAll();
             } else if(this.appStateSingleton.getUser().getProject() != null){
                 List<Project> projects = new ArrayList<>();

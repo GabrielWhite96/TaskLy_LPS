@@ -67,10 +67,7 @@ public class Tests {
         
         Login login = new Login("admin", "1234567");
         
-        System.out.println("login1");
-        
         if(!loginController.emailExist(login.getEmail())){
-            System.out.println("login2");
             personController.createNewUser(Roles.ADMIN, login, "as", "21q212", Roles.ADMIN, "M");
         }
     }
