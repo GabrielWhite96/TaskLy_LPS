@@ -426,7 +426,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Trebuchet MS" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Tarefa - tau"/>
+                <Property name="text" type="java.lang.String" value="Feedback Tarefa - tau"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>

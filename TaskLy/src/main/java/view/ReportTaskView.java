@@ -236,7 +236,7 @@ public class ReportTaskView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
         titleJLB.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        titleJLB.setText("Relatório Tarefa - tau");
+        titleJLB.setText("Feedback Tarefa - tau");
         titleJLB.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -412,7 +412,7 @@ public class ReportTaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        MenuNavigation.goToReportProjectsMenu(this);
+        MenuNavigation.goToReportTasksMenu(this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
