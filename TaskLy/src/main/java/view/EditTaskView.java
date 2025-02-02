@@ -511,7 +511,7 @@ public class EditTaskView extends javax.swing.JFrame {
         this.taskController = new TaskController();
         this.personController = new PersonController();
         try {
-            this.persons = this.personController.getAllPersons();
+            this.persons = this.personController.getPersonsOf(this.task);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
