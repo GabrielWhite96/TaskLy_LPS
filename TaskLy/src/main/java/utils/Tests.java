@@ -77,7 +77,7 @@ public class Tests {
     
     public static void startAplication() throws Exception {
         createDefaultAdmin();
-//        LoginView loginView = new LoginView();
-//        loginView.setVisible(true);
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
     }
 }
