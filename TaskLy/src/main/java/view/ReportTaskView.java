@@ -32,7 +32,7 @@ public class ReportTaskView extends javax.swing.JFrame {
     }
     
     private void initAtributes(){
-        this.titleJLB.setText("Relatório da Tarefa: " + this.taskReport.getTask().getTitle());
+        this.titleNameTask.setText("Relatório da Tarefa: " + this.taskReport.getTask().getTitle());
         this.titleLb.setText(this.taskReport.getTitle());
         this.descriptionTx.setText(this.taskReport.getDescription());
         this.authorLb.setText(this.taskReport.getPerson().getName());
@@ -46,6 +46,7 @@ public class ReportTaskView extends javax.swing.JFrame {
         this.descriptionTx.setFont(new Font("Arial", Font.PLAIN, 14));
         this.descriptionTx.setLineWrap(true);
         this.descriptionTx.setWrapStyleWord(true);
+        titleNameTask.setText("Chat - " + this.taskReport.getTitle());
         
     }
 
@@ -72,7 +73,7 @@ public class ReportTaskView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        titleJLB = new javax.swing.JLabel();
+        titleNameTask = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -235,9 +236,9 @@ public class ReportTaskView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 240, 240));
 
-        titleJLB.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        titleJLB.setText("Feedback Tarefa - tau");
-        titleJLB.setToolTipText("");
+        titleNameTask.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        titleNameTask.setText("Feedback Tarefa - tau");
+        titleNameTask.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -299,7 +300,7 @@ public class ReportTaskView extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(titleJLB)
+                        .addComponent(titleNameTask)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -337,7 +338,7 @@ public class ReportTaskView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(titleJLB, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleNameTask, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -620,7 +621,7 @@ public class ReportTaskView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel projectLb;
-    private javax.swing.JLabel titleJLB;
     private javax.swing.JLabel titleLb;
+    private javax.swing.JLabel titleNameTask;
     // End of variables declaration//GEN-END:variables
 }

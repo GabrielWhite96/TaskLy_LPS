@@ -560,17 +560,31 @@ public class CreatePersonView extends javax.swing.JFrame {
         String gender = (String) this.genderCB.getSelectedItem();
         String jobTitle = (String) this.roleCB.getSelectedItem();
         
-        try{
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            JOptionPane.showMessageDialog(this, "E-mail inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!phone.matches("\\d{8,}")) {
+            JOptionPane.showMessageDialog(this, "Telefone inválido! Digite pelo menos 8 números.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
             Login login = new Login(email, "1234567");
             this.personColtroller.createNewUser(name, login, address, phone, jobTitle, gender);
+
+            // Limpar os campos após o cadastro
             this.nameField.setText("");
             this.phoneField.setText("");
             this.emailField.setText("");
             this.addressField.setText("");
+
             JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
