@@ -138,7 +138,7 @@ public class CreateTaskView extends javax.swing.JFrame {
         List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
         
         for (Person person : employees) {
-            if(person.getProject() != null && person.getProject().equalsTo(this.project)){
+            if(person.getTask() == null && person.getProject() != null && person.getProject().equalsTo(this.project)){
                 JCheckBox checkBox = new JCheckBox(person.getName());
                 checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
                 checkBoxesEmployees.add(checkBox);
