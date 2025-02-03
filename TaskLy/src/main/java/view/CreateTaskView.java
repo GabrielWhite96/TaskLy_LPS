@@ -47,6 +47,7 @@ public class CreateTaskView extends javax.swing.JFrame {
         this.initAtributes();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.initJPanelsEmployee();
         this.configScroolStyle();

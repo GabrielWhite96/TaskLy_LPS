@@ -33,6 +33,7 @@ public class PersonView extends javax.swing.JFrame {
         this.person = person;
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.nameJL.setText(person.getName());
         this.phoneJL.setText(person.getPhoneNumber());

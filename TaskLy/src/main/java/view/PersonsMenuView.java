@@ -36,6 +36,7 @@ public class PersonsMenuView extends javax.swing.JFrame {
     public PersonsMenuView() {
         this.personController = new PersonController();
         initComponents();
+        setLocationRelativeTo(null);
         
         this.jButton9.setVisible(AppStateSingleton.getInstance().userIs(Roles.ADMIN));
         

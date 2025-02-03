@@ -23,6 +23,7 @@ public class LoginView extends javax.swing.JFrame {
         this.loginController = new LoginController();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

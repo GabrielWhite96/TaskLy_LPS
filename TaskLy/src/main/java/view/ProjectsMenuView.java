@@ -38,6 +38,7 @@ public class ProjectsMenuView extends javax.swing.JFrame {
     public ProjectsMenuView() {
         this.projectController = new ProjectController();
         initComponents();
+        setLocationRelativeTo(null);
         this.showCards();
         
         this.jButton9.setVisible(AppStateSingleton.getInstance().userIs(Roles.ADMIN));

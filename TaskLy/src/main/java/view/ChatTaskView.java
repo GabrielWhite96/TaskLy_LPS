@@ -39,6 +39,7 @@ public class ChatTaskView extends javax.swing.JFrame {
         this.taskMessageController = new TaskMessageController();
         
         initComponents();
+        setLocationRelativeTo(null);
         titleChatTask.setText("Chat - " + this.task.getTitle());
         loadMessages();
         

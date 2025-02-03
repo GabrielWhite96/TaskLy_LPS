@@ -27,6 +27,7 @@ public class ReportTaskView extends javax.swing.JFrame {
         this.taskReport = taskReport;
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.initAtributes();
     }

@@ -24,6 +24,7 @@ public class CreatePersonView extends javax.swing.JFrame {
         this.personColtroller = new PersonController();
         
         initComponents();
+        setLocationRelativeTo(null);
                 
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

@@ -46,6 +46,7 @@ public class TaskView extends javax.swing.JFrame {
         this.personController = new PersonController();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.editBtn.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));
         

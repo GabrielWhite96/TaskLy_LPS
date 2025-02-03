@@ -38,6 +38,7 @@ public class ReportProjectsMenuView extends javax.swing.JFrame {
     public ReportProjectsMenuView() {
         this.projectReportController = new ProjectReportController();
         initComponents();
+        setLocationRelativeTo(null);
         this.showCards();
         
         addWindowListener(new java.awt.event.WindowAdapter() {

@@ -27,6 +27,7 @@ public class ReportProjectView extends javax.swing.JFrame {
         this.projectReport = projectReport;
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.initAtributes();
     }

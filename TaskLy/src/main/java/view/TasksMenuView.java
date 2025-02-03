@@ -38,6 +38,7 @@ public class TasksMenuView extends javax.swing.JFrame {
     public TasksMenuView() {
         this.taskController = new TaskController();
         initComponents();
+        setLocationRelativeTo(null);
         this.showCards();
         
         this.jButton1.setVisible(AppStateSingleton.getInstance().userIs(Roles.ADMIN));

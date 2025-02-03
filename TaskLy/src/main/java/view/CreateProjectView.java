@@ -39,6 +39,7 @@ public class CreateProjectView extends javax.swing.JFrame {
         this.initAtributes();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.initJPanelsEmployee();
         this.initJPanelsManager();

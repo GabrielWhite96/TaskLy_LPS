@@ -40,6 +40,7 @@ public class ChatProjectView extends javax.swing.JFrame {
         this.projectMessageController = new ProjectMessageController();
         
         initComponents();
+        setLocationRelativeTo(null);
         titleNameProject.setText("Chat - " + this.project.getTitle());
         loadMessages();
         

@@ -24,6 +24,7 @@ public class MainPageView extends javax.swing.JFrame {
     public MainPageView(Person user) {
         this.person = user;
         initComponents();
+        setLocationRelativeTo(null);
         showMessage();
     }
     

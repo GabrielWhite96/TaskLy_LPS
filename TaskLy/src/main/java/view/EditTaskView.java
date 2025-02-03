@@ -46,6 +46,7 @@ public class EditTaskView extends javax.swing.JFrame {
         this.initAtributes();
         
         initComponents();
+        setLocationRelativeTo(null);
         styleScroll();
         
         this.initJPanels();

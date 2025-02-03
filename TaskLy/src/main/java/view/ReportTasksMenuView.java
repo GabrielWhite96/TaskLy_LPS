@@ -36,6 +36,7 @@ public class ReportTasksMenuView extends javax.swing.JFrame {
     public ReportTasksMenuView() {
         this.taskReportController = new TaskReportController();
         initComponents();
+        setLocationRelativeTo(null);
         this.showCards();
         
         addWindowListener(new java.awt.event.WindowAdapter() {

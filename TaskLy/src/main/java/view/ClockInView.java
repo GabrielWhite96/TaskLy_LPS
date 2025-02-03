@@ -40,6 +40,7 @@ public class ClockInView extends javax.swing.JFrame {
         this.clockInController = new ClockInController();
         
         initComponents();
+        setLocationRelativeTo(null);
         this.configureScrollPane();
         this.initJPanelsMembers();
         

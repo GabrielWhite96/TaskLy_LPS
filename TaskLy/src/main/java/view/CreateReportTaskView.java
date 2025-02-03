@@ -26,6 +26,7 @@ public class CreateReportTaskView extends javax.swing.JFrame {
         this.taskReportController = new TaskReportController();
         
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     private void backToTaskView(){

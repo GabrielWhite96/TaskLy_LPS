@@ -38,6 +38,7 @@ public class PersonClockInsView extends javax.swing.JFrame {
     public PersonClockInsView() {
         
         initComponents();
+        setLocationRelativeTo(null);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -53,6 +54,7 @@ public class PersonClockInsView extends javax.swing.JFrame {
         this.clockInController = new ClockInController();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.titleLB.setText("Horários de " + person.getName());
         

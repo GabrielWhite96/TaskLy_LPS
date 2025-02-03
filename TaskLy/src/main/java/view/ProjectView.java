@@ -45,6 +45,7 @@ public class ProjectView extends javax.swing.JFrame {
         this.taskController = new TaskController();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.jButton4.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));
         this.jButton3.setVisible(!AppStateSingleton.getInstance().userIs(Roles.EMPLOYEE));

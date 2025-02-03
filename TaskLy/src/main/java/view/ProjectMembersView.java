@@ -45,6 +45,7 @@ public class ProjectMembersView extends javax.swing.JFrame {
         this.personController = new PersonController();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.setAtributes();
         this.showCards();
