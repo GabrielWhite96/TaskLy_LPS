@@ -575,7 +575,6 @@ public class CreatePersonView extends javax.swing.JFrame {
             Login login = new Login(email, "1234567");
             this.personColtroller.createNewUser(name, login, address, phone, jobTitle, gender);
 
-            // Limpar os campos após o cadastro
             this.nameField.setText("");
             this.phoneField.setText("");
             this.emailField.setText("");
