@@ -72,10 +72,10 @@ public class PersonController {
                 List<Person> persons = (List<Person>) personDAO.getByProject(project);
                 for(Person person: persons){
                     person.setProject(null);
-                    this.update(person);
+                    this.personDAO.update(person);
                 }
             } catch(Exception e) {
-                throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+                throw new Exception("Não foi possível remover as pessoas do projeto!");
             }
         } else {
             throw new Exception("Você não tem a permissão necessária!");
@@ -91,7 +91,7 @@ public class PersonController {
                     this.update(person);
                 }
             } catch(Exception e) {
-                throw new Exception("Não foi possível remover as pessoas do projeto!", e);
+                throw new Exception("Não foi possível remover as pessoas do projeto!");
             }
         } else {
             throw new Exception("Você não tem a permissão necessária!");
