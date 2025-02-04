@@ -47,6 +47,7 @@ public class CreateTaskView extends javax.swing.JFrame {
         this.initAtributes();
         
         initComponents();
+        setLocationRelativeTo(null);
         
         this.initJPanelsEmployee();
         this.configScroolStyle();
@@ -138,7 +139,7 @@ public class CreateTaskView extends javax.swing.JFrame {
         List<Person> employees = personController.getEmployeesByRole(persons, Roles.EMPLOYEE);
         
         for (Person person : employees) {
-            if(person.getProject() != null && person.getProject().equalsTo(this.project)){
+            if(person.getTask() == null && person.getProject() != null && person.getProject().equalsTo(this.project)){
                 JCheckBox checkBox = new JCheckBox(person.getName());
                 checkBox.setFont(new Font("Arial", Font.PLAIN, 14));
                 checkBoxesEmployees.add(checkBox);
@@ -217,6 +218,7 @@ public class CreateTaskView extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(42, 62, 95));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(42, 62, 95));
         jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N

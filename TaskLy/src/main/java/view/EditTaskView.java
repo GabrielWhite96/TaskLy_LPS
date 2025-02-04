@@ -46,6 +46,7 @@ public class EditTaskView extends javax.swing.JFrame {
         this.initAtributes();
         
         initComponents();
+        setLocationRelativeTo(null);
         styleScroll();
         
         this.initJPanels();
@@ -179,6 +180,7 @@ public class EditTaskView extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(42, 62, 95));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\gabri\\Documents\\GitHub\\TaskLy_LPS\\TaskLy\\src\\main\\java\\assets\\Logo_Full_W_64x.png")); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(42, 62, 95));
         jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -511,7 +513,7 @@ public class EditTaskView extends javax.swing.JFrame {
         this.taskController = new TaskController();
         this.personController = new PersonController();
         try {
-            this.persons = this.personController.getAllPersons();
+            this.persons = this.personController.getPersonsOf(this.task);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }

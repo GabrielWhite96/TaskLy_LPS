@@ -30,7 +30,7 @@ public class LoginController {
         } catch (NoResultException e){
             return false;
         } catch (Exception e){
-            return true;
+            return false;
         }
         return login != null;
     }
