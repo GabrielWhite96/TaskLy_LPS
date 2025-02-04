@@ -613,7 +613,9 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void editBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn2ActionPerformed
-        // TODO add your handling code here:
+        CreateReportTaskView reportTask = new CreateReportTaskView();
+        reportTask.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_editBtn2ActionPerformed
 
     /**
