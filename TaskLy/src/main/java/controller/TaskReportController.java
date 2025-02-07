@@ -32,7 +32,7 @@ public class TaskReportController {
             try {
                 this.taskReportDAO.save(report);
             } catch (Exception e) {
-                throw new Exception("Não foi possível enviar o relatório!", e);
+                throw new Exception("Não foi possível enviar o relatório!");
             }
         } else {
             throw new Exception("Você não tem a permissão necessária!");

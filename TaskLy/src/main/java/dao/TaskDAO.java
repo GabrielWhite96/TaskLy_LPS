@@ -110,20 +110,5 @@ public class TaskDAO implements DAOInterface<Task> {
         }
         return taskList;
     }
-
-    public List getTasksOfPerson(Person person) throws Exception {
-        EntityManager entityManager = ConnectionDB.getEntityManager();
-        List<Task> taskList = null;
-        try{
-            TypedQuery<Task> query = entityManager.createQuery("SELECT task FROM Task task WHERE task.person.id = :id", Task.class);
-            query.setParameter("id", person.getId());
-            taskList = query.getResultList();
-        } catch (Exception e) {
-            throw new Exception(e);
-        } finally {
-            entityManager.close();
-        }
-        return taskList;
-    }
 }
 

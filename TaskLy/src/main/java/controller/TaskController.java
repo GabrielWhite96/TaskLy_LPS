@@ -81,11 +81,16 @@ public class TaskController {
     
     
     public List<Task> getAllTasks() throws Exception{
+        Person user = this.appStateSingleton.getUser();
         try {
             if(this.appStateSingleton.userIs(Roles.ADMIN)){
                 return this.taskDAO.getAll();
+            } else if(this.appStateSingleton.userIs(Roles.MANAGER)) {
+                return this.taskDAO.getTasksOfProject(this.appStateSingleton.getUser().getProject());
             } else {
-                return this.getTasksOf(this.appStateSingleton.getUser().getProject());
+                List<Task> tasks = new ArrayList<>();
+                tasks.add(user.getTask());
+                return tasks;
             }
         } catch (Exception e) {
             throw new Exception("Não foi possível obter todas as tarefas!");
