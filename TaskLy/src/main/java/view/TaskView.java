@@ -116,13 +116,6 @@ public class TaskView extends javax.swing.JFrame {
                         projectButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 });
-
-                // Ação do botão ao clicar
-                projectButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-//                        ProjectsMenu.this.showProjectScreen(project);
-                    }
-                });
                 
                 scrollPanel.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
                     @Override
