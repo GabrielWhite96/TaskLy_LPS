@@ -71,6 +71,7 @@ public class TaskController {
                 task.addPerson(persons);
                 taskDAO.update(task);
             } catch (Exception e){
+                System.err.println("Erro: " + e);
                 throw new Exception("Não foi possível atualizar a tarefa!");
             }
         } else {

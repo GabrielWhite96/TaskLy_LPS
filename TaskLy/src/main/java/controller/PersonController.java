@@ -88,10 +88,10 @@ public class PersonController {
                 List<Person> persons = (List<Person>) personDAO.getByTask(task);
                 for(Person person: persons){
                     person.setTask(null);
-                    this.update(person);
+                    this.personDAO.update(person);
                 }
             } catch(Exception e) {
-                throw new Exception("Não foi possível remover as pessoas do projeto!");
+                throw new Exception("Não foi possível remover as pessoas da tarefa!", e);
             }
         } else {
             throw new Exception("Você não tem a permissão necessária!");
@@ -149,7 +149,7 @@ public class PersonController {
     
     public List<Person> getPersonsOf(Task task) throws Exception{
         Person user = this.appStateSingleton.getUser();
-        if(this.appStateSingleton.userIs(Roles.ADMIN) || user.getTask().getId() == task.getId()){
+        if(!this.appStateSingleton.userIs(Roles.EMPLOYEE) || (user.getTask() != null && user.getTask().getId() == task.getId())){
             try {
                 return this.personDAO.getByTask(task);
             } catch (Exception e) {
