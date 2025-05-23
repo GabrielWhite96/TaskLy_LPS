@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.0.8">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="3088" dy="1989" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3080" dy="1959" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="none">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -249,7 +249,7 @@
         <mxCell id="v8i-zWixzlQxeptMi9Gk-165" value="TaskView" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="400" y="-183" width="220" height="84" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-4" value="- personController: PersonController" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="v8i-zWixzlQxeptMi9Gk-165">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-4" value="- personController: PersonController" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="v8i-zWixzlQxeptMi9Gk-165" vertex="1">
           <mxGeometry y="26" width="220" height="24" as="geometry" />
         </mxCell>
         <mxCell id="v8i-zWixzlQxeptMi9Gk-166" value="- task: Task" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="v8i-zWixzlQxeptMi9Gk-165" vertex="1">
@@ -829,7 +829,7 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-134" value="+ getAll(): List&amp;lt;Person&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
           <mxGeometry y="216" width="299" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-3" value="+&amp;nbsp;getPersonsOfProject(Project project):&amp;nbsp;List&amp;lt;Person&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-128">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-3" value="+&amp;nbsp;getPersonsOfProject(Project project):&amp;nbsp;List&amp;lt;Person&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-128" vertex="1">
           <mxGeometry y="242" width="299" height="26" as="geometry" />
         </mxCell>
         <mxCell id="nr3g6lH87xgBXWWUQvn2-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-140" target="K_4pP7Nmxy2bWATmmaD6-24" edge="1">
@@ -885,7 +885,7 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-157" value="+ getAll(): List&amp;lt;ProjectMessage&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-151" vertex="1">
           <mxGeometry y="138" width="330" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-0" value="+ getMessagesOfProject(Project): List&amp;lt;ProjectMessage&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-151">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-0" value="+ getMessagesOfProject(Project): List&amp;lt;ProjectMessage&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-151" vertex="1">
           <mxGeometry y="164" width="330" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-218" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-158" target="GSMF01smCrgHHeEYq2eX-212" edge="1">
@@ -912,7 +912,7 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-164" value="+ getAll(): List&amp;lt;ProjectReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-158" vertex="1">
           <mxGeometry y="138" width="330" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-8" value="+ getProjectReportOfPerson(Person): List&amp;lt;ProjectReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-158">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-8" value="+ getProjectReportOfPerson(Person): List&amp;lt;ProjectReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-158" vertex="1">
           <mxGeometry y="164" width="330" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-173" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-165" target="K_4pP7Nmxy2bWATmmaD6-17" edge="1">
@@ -939,10 +939,10 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-171" value="+ getAll(): List&amp;lt;Task&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-165" vertex="1">
           <mxGeometry y="138" width="260" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-5" value="+ getTasksOfProject(Project): List&amp;lt;Task&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-165">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-5" value="+ getTasksOfProject(Project): List&amp;lt;Task&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-165" vertex="1">
           <mxGeometry y="164" width="260" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-6" value="+ getTasksOfPerson(Person): List&amp;lt;Task&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-165">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-6" value="+ getTasksOfPerson(Person): List&amp;lt;Task&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-165" vertex="1">
           <mxGeometry y="190" width="260" height="26" as="geometry" />
         </mxCell>
         <mxCell id="GSMF01smCrgHHeEYq2eX-231" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-174" target="GSMF01smCrgHHeEYq2eX-225" edge="1">
@@ -969,7 +969,7 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-180" value="+ getAll(): List&amp;lt;TaskReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-174" vertex="1">
           <mxGeometry y="138" width="303" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-7" value="+ getTaskReportOfPerson(Person): List&amp;lt;TaskReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-174">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-7" value="+ getTaskReportOfPerson(Person): List&amp;lt;TaskReport&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-174" vertex="1">
           <mxGeometry y="164" width="303" height="26" as="geometry" />
         </mxCell>
         <mxCell id="nr3g6lH87xgBXWWUQvn2-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-181" target="nr3g6lH87xgBXWWUQvn2-7" edge="1">
@@ -1008,7 +1008,7 @@
         <mxCell id="GSMF01smCrgHHeEYq2eX-209" value="+ createMessage(Project, String message): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-205" vertex="1">
           <mxGeometry y="86" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="hnOPmALZZg3iVn7PizaD-2" value="+ getMessagesOf(Project): List&amp;lt;ProjectMessage&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GSMF01smCrgHHeEYq2eX-205">
+        <mxCell id="hnOPmALZZg3iVn7PizaD-2" value="+ getMessagesOf(Project): List&amp;lt;ProjectMessage&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GSMF01smCrgHHeEYq2eX-205" vertex="1">
           <mxGeometry y="112" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="nr3g6lH87xgBXWWUQvn2-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GSMF01smCrgHHeEYq2eX-212" target="nr3g6lH87xgBXWWUQvn2-18" edge="1">
